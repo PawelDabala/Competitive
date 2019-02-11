@@ -1,10 +1,13 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 
-
+import main_rc
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+
+        self.setWindowTitle("VW Competitive")
+        self.setWindowIcon(QtGui.QIcon(':/images/vw.png'))
 
         self.textEdit = QtWidgets.QTextEdit()
         self.setCentralWidget(self.textEdit)
