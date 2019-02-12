@@ -54,9 +54,15 @@ ws3 = wb.create_sheet()
 """
 wklej dane do arkusza
 """
-for c in range(len(fulllist)):
-    for r in range(len(fulllist[c])):
-        ws3.cell(row=1+r, column=1+c, value=fulllist[c][r])
+# for c in range(len(fulllist)):
+#     for r in range(len(fulllist[c])):
+#         ws3.cell(row=1+r, column=1+c, value=fulllist[c][r])
+
+#to jest ładniej napisane
+for nr, c,  in enumerate(fulllist, 1):
+    for r, entry in enumerate(c, start=1):
+        ws3.cell(row=r, column=nr, value=entry)
+
 
 
 
