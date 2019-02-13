@@ -27,13 +27,14 @@ class FileChoser(QDialog):
         self.cbraports = self.ui.comboBox_raports
 
         #connects
-        self.pbtechedge.clicked.connect(lambda: self.pic_file(self.letechedge, "0"))
+        self.pbtechedge.clicked.connect(lambda: self.pic_file(self.letechedge, 0))
+        self.pbadexpert.clicked.connect(lambda: self.pic_file(self.leadexpert, 1))
         self.pbaddall.clicked.connect(self.add)
 
         self.paths = {
-                      "0": "",
-                      "1": "",
-                      "2": "",
+                      0: "",
+                      1: "",
+                      2: "",
                     }
 
     def pic_file(self, lename, nr):
@@ -48,7 +49,8 @@ class FileChoser(QDialog):
         self.paths[nr] = fpath[0]
 
     def add(self):
-        print(self.paths["0"])
+        print(self.paths[0])
+        print(self.paths[1])
 
 
 if __name__ == "__main__":

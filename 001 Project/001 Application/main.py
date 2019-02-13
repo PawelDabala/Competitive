@@ -1,4 +1,6 @@
 from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2.QtWidgets import QTableWidgetItem, QTableView
+from PySide2.QtGui import QStandardItem, QStandardItemModel
 
 import main_rc
 from filechose import FileChoser
@@ -11,8 +13,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle("VW Competitive")
         self.setWindowIcon(QtGui.QIcon(':/images/vw.png'))
 
-        self.textEdit = QtWidgets.QTextEdit()
-        self.setCentralWidget(self.textEdit)
+        """
+        Test wstawienia wartosci do tabeli
+        """
+        self.table = QTableView()
+        self.setCentralWidget(self.table)
+        self.sti = QStandardItemModel()
+        self.sti.setRowCount(1000)
+        self.sti.setColumnCount(50)
+        for i in range(self.sti.rowCount()):
+            item = QStandardItem(f' row {i}')
+            self.sti.setItem(i, 0, item)
+
+        self.table.setModel(self.sti)
+        self.table.verticalHeader().setDefaultSectionSize(10)
+        self.table.horizontalHeader().setDefaultSectionSize(200)
 
         self.createActions()
         self.createMenus()
