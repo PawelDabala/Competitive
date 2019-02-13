@@ -24,11 +24,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.close()
 
     def open(self):
-        print("open")
         self.filechoser.show()
 
     def save(self, ti):
-        print("save file", ti)
+        pass
         ### !!!!! TUTAJ BĘDZIE ZAPIS DO BAZY !!!!!!!
         # if self.curFile:
         #     return self.saveFile(self.curFile)
