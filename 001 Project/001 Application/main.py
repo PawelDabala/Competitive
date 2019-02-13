@@ -1,11 +1,13 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 
 import main_rc
+from filechose import FileChoser
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
 
+        self.filechoser = FileChoser(self)
         self.setWindowTitle("VW Competitive")
         self.setWindowIcon(QtGui.QIcon(':/images/vw.png'))
 
@@ -23,16 +25,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def open(self):
         print("open")
+        self.filechoser.show()
 
-    def save(self):
-        print("save file")
+    def save(self, ti):
+        print("save file", ti)
         ### !!!!! TUTAJ BĘDZIE ZAPIS DO BAZY !!!!!!!
         # if self.curFile:
         #     return self.saveFile(self.curFile)
         #
         # return self.saveAs()
-    def save_as(self):
-        print("save_as")
 
     def createActions(self):
         self.openAct = QtWidgets.QAction(QtGui.QIcon(':/images/open.png'),
@@ -43,8 +44,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 "&Zapisz...", self, shortcut=QtGui.QKeySequence.Save,
                 statusTip="Zapisz plik", triggered=self.save)
 
-        self.saveasAct = QtWidgets.QAction("Zapisz jako...", self, statusTip="Zapisz plik", triggered=self.save_as)
-
         self.exitAct = QtWidgets.QAction("&Zamknij", self, shortcut="Ctrl+Q",
                 statusTip="Zamknij aplikacje", triggered=self.close)
 
@@ -53,7 +52,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.fileMenu = self.menuBar().addMenu("&Plik")
         self.fileMenu.addAction(self.openAct)
         self.fileMenu.addAction(self.saveAct)
-        self.fileMenu.addAction(self.saveasAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
 
@@ -72,6 +70,7 @@ if __name__ == '__main__':
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('fusion')
     mainWin = MainWindow()
     mainWin.show()
     sys.exit(app.exec_())
