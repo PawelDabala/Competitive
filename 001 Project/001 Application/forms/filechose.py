@@ -18,6 +18,8 @@ class FileChoser(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
+        self.main = parent
+
         #buttons
         self.pbtechedge = self.ui.pushButton_techedge
         self.pbadexpert = self.ui.pushButton_adexpert
@@ -36,7 +38,7 @@ class FileChoser(QDialog):
         self.pbtechedge.clicked.connect(lambda: self.pic_file(self.letechedge, 0))
         self.pbadexpert.clicked.connect(lambda: self.pic_file(self.leadexpert, 1))
         self.pbaddrapo.clicked.connect(self.add_new_competitive)
-        self.pbaddall.clicked.connect(self.add)
+        self.pbaddall.clicked.connect(self.send_values)
 
         self.paths = {
                       0: "",
@@ -60,9 +62,10 @@ class FileChoser(QDialog):
         lename.setText(ntpath.basename(fpath[0]))
         self.paths[nr] = fpath[0]
 
-    def add(self):
-        print(self.paths[0])
-        print(self.paths[1])
+    def send_values(self):
+        self.main.get_data(self.paths, str(self.cbraports.currentText()))
+        self.close()
+
 
     def add_new_competitive(self):
         """

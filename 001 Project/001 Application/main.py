@@ -1,17 +1,16 @@
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtWidgets import QTableWidgetItem, QTableView
-from PySide2.QtGui import QStandardItem, QStandardItemModel
-
-import main_rc
+#from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2.QtCore import QPoint, QSize, QSettings
+from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow
+from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence
 from filechose import FileChoser
 
-class MainWindow(QtWidgets.QMainWindow):
+class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
 
         self.filechoser = FileChoser(self)
         self.setWindowTitle("VW Competitive")
-        self.setWindowIcon(QtGui.QIcon(':/images/vw.png'))
+        self.setWindowIcon(QIcon(':/images/vw.png'))
 
         """
         Test wstawienia wartosci do tabeli
@@ -50,15 +49,15 @@ class MainWindow(QtWidgets.QMainWindow):
         # return self.saveAs()
 
     def createActions(self):
-        self.openAct = QtWidgets.QAction(QtGui.QIcon(':/images/open.png'),
-                "&Otwórz...", self, shortcut=QtGui.QKeySequence.Open,
+        self.openAct = QAction(QIcon(':/images/open.png'),
+                "&Otwórz...", self, shortcut=QKeySequence.Open,
                 statusTip="Otwóż nowe pliki", triggered=self.open)
 
-        self.saveAct = QtWidgets.QAction(QtGui.QIcon(':/images/save.png'),
-                "&Zapisz...", self, shortcut=QtGui.QKeySequence.Save,
+        self.saveAct = QAction(QIcon(':/images/save.png'),
+                "&Zapisz...", self, shortcut=QKeySequence.Save,
                 statusTip="Zapisz plik", triggered=self.save)
 
-        self.exitAct = QtWidgets.QAction("&Zamknij", self, shortcut="Ctrl+Q",
+        self.exitAct = QAction("&Zamknij", self, shortcut="Ctrl+Q",
                 statusTip="Zamknij aplikacje", triggered=self.close)
 
 
@@ -73,17 +72,24 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar().showMessage("Ready")
 
     def readSettings(self):
-        settings = QtCore.QSettings("Trolltech", "Application Example")
-        pos = settings.value("pos", QtCore.QPoint(200, 200))
-        size = settings.value("size", QtCore.QSize(400, 400))
+        settings = QSettings("Trolltech", "Application Example")
+        pos = settings.value("pos", QPoint(200, 200))
+        size = settings.value("size", QSize(400, 400))
         self.resize(size)
         self.move(pos)
+
+    def get_data(self, paths, compative_name):
+        print(paths[0])
+        print(paths[1])
+        print(compative_name)
+
+
 
 if __name__ == '__main__':
 
     import sys
 
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     app.setStyle('fusion')
     mainWin = MainWindow()
     mainWin.show()
