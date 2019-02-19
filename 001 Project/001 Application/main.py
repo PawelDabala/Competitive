@@ -3,6 +3,8 @@ from PySide2.QtCore import QPoint, QSize, QSettings
 from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence
 from filechose import FileChoser
+from excel import Excel
+from pprint import pprint
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -42,7 +44,7 @@ class MainWindow(QMainWindow):
 
     def save(self, ti):
         pass
-        ### !!!!! TUTAJ BĘDZIE ZAPIS DO BAZY !!!!!!!
+        ### !!!!! TUTAJ BĘDZIE ZAPIS DO BAZY !!!!!!! ADD!!!
         # if self.curFile:
         #     return self.saveFile(self.curFile)
         #
@@ -79,10 +81,16 @@ class MainWindow(QMainWindow):
         self.move(pos)
 
     def get_data(self, paths, compative_name):
-        print(paths[0])
-        print(paths[1])
-        print(compative_name)
-
+        """
+        receives data from the filechose form
+        :param paths: dictionary with paht to techege, adexpert
+        :param compative_name: name of raport
+        :return:
+        """
+        pprint(paths[0])
+        self.compative_name = compative_name
+        self.techegedata = Excel.get_data_from_techedge(paths[0])
+        print(self.techegedata)
 
 
 if __name__ == '__main__':

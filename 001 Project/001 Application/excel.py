@@ -16,17 +16,19 @@ class Excel:
             temp_lis.append(ele)
 
         return temp_lis
-
-    def get_data_from_techedge(self, path):
+    @classmethod
+    def get_data_from_techedge(cls, path):
         wb = load_workbook(path)
         ws = wb.worksheets[0]
 
         col = (list(ws.columns))
-        col = self.remove_header(col)
 
+        colout = cls.remove_header(col)
+
+        """
         #ADD!!! ustawianie column w odpowiedniej kolejnosci
-
-        return  col
+        """
+        return colout
 
 
 

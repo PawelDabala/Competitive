@@ -1,2 +1,3 @@
 1) przesyłamy do klasy main scieżki do pliku excela
-2) możemy zrobić odzielną klasę do machowania plików
+2) możemy zrobić odzielną klasę do machowania plików (w trakcie)
+3) sprawdzić działanie clasy excela
