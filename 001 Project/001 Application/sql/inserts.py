@@ -12,5 +12,12 @@ def commit_():
     session.close()
 
 
+def add_competitive():
+    name1 = Competitive("name 1")
+    session.add(name1)
+
+
 if __name__=="__main__":
-    generete_database_schema()
+    # generete_database_schema()
+    # add_competitive()
+    # commit_()

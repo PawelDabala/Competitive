@@ -3,9 +3,14 @@ import ntpath
 from PySide2.QtWidgets import (
     QApplication,
     QDialog,
-    QFileDialog
+    QFileDialog,
+    QMessageBox
     )
 from uifilechose import Ui_Dialog
+
+from sql.base import Session
+from sql.competitive import Competitive
+from sqlalchemy import exc
 
 class FileChoser(QDialog):
     def __init__(self, parent=None):
@@ -55,7 +60,51 @@ class FileChoser(QDialog):
         print(self.paths[1])
 
     def add_new_competitive(self):
-        print("add new competitive")
+        """
+        add new competitive name to data base
+        :return:
+        """
+
+        new_name = self.leaddraport.text()
+        if self.check_is_not_empty(new_name):
+            """
+            add new name to data base
+            """
+            try:
+                session = Session()
+                name = Competitive(new_name)
+                session.add(name)
+                session.commit()
+                session.close()
+
+            except exc.IntegrityError:
+                QMessageBox.critical(self, "Bład", "Błąd zapisu danych do bazy.\n Podana nazwa już istnieje")
+                return
+
+
+
+
+
+
+
+
+
+
+
+    @staticmethod
+    def check_is_not_empty(text):
+        """
+        check the line edit with new client is not empty
+        """
+        if len(text) == 0:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Wartość w polu nie może być pusta")
+            msg.setWindowTitle("Błąd")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.exec_()
+            return False
+        return True
 
 
 
