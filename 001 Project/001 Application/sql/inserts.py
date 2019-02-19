@@ -16,8 +16,13 @@ def add_competitive():
     name1 = Competitive("name 1")
     session.add(name1)
 
+def read_competive():
+    competi = session.query(Competitive).all()
+    print(competi)
+
 
 if __name__=="__main__":
     # generete_database_schema()
     # add_competitive()
     # commit_()
+    read_competive()

@@ -44,6 +44,11 @@ class FileChoser(QDialog):
                       2: "",
                     }
 
+        """
+        read records from database
+        """
+        self.populate_row_competitive()
+
     def pic_file(self, lename, nr):
         """
         open file dialog to open file
@@ -81,15 +86,28 @@ class FileChoser(QDialog):
                 QMessageBox.critical(self, "Bład", "Błąd zapisu danych do bazy.\n Podana nazwa już istnieje")
                 return
 
+            """
+            add value to combo box and clear line edit
+            """
+            self.leaddraport.setText('')
+            self.cbraports.addItem(new_name)
+            self.cbraports.setCurrentText(new_name)
 
+    def populate_row_competitive(self):
+        """
+        read rows from database with competitive name
+        :return:
+        """
+        try:
+            session = Session()
+            competits = session.query(Competitive).all()
 
+        except:
+            QMessageBox.critical(self, "Błąd", "Nie można połączyć się z bazą danych")
+            return
 
-
-
-
-
-
-
+        for compet in competits:
+            self.cbraports.addItem(compet.name)
 
     @staticmethod
     def check_is_not_empty(text):
