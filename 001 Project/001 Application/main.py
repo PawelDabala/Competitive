@@ -17,15 +17,15 @@ class MainWindow(QtWidgets.QMainWindow):
         Test wstawienia wartosci do tabeli
         """
         self.table = QTableView()
-        self.setCentralWidget(self.table)
-        self.sti = QStandardItemModel()
-        self.sti.setRowCount(1000)
-        self.sti.setColumnCount(50)
-        for i in range(self.sti.rowCount()):
-            item = QStandardItem(f' row {i}')
-            self.sti.setItem(i, 0, item)
-
-        self.table.setModel(self.sti)
+        # self.setCentralWidget(self.table)
+        # self.sti = QStandardItemModel()
+        # self.sti.setRowCount(1000)
+        # self.sti.setColumnCount(50)
+        # for i in range(self.sti.rowCount()):
+        #     item = QStandardItem(f' row {i}')
+        #     self.sti.setItem(i, 0, item)
+        #
+        # self.table.setModel(self.sti)
         self.table.verticalHeader().setDefaultSectionSize(10)
         self.table.horizontalHeader().setDefaultSectionSize(200)
 
