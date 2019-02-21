@@ -29,10 +29,12 @@ class MainWindow(QMainWindow):
         # for i in range(self.sti.rowCount()):
         #     item = QStandardItem(f' row {i}')
         #     self.sti.setItem(i, 0, item)
-
+        self.sti.setColumnCount(4)
         self.table.setModel(self.sti)
         self.table.verticalHeader().setDefaultSectionSize(10)
         self.table.horizontalHeader().setDefaultSectionSize(200)
+
+
         #print(self.sti.rowCount())
 
         self.createActions()
@@ -81,7 +83,7 @@ class MainWindow(QMainWindow):
     def readSettings(self):
         settings = QSettings("Trolltech", "Application Example")
         pos = settings.value("pos", QPoint(200, 200))
-        size = settings.value("size", QSize(400, 400))
+        size = settings.value("size", QSize(800, 800))
         self.resize(size)
         self.move(pos)
 
@@ -109,16 +111,30 @@ class MainWindow(QMainWindow):
         read data from compatiedate, techegedata, adxpert and past to rows
         :return:
         """
-        self.sti.setColumnCount(4)
-        #read compativdata
+        # without this section data in column one don't show
+        self.sti.setRowCount(0)
+        self.sti.setRowCount(2)
+
+        #add data from data base
         if self.compativedata:
             for row in self.compativedata.datas:
-                rownr = self.sti.rowCount() + 1
-                self.sti.setColumnCount(rownr)
+                rownr = self.sti.rowCount()
                 rowvalue = row.values()
                 for nr, value in enumerate(rowvalue):
                     item = QStandardItem(f'{value}')
-                    self.sti.setItem(nr, rownr - 1, item)
+                    self.sti.setItem(rownr-1, nr, item)
+                    self.sti.setRowCount(rownr + 1)
+
+        #add data from techegedata
+        for rownr in range(len(self.techegedata[0])):
+            self.sti.setRowCount(self.sti.rowCount()+1)
+            for colnr in range(len(self.techegedata)):
+                item = QStandardItem(f'{self.techegedata[colnr][rownr]}')
+                self.sti.setItem(self.sti.rowCount()-2, colnr, item)
+
+
+
+        #self.sti.removeRow(rownr)
 
 
 

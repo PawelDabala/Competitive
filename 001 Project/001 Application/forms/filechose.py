@@ -63,8 +63,9 @@ class FileChoser(QDialog):
         self.paths[nr] = fpath[0]
 
     def send_values(self):
-        self.main.get_data(self.paths, str(self.cbraports.currentText()))
         self.close()
+        self.main.get_data(self.paths, str(self.cbraports.currentText()))
+
 
 
     def add_new_competitive(self):
