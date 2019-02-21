@@ -22,3 +22,9 @@ class Data(Base):
         self.producer = producer
         self.film = film
 
+    def __repr__(self):
+        return f'{self.year}, {self.month}, {self.producer}'
+
+    def values(self):
+        return [self.year, self.month, self.producer, self.film]
+

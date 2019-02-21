@@ -4,6 +4,10 @@ from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplicatio
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence
 from filechose import FileChoser
 from excel import Excel
+from sql.data import Data
+from sql.competitive import Competitive
+from sql.base import Session
+
 from pprint import pprint
 
 class MainWindow(QMainWindow):
@@ -18,17 +22,18 @@ class MainWindow(QMainWindow):
         Test wstawienia wartosci do tabeli
         """
         self.table = QTableView()
-        # self.setCentralWidget(self.table)
-        # self.sti = QStandardItemModel()
+        self.setCentralWidget(self.table)
+        self.sti = QStandardItemModel()
         # self.sti.setRowCount(1000)
         # self.sti.setColumnCount(50)
         # for i in range(self.sti.rowCount()):
         #     item = QStandardItem(f' row {i}')
         #     self.sti.setItem(i, 0, item)
-        #
-        # self.table.setModel(self.sti)
+
+        self.table.setModel(self.sti)
         self.table.verticalHeader().setDefaultSectionSize(10)
         self.table.horizontalHeader().setDefaultSectionSize(200)
+        #print(self.sti.rowCount())
 
         self.createActions()
         self.createMenus()
@@ -87,10 +92,41 @@ class MainWindow(QMainWindow):
         :param compative_name: name of raport
         :return:
         """
-        pprint(paths[0])
         self.compative_name = compative_name
-        self.techegedata = Excel.get_data_from_techedge(paths[0])
-        print(self.techegedata)
+        if len(paths[0]) > 0:
+            self.techegedata = Excel.get_data(paths[0])
+        if len(paths[1]) > 0:
+            self.adxpert = Excel.get_data(paths[1], False)
+
+        #wczytanie arkusza z bazy danych
+        session = Session()
+        self.compativedata = session.query(Competitive).filter(Competitive.name.ilike(f'{compative_name}%')).scalar()
+
+        self.populate_row()
+
+    def populate_row(self):
+        """
+        read data from compatiedate, techegedata, adxpert and past to rows
+        :return:
+        """
+        self.sti.setColumnCount(4)
+        #read compativdata
+        if self.compativedata:
+            for row in self.compativedata.datas:
+                rownr = self.sti.rowCount() + 1
+                self.sti.setColumnCount(rownr)
+                rowvalue = row.values()
+                for nr, value in enumerate(rowvalue):
+                    item = QStandardItem(f'{value}')
+                    self.sti.setItem(nr, rownr - 1, item)
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
