@@ -97,14 +97,19 @@ class MainWindow(QMainWindow):
         self.compative_name = compative_name
         if len(paths[0]) > 0:
             self.techegedata = Excel.get_data(paths[0])
+        else:
+            self.techegedata = None
         if len(paths[1]) > 0:
             self.adxpert = Excel.get_data(paths[1], False)
+        else:
+            self.adxpert = None
 
         #wczytanie arkusza z bazy danych
         session = Session()
         self.compativedata = session.query(Competitive).filter(Competitive.name.ilike(f'{compative_name}%')).scalar()
 
         self.populate_row()
+        session.close()
 
     def populate_row(self):
         """
@@ -126,15 +131,22 @@ class MainWindow(QMainWindow):
                     self.sti.setRowCount(rownr + 1)
 
         #add data from techegedata
-        for rownr in range(len(self.techegedata[0])):
-            self.sti.setRowCount(self.sti.rowCount()+1)
-            for colnr in range(len(self.techegedata)):
-                item = QStandardItem(f'{self.techegedata[colnr][rownr]}')
-                self.sti.setItem(self.sti.rowCount()-2, colnr, item)
+        if self.techegedata:
+            for rownr in range(len(self.techegedata[0])):
+                self.sti.setRowCount(self.sti.rowCount()+1)
+                for colnr in range(len(self.techegedata)):
+                    item = QStandardItem(f'{self.techegedata[colnr][rownr]}')
+                    self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 
+        #add data from adexpert
+        if self.adxpert:
+            for rownr in range(len(self.adxpert[0])):
+                self.sti.setRowCount(self.sti.rowCount()+1)
+                for colnr in range(len(self.adxpert)):
+                    item = QStandardItem(f'{self.adxpert[colnr][rownr]}')
+                    self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 
-
-        #self.sti.removeRow(rownr)
+        self.sti.removeRow(self.sti.rowCount()-1)
 
 
 
