@@ -26,7 +26,7 @@ def add_new_competiv_and_data():
     data1 = Data(2018,12,"BMW","Fajny film")
     data2 = Data(2019,11,"Audi","Stary film")
     name1.datas.append(data1)
-    name1.datas.append(data2)
+    name1.datas.append(Data(2019,11,"Audi","Stary film"))
     session.add(name1)
 
 def delete_competititve():
@@ -47,12 +47,18 @@ def test_pobierz():
         for row in comat.datas:
             print(row)
 
+def dalate_in_data():
+    comat = session.query(Competitive).filter(Competitive.name.ilike('%name1%')).first()
+    data1 = session.query(Data).filter_by(competitive_id=comat.id).delete()
+    print(data1)
 
 if __name__=="__main__":
-    # generete_database_schema()
+    generete_database_schema()
     # add_competitive()
-    # add_new_competiv_and_data()
+    add_new_competiv_and_data()
     #delete_competititve()
-    # commit_()
+
     # read_competive()
-    test_pobierz()
+    #test_pobierz()
+    # dalate_in_data()
+    commit_()

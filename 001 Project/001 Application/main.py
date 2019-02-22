@@ -1,6 +1,6 @@
 #from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import QPoint, QSize, QSettings
-from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow
+from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow, QMessageBox
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence
 from filechose import FileChoser
 from excel import Excel
@@ -49,13 +49,27 @@ class MainWindow(QMainWindow):
     def open(self):
         self.filechoser.show()
 
-    def save(self, ti):
-        pass
-        ### !!!!! TUTAJ BĘDZIE ZAPIS DO BAZY !!!!!!! ADD!!!
-        # if self.curFile:
-        #     return self.saveFile(self.curFile)
-        #
-        # return self.saveAs()
+    def save(self):
+        #deleta rows from data base for compative name
+        session = Session()
+        comat = session.query(Competitive).filter(Competitive.name.ilike(f'%{self.compative_name}%')).first()
+        session.query(Data).filter_by(competitive_id=comat.id).delete()
+
+        #read data from row and save to data base
+        for row in range(self.sti.rowCount())[1:]:
+            # name1.datas.append(Data(2019, 11, "Audi", "Stary film"))
+            comat.datas.append(
+                Data(
+                int(self.sti.item(row, 0).text()),
+                int(self.sti.item(row, 1).text()),
+                self.sti.item(row, 2).text(),
+                self.sti.item(row, 3).text()
+                )
+            )
+
+        session.commit()
+        session.close()
+        QMessageBox.information(self, "Zapis", "Zapis zakonczyl się powodzeniem.")
 
     def createActions(self):
         self.openAct = QAction(QIcon(':/images/open.png'),

@@ -1,6 +1,7 @@
+6) Poprawic wczytywanie danych w filechoser po ponownym otwarciu
+
 1) przesyłamy do klasy main scieżki do pliku excela
 2) możemy zrobić odzielną klasę do machowania plików (w trakcie)
 3) sprawdzić działanie clasy excela
 4) dodac dane z adxperta
-
 5) dodac zapis do bazy
