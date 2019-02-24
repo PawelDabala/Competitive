@@ -51,6 +51,21 @@ class FileChoser(QDialog):
         """
         self.populate_row_competitive()
 
+    def clead_data(self):
+        """
+        clean data in form
+        :return:
+        """
+        self.paths = {
+            0: "",
+            1: "",
+            2: "",
+        }
+
+        self.letechedge.setText("")
+        self.leadexpert.setText("")
+
+
     def pic_file(self, lename, nr):
         """
         open file dialog to open file

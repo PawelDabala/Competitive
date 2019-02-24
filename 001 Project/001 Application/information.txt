@@ -1,3 +1,4 @@
+7) jak nie zawijac tekstu w akrkusza
 6) Poprawic wczytywanie danych w filechoser po ponownym otwarciu
 
 1) przesyłamy do klasy main scieżki do pliku excela

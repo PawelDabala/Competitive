@@ -1,7 +1,7 @@
 #from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import QPoint, QSize, QSettings
 from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow, QMessageBox
-from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence
+from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont
 from filechose import FileChoser
 from excel import Excel
 from sql.data import Data
@@ -48,6 +48,7 @@ class MainWindow(QMainWindow):
 
     def open(self):
         self.filechoser.show()
+        self.filechoser.clead_data()
 
     def save(self):
         #deleta rows from data base for compative name
@@ -141,6 +142,9 @@ class MainWindow(QMainWindow):
                 rowvalue = row.values()
                 for nr, value in enumerate(rowvalue):
                     item = QStandardItem(f'{value}')
+                    font = QFont()
+                    font.setPointSize(8)
+                    item.setFont(font)
                     self.sti.setItem(rownr-1, nr, item)
                     self.sti.setRowCount(rownr + 1)
 
@@ -150,6 +154,9 @@ class MainWindow(QMainWindow):
                 self.sti.setRowCount(self.sti.rowCount()+1)
                 for colnr in range(len(self.techegedata)):
                     item = QStandardItem(f'{self.techegedata[colnr][rownr]}')
+                    font = QFont()
+                    font.setPointSize(8)
+                    item.setFont(font)
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 
         #add data from adexpert
@@ -158,6 +165,9 @@ class MainWindow(QMainWindow):
                 self.sti.setRowCount(self.sti.rowCount()+1)
                 for colnr in range(len(self.adxpert)):
                     item = QStandardItem(f'{self.adxpert[colnr][rownr]}')
+                    font = QFont()
+                    font.setPointSize(8)
+                    item.setFont(font)
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 
         self.sti.removeRow(self.sti.rowCount()-1)
