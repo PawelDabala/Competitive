@@ -135,6 +135,9 @@ class MainWindow(QMainWindow):
         self.sti.setRowCount(0)
         self.sti.setRowCount(2)
 
+        font = QFont()
+        font.setPointSize(8)
+
         #add data from data base
         if self.compativedata:
             for row in self.compativedata.datas:
@@ -142,8 +145,6 @@ class MainWindow(QMainWindow):
                 rowvalue = row.values()
                 for nr, value in enumerate(rowvalue):
                     item = QStandardItem(f'{value}')
-                    font = QFont()
-                    font.setPointSize(8)
                     item.setFont(font)
                     self.sti.setItem(rownr-1, nr, item)
                     self.sti.setRowCount(rownr + 1)
@@ -154,8 +155,6 @@ class MainWindow(QMainWindow):
                 self.sti.setRowCount(self.sti.rowCount()+1)
                 for colnr in range(len(self.techegedata)):
                     item = QStandardItem(f'{self.techegedata[colnr][rownr]}')
-                    font = QFont()
-                    font.setPointSize(8)
                     item.setFont(font)
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 
@@ -165,8 +164,6 @@ class MainWindow(QMainWindow):
                 self.sti.setRowCount(self.sti.rowCount()+1)
                 for colnr in range(len(self.adxpert)):
                     item = QStandardItem(f'{self.adxpert[colnr][rownr]}')
-                    font = QFont()
-                    font.setPointSize(8)
                     item.setFont(font)
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 

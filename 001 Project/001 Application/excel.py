@@ -43,14 +43,23 @@ class Excel:
 
         if tech:
             print("rozmiesc kolumny w kolejnosci techenge")
-            """
-                   #ADD!!! ustawianie column w odpowiedniej kolejnosci
-            """
+            colout = cls.chenge_poz(colout, [0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 9, 14, 11, 17, 10, 15, 16, 18])
+
         else:
             print("rozmiesc kolumn w kolejnosci adexpert")
+            """
+                            #ADD!!! ustawianie column w odpowiedniej kolejnosci
+            """
 
         return colout
 
+    @classmethod
+    def chenge_poz(cls, lis, poz, empty=[]):
+        temp_list = []
+        for nr in poz:
+            temp_list.append(lis[nr])
+
+        return temp_list
 
 
 
