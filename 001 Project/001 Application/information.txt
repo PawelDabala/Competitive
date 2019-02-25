@@ -1,3 +1,5 @@
+11) Puste chyba nie mogą być puste bo się nie pojawiaja
+10) zabezpieczyć się przed dodaniem nie inta lub flota do bazy dla zdefiniowanej kolumny
 9) Zastanowic sie czy da sie zautomatyzowac dodawanie wierszy do bazy podczas zapisu formularza
 8) Dadoc wszystkie kolumny z pliku do katalogu
 7) jak nie zawijac tekstu w akrkusza

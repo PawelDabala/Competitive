@@ -58,14 +58,29 @@ class MainWindow(QMainWindow):
 
         #read data from row and save to data base
         for row in range(self.sti.rowCount())[1:]:
-            
+            datas = []
+            for col in range(self.sti.columnCount()):
+                if col in (0, 1, 2, 20, 30):
+                    try:
+                        datas.append(int(self.sti.item(row, col).text()))
+                    except ValueError:
+                        QMessageBox.critical(self, "Bład", "Błąd zapisu danych do bazy.\n Podana nazwa już istnieje")
+                        return
+
+                if col in (26, 28, 29):
+                    datas.append(float(self.sti.item(row, col).text()))
+                else:
+                    if self.sti.item(row, col) is not None:
+                        datas.append(self.sti.item(row, col).text())
+
             comat.datas.append(
-                Data(
-                int(self.sti.item(row, 0).text()),
-                int(self.sti.item(row, 1).text()),
-                self.sti.item(row, 2).text(),
-                self.sti.item(row, 3).text()
-                )
+                # Data(
+                # int(self.sti.item(row, 0).text()),
+                # int(self.sti.item(row, 1).text()),
+                # self.sti.item(row, 2).text(),
+                # self.sti.item(row, 3).text()
+                # )
+                Data(*datas)
             )
 
         session.commit()
@@ -170,14 +185,6 @@ class MainWindow(QMainWindow):
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 
         self.sti.removeRow(self.sti.rowCount()-1)
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

@@ -37,6 +37,7 @@ class Data(Base):
     pt_off = Column(String)
     trp = Column(Float)
     trp30 = Column(Float)
+    spcount = Column(Integer)
     channel_group = Column(String)
     channel_type = Column(String)
 
@@ -72,7 +73,8 @@ class Data(Base):
                  cost,
                  pt_off,
                  trp,
-                 trp30
+                 trp30,
+                 spcount
                  ):
 
         self.year = year
@@ -104,6 +106,7 @@ class Data(Base):
         self.pt_off = pt_off
         self.trp = trp
         self.trp30 = trp30
+        self.spcount = spcount
 
     # def __repr__(self):
     #     return f'{self.year}, {self.month}, {self.producer}'
@@ -137,6 +140,7 @@ class Data(Base):
                 self.cost,
                 self.pt_off,
                 self.trp,
-                self.trp30
+                self.trp30,
+                self.spcount
                ]
 

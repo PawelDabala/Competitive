@@ -60,7 +60,7 @@ def columns_names():
 
 
 if __name__=="__main__":
-    #generete_database_schema()
+    generete_database_schema()
     # add_competitive()
     #add_new_competiv_and_data()
     #delete_competititve()
@@ -68,5 +68,5 @@ if __name__=="__main__":
     # read_competive()
     #test_pobierz()
     # dalate_in_data()
-    #commit_()
-    columns_names()
+    commit_()
+    #columns_names()
