@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
 
         #read data from row and save to data base
         for row in range(self.sti.rowCount())[1:]:
-            # name1.datas.append(Data(2019, 11, "Audi", "Stary film"))
+            
             comat.datas.append(
                 Data(
                 int(self.sti.item(row, 0).text()),
@@ -154,6 +154,8 @@ class MainWindow(QMainWindow):
             for rownr in range(len(self.techegedata[0])):
                 self.sti.setRowCount(self.sti.rowCount()+1)
                 for colnr in range(len(self.techegedata)):
+                    if len(self.techegedata[colnr]) == 0:
+                        continue
                     item = QStandardItem(f'{self.techegedata[colnr][rownr]}')
                     item.setFont(font)
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)

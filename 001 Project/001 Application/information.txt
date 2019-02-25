@@ -1,3 +1,4 @@
+9) Zastanowic sie czy da sie zautomatyzowac dodawanie wierszy do bazy podczas zapisu formularza
 8) Dadoc wszystkie kolumny z pliku do katalogu
 7) jak nie zawijac tekstu w akrkusza
 7a) Jak dopasowac wielkosc kolumn do wielkosci szerokosci tekstu
