@@ -52,13 +52,21 @@ def dalate_in_data():
     data1 = session.query(Data).filter_by(competitive_id=comat.id).delete()
     print(data1)
 
+def columns_names():
+    session = Session()
+    q = session.query(Data)
+    print(q.column_descriptions)
+
+
+
 if __name__=="__main__":
-    generete_database_schema()
+    #generete_database_schema()
     # add_competitive()
-    add_new_competiv_and_data()
+    #add_new_competiv_and_data()
     #delete_competititve()
 
     # read_competive()
     #test_pobierz()
     # dalate_in_data()
-    commit_()
+    #commit_()
+    columns_names()
