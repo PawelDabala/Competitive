@@ -1,6 +1,6 @@
 #from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import QPoint, QSize, QSettings
-from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow, QMessageBox
+from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow, QMessageBox, QHeaderView
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont
 from filechose import FileChoser
 from excel import Excel
@@ -24,13 +24,44 @@ class MainWindow(QMainWindow):
         self.table = QTableView()
         self.setCentralWidget(self.table)
         self.sti = QStandardItemModel()
-        self.sti.setColumnCount(4)
+        self.sti.setColumnCount(6)
         self.table.setModel(self.sti)
         self.table.verticalHeader().setDefaultSectionSize(10)
         self.table.horizontalHeader().setDefaultSectionSize(200)
-
-
-        #print(self.sti.rowCount())
+        headers = ['Year',
+            'Month',
+            'Week',
+            'Sector',
+            'Category',
+            'Sub Category',
+            'Produkt(4)',
+            'Branża(I)',
+            'Kategoria(II)',
+            'Dział(III)',
+            'Producer',
+            'Brand',
+            'Sub Brand',
+            'Film Code',
+            'Film Code 2',
+            'Media',
+            'Glowne Medium',
+            'Medium',
+            'Wydawca Nadawca',
+            'Periodyczność',
+            'Duration',
+            'Typ reklamy',
+            'Forma Reklamy',
+            'Typ Strony',
+            'L.emisji',
+            'Sum.Str',
+            'Cost',
+            'PT/OFF',
+            'TRP',
+            'TRP30',
+            'Count']
+        self.sti.setHorizontalHeaderLabels(headers)
+        self.sti.setColumnCount(len(headers))
+        #self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         self.createActions()
         self.createMenus()
@@ -46,6 +77,10 @@ class MainWindow(QMainWindow):
         self.filechoser.clead_data()
 
     def save(self):
+        """
+        save data to data base
+        :return:
+        """
         #deleta rows from data base for compative name
         session = Session()
         comat = session.query(Competitive).filter(Competitive.name.ilike(f'%{self.compative_name}%')).first()
@@ -184,6 +219,7 @@ class MainWindow(QMainWindow):
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)
 
         self.sti.removeRow(self.sti.rowCount()-1)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
 
 
 if __name__ == '__main__':
