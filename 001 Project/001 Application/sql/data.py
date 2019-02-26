@@ -22,6 +22,7 @@ class Data(Base):
     brand = Column(String)
     sub_brand = Column(String)
     film_code = Column(String)
+    film_codenr = Column(String)
     media = Column(String)
     main_medium = Column(String) # glowne medium
     medium = Column(String) #medium
@@ -59,6 +60,7 @@ class Data(Base):
                  brand,
                  sub_brand,
                  film_code,
+                 film_codenr,
                  media,
                  main_medium,
                  medium,
@@ -91,6 +93,7 @@ class Data(Base):
         self.brand = brand
         self.sub_brand = sub_brand
         self.film_code = film_code
+        self.film_codenr = film_codenr
         self.media = media
         self.main_medium = main_medium
         self.medium = medium
@@ -126,6 +129,7 @@ class Data(Base):
                 self.brand,
                 self.sub_brand,
                 self.film_code,
+                self.film_codenr,
                 self.media,
                 self.main_medium,
                 self.medium,

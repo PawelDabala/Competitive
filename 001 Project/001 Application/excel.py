@@ -48,11 +48,8 @@ class Excel:
                                     [6, 7, 8, 9, 15, 16, 18, 19, 22, 23, 24, 25]
                                     )
         else:
-            pass
-            # print("rozmiesc kolumn w kolejnosci adexpert")
-            # """
-            #                 #ADD!!! ustawianie column w odpowiedniej kolejnosci
-            # """
+            for i in range(4):
+                colout.append([None]*len(colout[0]))
 
         return colout
 

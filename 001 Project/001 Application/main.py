@@ -24,11 +24,6 @@ class MainWindow(QMainWindow):
         self.table = QTableView()
         self.setCentralWidget(self.table)
         self.sti = QStandardItemModel()
-        # self.sti.setRowCount(1000)
-        # self.sti.setColumnCount(50)
-        # for i in range(self.sti.rowCount()):
-        #     item = QStandardItem(f' row {i}')
-        #     self.sti.setItem(i, 0, item)
         self.sti.setColumnCount(4)
         self.table.setModel(self.sti)
         self.table.verticalHeader().setDefaultSectionSize(10)
@@ -60,28 +55,30 @@ class MainWindow(QMainWindow):
         for row in range(self.sti.rowCount())[1:]:
             datas = []
             for col in range(self.sti.columnCount()):
-                if col in (0, 1, 2, 20, 30):
+                if col in (0, 1, 2, 20, 24, 30):
                     try:
-                        datas.append(int(self.sti.item(row, col).text()))
+                        #tutaj poprawic nie chce wpisać
+                        if self.sti.item(row, col) is not None:
+                            datas.append(int(self.sti.item(row, col).text()))
+                        else:
+                            datas.append(None)
                     except ValueError:
-                        QMessageBox.critical(self, "Bład", "Błąd zapisu danych do bazy.\n Podana nazwa już istnieje")
-                        return
-
-                if col in (26, 28, 29):
-                    datas.append(float(self.sti.item(row, col).text()))
+                        datas.append(None)
+                elif col in (25, 26, 28, 29):
+                    try:
+                        if self.sti.item(row, col) is not None:
+                            datas.append(float(self.sti.item(row, col).text()))
+                        else:
+                            datas.append(None)
+                    except ValueError:
+                        datas.append(None)
                 else:
                     if self.sti.item(row, col) is not None:
                         datas.append(self.sti.item(row, col).text())
+                    else:
+                        datas.append(None)
 
-            comat.datas.append(
-                # Data(
-                # int(self.sti.item(row, 0).text()),
-                # int(self.sti.item(row, 1).text()),
-                # self.sti.item(row, 2).text(),
-                # self.sti.item(row, 3).text()
-                # )
-                Data(*datas)
-            )
+            comat.datas.append(Data(*datas))
 
         session.commit()
         session.close()
@@ -180,6 +177,8 @@ class MainWindow(QMainWindow):
             for rownr in range(len(self.adxpert[0])):
                 self.sti.setRowCount(self.sti.rowCount()+1)
                 for colnr in range(len(self.adxpert)):
+                    if len(self.adxpert[colnr]) == 0:
+                        continue
                     item = QStandardItem(f'{self.adxpert[colnr][rownr]}')
                     item.setFont(font)
                     self.sti.setItem(self.sti.rowCount()-2, colnr, item)
