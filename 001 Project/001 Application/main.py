@@ -1,6 +1,7 @@
 #from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import QPoint, QSize, QSettings
-from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow, QMessageBox, QHeaderView
+from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow, QMessageBox, \
+    QHeaderView, QPushButton
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont
 from filechose import FileChoser
 from excel import Excel
@@ -61,7 +62,7 @@ class MainWindow(QMainWindow):
             'Count']
         self.sti.setHorizontalHeaderLabels(headers)
         self.sti.setColumnCount(len(headers))
-        #self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        #self.table.setSortingEnabled(True)
 
         self.createActions()
         self.createMenus()
@@ -220,6 +221,17 @@ class MainWindow(QMainWindow):
 
         self.sti.removeRow(self.sti.rowCount()-1)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+
+        """
+        Mozna zrobić tak ale wolał bym w nagłowku
+        """
+        but = QPushButton("Button")
+        self.table.setIndexWidget(self.sti.index(0, 3), but)
+        but.clicked.connect(self.TestBut)
+
+
+    def TestBut(self):
+        print("Presed Me")
 
 
 if __name__ == '__main__':
