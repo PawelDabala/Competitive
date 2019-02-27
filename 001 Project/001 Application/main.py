@@ -1,15 +1,15 @@
 #from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import QPoint, QSize, QSettings
-from PySide2.QtWidgets import QTableWidgetItem, QTableView, QAction, QApplication, QMainWindow, QMessageBox, \
-    QHeaderView, QPushButton
+from PySide2.QtCore import QPoint, QSize, QSettings, SIGNAL
+from PySide2.QtWidgets import QTableView, QAction, QApplication, QMainWindow, QMessageBox, \
+    QHeaderView
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont
 from filechose import FileChoser
 from excel import Excel
 from sql.data import Data
 from sql.competitive import Competitive
 from sql.base import Session
+from forms.filters import TestUI
 
-from pprint import pprint
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -63,6 +63,10 @@ class MainWindow(QMainWindow):
         self.sti.setHorizontalHeaderLabels(headers)
         self.sti.setColumnCount(len(headers))
         #self.table.setSortingEnabled(True)
+        #self.table.horizontalHeader().connect()
+        self.connect(self.table.horizontalHeader(), SIGNAL("sectionClicked(int)"), self.fun)
+
+
 
         self.createActions()
         self.createMenus()
@@ -225,13 +229,15 @@ class MainWindow(QMainWindow):
         """
         Mozna zrobić tak ale wolał bym w nagłowku
         """
-        but = QPushButton("Button")
-        self.table.setIndexWidget(self.sti.index(0, 3), but)
-        but.clicked.connect(self.TestBut)
+        # but = QPushButton("Button")
+        # self.table.setIndexWidget(self.sti.index(0, 3), but)
+        # but.clicked.connect(self.TestBut)
 
 
-    def TestBut(self):
-        print("Presed Me")
+    def fun(self, i):
+        print(f"index clicked is {i}")
+        self.filter = TestUI()
+        self.filter.show()
 
 
 if __name__ == '__main__':
