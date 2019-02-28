@@ -8,7 +8,7 @@ from excel import Excel
 from sql.data import Data
 from sql.competitive import Competitive
 from sql.base import Session
-from forms.filters import TestUI
+from forms.filters import FiltersForm
 
 
 class MainWindow(QMainWindow):
@@ -59,14 +59,15 @@ class MainWindow(QMainWindow):
             'PT/OFF',
             'TRP',
             'TRP30',
-            'Count']
+            'Count',
+            'Channel group',
+            'Channel type'
+                   ]
         self.sti.setHorizontalHeaderLabels(headers)
         self.sti.setColumnCount(len(headers))
         #self.table.setSortingEnabled(True)
         #self.table.horizontalHeader().connect()
-        self.connect(self.table.horizontalHeader(), SIGNAL("sectionClicked(int)"), self.fun)
-
-
+        self.connect(self.table.horizontalHeader(), SIGNAL("sectionClicked(int)"), self.showfilterforms)
 
         self.createActions()
         self.createMenus()
@@ -232,18 +233,14 @@ class MainWindow(QMainWindow):
         # but = QPushButton("Button")
         # self.table.setIndexWidget(self.sti.index(0, 3), but)
         # but.clicked.connect(self.TestBut)
-
-
-    def fun(self, i):
+    def showfilterforms(self, i):
         print(f"index clicked is {i}")
-        self.filter = TestUI()
+        self.filter = FiltersForm(i, self)
         self.filter.show()
 
 
 if __name__ == '__main__':
-
     import sys
-
     app = QApplication(sys.argv)
     app.setStyle('fusion')
     mainWin = MainWindow()
