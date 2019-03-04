@@ -20,12 +20,10 @@ class FiltersForm(QDialog):
         self.table.horizontalHeader().setDefaultSectionSize(200)
         self.table.setSortingEnabled(True)
 
-
         #treeWidget
         self.tw = self.ui.treeWidgetasignet
         self.tw.setHeaderLabels(['Name', 'Year', 'Channel'])
         self.tw.setAlternatingRowColors(True)
-
 
         """
         set controls data
@@ -58,7 +56,32 @@ class FiltersForm(QDialog):
         value = self.ui.lineEditaddnew.text()
         if len(value) > 0:
             newnod = QTreeWidgetItem(self.tw,[value])
-            newnod.setCheckState(0, Qt.CheckState.Checked)
+            if self.isunique():
+                newnod.setCheckState(0, Qt.CheckState.Unchecked)
+            else:
+                print('value all ready exist')
+
+
+    def isunique(self):
+
+        root = self.tw.invisibleRootItem()
+        child_count = root.childCount()
+        for i in range(child_count):
+            item = root.child(i)
+            print(item.text(0))
+        #to nie działa poprawnie
+        # iterator = QTreeWidgetItemIterator(self.tw)
+        # parnode = []
+        #
+        # while iterator.value():
+        #     item = iterator.value()
+        #     print(item.text(0))
+        #     # if item.parent() is None:
+        #     #     if item.text(0) in parnode:
+        #     #         return False
+        #     #     else:
+        #     #         parnode.append(item.text(0))
+
 
 if __name__=='__main__':
     app = QApplication(sys.argv)

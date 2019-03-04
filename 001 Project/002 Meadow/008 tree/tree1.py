@@ -48,6 +48,7 @@ tak przechodzi przez wszystkie zaznaczone
 """
 iterator = QTreeWidgetItemIterator(tw)
 while iterator.value():
+
     item = iterator.value()
     print(item.checkState(0))
     print(item.text(0))
