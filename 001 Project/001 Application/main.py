@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.table.setModel(self.sti)
         self.table.verticalHeader().setDefaultSectionSize(10)
         self.table.horizontalHeader().setDefaultSectionSize(200)
-        headers = ['Year',
+        self.headers = ['Year',
             'Month',
             'Week',
             'Sector',
@@ -63,8 +63,8 @@ class MainWindow(QMainWindow):
             'Channel group',
             'Channel type'
                    ]
-        self.sti.setHorizontalHeaderLabels(headers)
-        self.sti.setColumnCount(len(headers))
+        self.sti.setHorizontalHeaderLabels(self.headers)
+        self.sti.setColumnCount(len(self.headers))
         #self.table.setSortingEnabled(True)
         #self.table.horizontalHeader().connect()
         self.connect(self.table.horizontalHeader(), SIGNAL("sectionClicked(int)"), self.showfilterforms)
@@ -233,10 +233,39 @@ class MainWindow(QMainWindow):
         # but = QPushButton("Button")
         # self.table.setIndexWidget(self.sti.index(0, 3), but)
         # but.clicked.connect(self.TestBut)
+
     def showfilterforms(self, i):
         print(f"index clicked is {i}")
-        self.filter = FiltersForm(i, self)
-        self.filter.show()
+        columns = []
+        filtername = ''
+        headersname = []
+        if i == 31:
+            columns = self.prapercolumns(0, 17)
+            filtername = "channelgroup"
+            headersname = [self.headers[i] for i in (0, 17)]
+
+        if len(filtername) > 0:
+            self.filter = FiltersForm(i, filtername, columns, headersname, self)
+            self.filter.show()
+
+    def prapercolumns(self, *args):
+        """
+        get unic data from sending columns
+        :param args:
+        :return:
+        """
+        mainlist = []
+        for col in args:
+            collist = []
+            for row in range(self.sti.rowCount()):
+                if row == 0:
+                    continue
+                collist.append(self.sti.item(row, col).text())
+            mainlist.append(collist)
+
+        return list(set(zip(*mainlist)))
+
+
 
 
 if __name__ == '__main__':

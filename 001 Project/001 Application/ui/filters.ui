@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QTreeWidget" name="treeWidget">
+  <widget class="QTreeWidget" name="treeWidgetasignet">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -28,7 +28,7 @@
     </property>
    </column>
   </widget>
-  <widget class="QTableView" name="tableView">
+  <widget class="QTableView" name="tableViewcolumns">
    <property name="geometry">
     <rect>
      <x>330</x>
@@ -38,7 +38,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButtonadddata">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -62,17 +62,17 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QLineEdit" name="lineEdit"/>
+     <widget class="QLineEdit" name="lineEditaddnew"/>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButtonaddnew">
       <property name="text">
        <string>Nowy</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="pushButtonremovenodes">
       <property name="text">
        <string>Usuń</string>
       </property>
@@ -80,7 +80,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="pushButtonrun">
    <property name="geometry">
     <rect>
      <x>1230</x>
@@ -93,17 +93,17 @@
     <string>Urchom</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QCheckBox" name="checkBoxnotassigne">
    <property name="geometry">
     <rect>
      <x>330</x>
      <y>700</y>
-     <width>81</width>
-     <height>23</height>
+     <width>91</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Nie przypisane</string>
+    <string>nie przypisane</string>
    </property>
   </widget>
  </widget>

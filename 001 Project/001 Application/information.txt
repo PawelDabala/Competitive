@@ -12,3 +12,7 @@
 3) sprawdzić działanie clasy excela
 4) dodac dane z adxperta
 5) dodac zapis do bazy
+
+
+IDEA
+# Przekazujemy do naglowka juz wybrane wiersze

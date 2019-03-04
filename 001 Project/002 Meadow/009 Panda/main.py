@@ -33,7 +33,7 @@ def get_value(cols):
     return temp_list
 
 col_1 = get_value(col_1)
-# print(col_1)
+
 col_2 = list(zip(col_1[0],col_1[1]))
 print(len(col_2))
 print(len(set(col_2)))
