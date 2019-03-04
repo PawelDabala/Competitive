@@ -11,37 +11,54 @@ class FiltersForm(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
+
+        #table
         self.table = self.ui.tableViewcolumns
         self.sti = QStandardItemModel()
         self.table.setModel(self.sti)
+        self.table.verticalHeader().setDefaultSectionSize(10)
+        self.table.horizontalHeader().setDefaultSectionSize(200)
+        self.table.setSortingEnabled(True)
+
+
+        #treeWidget
+        self.tw = self.ui.treeWidgetasignet
+        self.tw.setHeaderLabels(['Name', 'Year', 'Channel'])
+        self.tw.setAlternatingRowColors(True)
+
 
         """
         set controls data
         """
         self.sti.setHorizontalHeaderLabels(headersname)
         self.sti.setColumnCount(len(headersname))
+        self.setrowdata(columns)
+
+        """
+        signals
+        """
+        self.ui.pushButtonaddnew.clicked.connect(self.add_new_parent_node)
 
     def setrowdata(self, columns):
         """
-        add data to rows
+        add data to table rows
         :param columns:
         :return:
         """
-        for row in columns:
-            for col in row:
-                Tutaj kontynuj!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                item = QStandardItem(col)
-                item.setCheckable(True)
+        for row in range(len(columns)):
+            for col in range(len(columns[row])):
+                item = QStandardItem(columns[row][col])
                 item.setEditable(False)
+                if col == 0:
+                    item.setCheckable(True)
+                self.sti.setItem(row, col, item)
 
-
-
-
-
-
-
-
-
+    def add_new_parent_node(self):
+        print("add_new_parent_node")
+        value = self.ui.lineEditaddnew.text()
+        if len(value) > 0:
+            newnod = QTreeWidgetItem(self.tw,[value])
+            newnod.setCheckState(0, Qt.CheckState.Checked)
 
 if __name__=='__main__':
     app = QApplication(sys.argv)
