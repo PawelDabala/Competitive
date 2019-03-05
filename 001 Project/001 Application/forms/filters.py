@@ -71,7 +71,6 @@ class FiltersForm(QDialog):
         nodesname = []
         for i in range(child_count):
             item = root.child(i)
-            print(item.text(0))
             nodesname.append(item.text(0))
 
         nodesname = [x.upper() for x in nodesname]
@@ -79,23 +78,6 @@ class FiltersForm(QDialog):
             return False
         else:
             return True
-
-
-
-
-        #to nie działa poprawnie
-        # iterator = QTreeWidgetItemIterator(self.tw)
-        # parnode = []
-        #
-        # while iterator.value():
-        #     item = iterator.value()
-        #     print(item.text(0))
-        #     # if item.parent() is None:
-        #     #     if item.text(0) in parnode:
-        #     #         return False
-        #     #     else:
-        #     #         parnode.append(item.text(0))
-
 
 if __name__=='__main__':
     app = QApplication(sys.argv)

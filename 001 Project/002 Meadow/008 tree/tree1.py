@@ -10,14 +10,51 @@ tw = QTreeWidget()
 tw.setHeaderLabels(['Name', 'Cost ($)'])
 tw.setAlternatingRowColors(True)
 cg = QTreeWidgetItem(tw, ['carrtos', '0.99'])
-cg.setCheckState(0, Qt.CheckState.Checked)
+cg.setCheckState(0, Qt.CheckState.Unchecked)
+cf = QTreeWidgetItem(tw, ['dog'])
+cf.setCheckState(0, Qt.CheckState.Unchecked)
+ch = QTreeWidgetItem(tw, ['cat'])
+ch.setCheckState(0, Qt.CheckState.Unchecked)
+
+
 c1 = QTreeWidgetItem(cg, ['carrt', '0.33'])
 c1.setCheckState(0, Qt.CheckState.Unchecked)
-h = QTreeWidgetItem(['ham', '50.13'])
-h.setDisabled(True)
-tw.addTopLevelItem(h) # dobra funkcja dodaje nowy gałąź powyżej drugiej
+# h = QTreeWidgetItem(['ham', '50.13'])
+# h.setDisabled(True)
+# tw.addTopLevelItem(h) # dobra funkcja dodaje nowy gałąź powyżej drugiej
 
 bt = QPushButton("Press me")
+
+def test(item, column):
+    # print('emitted', item.text(column))
+    # print('col nr ', column)
+    #print("item changed")
+
+    # tw.blockSignals(True)
+    # if item.checkState(column) == Qt.Checked:
+    #     item.setCheckState(0, Qt.CheckState.Checked)
+    # else:
+    #     item.setCheckState(0, Qt.CheckState.Unchecked)
+    #
+    # tw.blockSignals(False)
+    tw.blockSignals(True)
+    root = tw.invisibleRootItem()
+    child_count = root.childCount()
+    for i in range(child_count):
+        item2 = root.child(i)
+        if item.text(column) != item2.text(0):
+            print(item2.text(0))
+            item2.setCheckState(0, Qt.CheckState.Unchecked)
+        else:
+
+            item.setCheckState(0, Qt.CheckState.Checked)
+
+    tw.blockSignals(False)
+    print('########')
+
+
+tw.itemChanged.connect(test)
+
 
 def get_selected():
     """
@@ -37,6 +74,9 @@ layout.addWidget(tw)
 layout.addWidget(bt)
 window.show()
 
+"""
+to działa bardzo dobrze
+"""
 # root = tw.invisibleRootItem()
 # # child_count = root.childCount()
 # # for i in range(child_count):
@@ -50,8 +90,8 @@ iterator = QTreeWidgetItemIterator(tw)
 while iterator.value():
 
     item = iterator.value()
-    print(item.checkState(0))
-    print(item.text(0))
+    # print(item.checkState(0))
+    # print(item.text(0))
     iterator += 1
 
 sys.exit(app.exec_())
