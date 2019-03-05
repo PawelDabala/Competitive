@@ -24,6 +24,8 @@ c1.setCheckState(0, Qt.CheckState.Unchecked)
 # tw.addTopLevelItem(h) # dobra funkcja dodaje nowy gałąź powyżej drugiej
 
 bt = QPushButton("Press me")
+bt2 = QPushButton("Show checked")
+
 
 def test(item, column):
     tw.blockSignals(True)
@@ -56,11 +58,6 @@ for ch in childlist:
     newch.setCheckState(1, Qt.CheckState.Unchecked)
 
 
-
-
-
-
-
 def get_selected():
     """
     Jak otrzyma zaznaczony pozycje
@@ -72,11 +69,25 @@ def get_selected():
         getChildNode = baseNode.text(0)
         print(getChildNode)
 
-bt.clicked.connect(get_selected)
+"""
+get checked item
+"""
+def show_checked():
+    root = tw.invisibleRootItem()
+    child_count = root.childCount()
+    for i in range(child_count):
+        item = root.child(i)
+        if item.checkState(0) == Qt.CheckState.Checked:
+            print(item.text(0))
 
+
+bt.clicked.connect(get_selected)
+bt2.clicked.connect(show_checked)
 
 layout.addWidget(tw)
 layout.addWidget(bt)
+layout.addWidget(bt2)
+
 window.show()
 
 """
