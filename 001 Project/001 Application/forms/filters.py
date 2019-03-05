@@ -36,6 +36,8 @@ class FiltersForm(QDialog):
         signals
         """
         self.ui.pushButtonaddnew.clicked.connect(self.add_new_parent_node)
+        self.tw.itemChanged.connect(self.uncheckOthersItemsTree)
+        self.ui.pushButtonadddata.clicked.connect(self.test222)
 
     def setrowdata(self, columns):
         """
@@ -78,6 +80,52 @@ class FiltersForm(QDialog):
             return False
         else:
             return True
+
+    def uncheckOthersItemsTree(self, item, column):
+        self.tw.blockSignals(True)
+        root = self.tw.invisibleRootItem()
+        child_count = root.childCount()
+        for i in range(child_count):
+            item2 = root.child(i)
+            if item.text(column) != item2.text(0):
+                item2.setCheckState(0, Qt.CheckState.Unchecked)
+            else:
+                item.setCheckState(0, Qt.CheckState.Checked)
+        self.tw.blockSignals(False)
+
+    """
+    
+    table view functions
+    
+    """
+    def test222(self):
+        self.getCheckedItemsTable()
+        self.removeCheckedItemsTable()
+
+    def getCheckedItemsTable(self):
+        """
+        return table with checked items
+        :return:
+        """
+        checkeditems = []
+        for i in range(self.sti.rowCount()):
+            if self.sti.item(i, 0).checkState() == 2:
+                checkeditems.append([
+                                    self.sti.item(i, 0).text(),
+                                    self.sti.item(i, 1).text()
+                                    ])
+        print(checkeditems)
+        return checkeditems
+
+    def removeCheckedItemsTable(self):
+        """
+        remove row frol list table
+        :return:
+        """
+        for i in reversed(range(self.sti.rowCount())):
+            if self.sti.item(i, 0).checkState() == 2:
+                self.sti.removeRow(i)
+
 
 if __name__=='__main__':
     app = QApplication(sys.argv)

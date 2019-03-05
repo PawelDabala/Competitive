@@ -26,17 +26,6 @@ c1.setCheckState(0, Qt.CheckState.Unchecked)
 bt = QPushButton("Press me")
 
 def test(item, column):
-    # print('emitted', item.text(column))
-    # print('col nr ', column)
-    #print("item changed")
-
-    # tw.blockSignals(True)
-    # if item.checkState(column) == Qt.Checked:
-    #     item.setCheckState(0, Qt.CheckState.Checked)
-    # else:
-    #     item.setCheckState(0, Qt.CheckState.Unchecked)
-    #
-    # tw.blockSignals(False)
     tw.blockSignals(True)
     root = tw.invisibleRootItem()
     child_count = root.childCount()
@@ -54,6 +43,22 @@ def test(item, column):
 
 
 tw.itemChanged.connect(test)
+
+
+"""
+adding multi chldren
+"""
+childlist = [['','chil 1'], ['','chil 2'],['','chil 3']]
+childlist2 = ['chil 1', 'chil 2','chil 3']
+#to działa
+for ch in childlist:
+    newch = QTreeWidgetItem(cf, ch)
+    newch.setCheckState(1, Qt.CheckState.Unchecked)
+
+
+
+
+
 
 
 def get_selected():
