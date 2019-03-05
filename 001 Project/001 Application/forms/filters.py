@@ -55,20 +55,34 @@ class FiltersForm(QDialog):
         print("add_new_parent_node")
         value = self.ui.lineEditaddnew.text()
         if len(value) > 0:
-            newnod = QTreeWidgetItem(self.tw,[value])
-            if self.isunique():
+            if self.isunique(value):
+                newnod = QTreeWidgetItem(self.tw, [value])
                 newnod.setCheckState(0, Qt.CheckState.Unchecked)
+                self.ui.lineEditaddnew.setText("")
             else:
-                print('value all ready exist')
+                QMessageBox.critical(self, 'Uwaga!!!',
+                     "Podana nazwa już istnieje.",
+                     QMessageBox.Ok)
 
-
-    def isunique(self):
-
+    def isunique(self, name):
+        #read data from tree view
         root = self.tw.invisibleRootItem()
         child_count = root.childCount()
+        nodesname = []
         for i in range(child_count):
             item = root.child(i)
             print(item.text(0))
+            nodesname.append(item.text(0))
+
+        nodesname = [x.upper() for x in nodesname]
+        if name.upper() in nodesname:
+            return False
+        else:
+            return True
+
+
+
+
         #to nie działa poprawnie
         # iterator = QTreeWidgetItemIterator(self.tw)
         # parnode = []
