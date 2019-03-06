@@ -37,7 +37,7 @@ class FiltersForm(QDialog):
         """
         self.ui.pushButtonaddnew.clicked.connect(self.add_new_parent_node)
         self.tw.itemChanged.connect(self.uncheck_others_items_tree)
-        self.ui.pushButtonadddata.clicked.connect(self.test222)
+        self.ui.pushButtonadddata.clicked.connect(self.add_children)
 
     """
     
@@ -106,28 +106,25 @@ class FiltersForm(QDialog):
             if item.checkState(0) == Qt.CheckState.Checked:
                 return item
 
-    """
-    
-    dokonczyć od tego miejsca !!!!!!!!!!!!!
-    dodać przekazywanie dzieci do listy
-    """
-
     def add_children(self):
-        childlist = [['', 'chil 1'], ['', 'chil 2'], ['', 'chil 3']]
+        """
+        adding items from list to tree
+        :return:
+        """
+        childlist = self.getCheckedItemsTable()
         item = self.get_checked_item()
+
+        #add value to list
         for ch in childlist:
-            QTreeWidgetItem(item, ch)
+            newitem = QTreeWidgetItem(item, ch)
+            newitem.setCheckState(1, Qt.CheckState.Unchecked)
+        self.removeCheckedItemsTable()
 
     """
     
     table view functions
     
     """
-    def test222(self):
-        # self.getCheckedItemsTable()
-        # self.removeCheckedItemsTable()
-        self.add_children()
-
     def setrowdata(self, columns):
         """
         add data to table rows
@@ -147,10 +144,14 @@ class FiltersForm(QDialog):
         return table with checked items
         :return:
         """
+        """
+        DO POPRAWY, colmulmny nie moga byc na sztywno !!!!!!!!
+        """
         checkeditems = []
         for i in range(self.sti.rowCount()):
             if self.sti.item(i, 0).checkState() == 2:
                 checkeditems.append([
+                                    "",
                                     self.sti.item(i, 0).text(),
                                     self.sti.item(i, 1).text()
                                     ])

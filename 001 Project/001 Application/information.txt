@@ -1,11 +1,18 @@
+
+TreeView
+13) dodać usuwanie elementow >> sa przenoszone spowrotem na listę
+14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki
+
+
 11) Puste chyba nie mogą być puste bo się nie pojawiaja
 10) zabezpieczyć się przed dodaniem nie inta lub flota do bazy dla zdefiniowanej kolumny
 9) Zastanowic sie czy da sie zautomatyzowac dodawanie wierszy do bazy podczas zapisu formularza
 8) Dadoc wszystkie kolumny z pliku do katalogu
 7) jak nie zawijac tekstu w akrkusza
-7a) Jak dopasowac wielkosc kolumn do wielkosci szerokosci tekstu
 7b) Jak zmienic kolor na niebieski
 
+7a) Jak dopasowac wielkosc kolumn do wielkosci szerokosci tekstu
+12) dodac checkbox dla dzieci
 6) Poprawic wczytywanie danych w filechoser po ponownym otwarciu
 1) przesyłamy do klasy main scieżki do pliku excela
 2) możemy zrobić odzielną klasę do machowania plików (w trakcie)
