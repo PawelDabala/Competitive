@@ -131,6 +131,7 @@ remove all checked items
 def deleteItem3():
     root = tw.invisibleRootItem()
     child_count = root.childCount()
+    root.co
     transfer = []
     for i in reversed(range(child_count)):
         item = root.child(i)

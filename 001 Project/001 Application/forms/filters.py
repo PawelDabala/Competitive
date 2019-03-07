@@ -95,6 +95,43 @@ class FiltersForm(QDialog):
                 item.setCheckState(0, Qt.CheckState.Checked)
         self.tw.blockSignals(False)
 
+    def delete_tree_items(self):
+        root = self.tw.invisibleRootItem()
+        child_count = root.childCount()
+        transfers = []
+
+        #delete main node
+        for i in reversed(range(child_count)):
+            item = root.child(i)
+            if item.checkState(0) == Qt.CheckState.Checked:
+                children = item.takeChildren()
+                for child in children:
+                    temchild = []
+                    for colnr in range(root.columnCount())[1:]:
+                        temchild.append(child.text(colnr))
+                    transfers.append(temchild)
+                root.removeChild(item)
+
+            #delete childe node
+            if item is not None:
+                child_count = item.ChildCount()
+                for j in reversed(range(child_count)):
+                    itemch = item.child(j)
+                    if itemch.checkState(1) == Qt.CheckState.Checked:
+                        temchild = []
+                        for colnr in range(root.columnCount())[1:]:
+                            temchild.append(itemch.text(colnr))
+                        transfers.append(temchild)
+                        item.removeChild(itemch)
+
+        print(transfers)
+        return transfers
+
+
+
+
+
+
     def get_checked_item(self):
         """
         :return: return checked item in tree view
