@@ -149,13 +149,26 @@ class FiltersForm(QDialog):
         childlist = self.getCheckedItemsTable()
         item = self.get_checked_item()
 
-        #add value to list
-        for ch in childlist:
-            newitem = QTreeWidgetItem(item, ch)
-            newitem.setCheckState(1, Qt.CheckState.Unchecked)
+        if item is None:
+            QMessageBox.critical(self, 'Uwaga!!!',
+                                 "Elementy nie zostały przeniesione\nZaznacz kategorie po prawej stronie.",
+                                 QMessageBox.Ok)
+        else:
+            #add value to list
+            for ch in childlist:
+                newitem = QTreeWidgetItem(item, ch)
+                newitem.setCheckState(1, Qt.CheckState.Unchecked)
 
-        self.removeCheckedItemsTable()
+            self.removeCheckedItemsTable()
 
+    # def is_root_node_checked(self):
+    #     root = self.tw.invisibleRootItem()
+    #     child_count = root.childCount()
+    #     for i in range(child_count):
+    #         item = root.child(i)
+    #         if item.checkState(0) == Qt.CheckState.Checked:
+    #             return True
+    #     return False
     """
     
     table view functions
