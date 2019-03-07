@@ -38,6 +38,7 @@ class FiltersForm(QDialog):
         self.ui.pushButtonaddnew.clicked.connect(self.add_new_parent_node)
         self.tw.itemChanged.connect(self.uncheck_others_items_tree)
         self.ui.pushButtonadddata.clicked.connect(self.add_children)
+        self.ui.pushButtonremovenodes.clicked.connect(self.delete_tree_items)
 
     """
     
@@ -96,6 +97,10 @@ class FiltersForm(QDialog):
         self.tw.blockSignals(False)
 
     def delete_tree_items(self):
+        """
+        delete checked items from tree
+        :return:
+        """
         root = self.tw.invisibleRootItem()
         child_count = root.childCount()
         transfers = []
@@ -107,30 +112,25 @@ class FiltersForm(QDialog):
                 children = item.takeChildren()
                 for child in children:
                     temchild = []
-                    for colnr in range(root.columnCount())[1:]:
+                    for colnr in range(self.tw.columnCount())[1:]:
                         temchild.append(child.text(colnr))
                     transfers.append(temchild)
                 root.removeChild(item)
 
             #delete childe node
             if item is not None:
-                child_count = item.ChildCount()
+                child_count = item.childCount()
                 for j in reversed(range(child_count)):
                     itemch = item.child(j)
                     if itemch.checkState(1) == Qt.CheckState.Checked:
                         temchild = []
-                        for colnr in range(root.columnCount())[1:]:
+                        for colnr in range(self.tw.columnCount())[1:]:
                             temchild.append(itemch.text(colnr))
                         transfers.append(temchild)
                         item.removeChild(itemch)
 
         print(transfers)
         return transfers
-
-
-
-
-
 
     def get_checked_item(self):
         """
