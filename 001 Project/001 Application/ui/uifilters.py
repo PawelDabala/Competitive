@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'filters.ui',
 # licensing of 'filters.ui' applies.
 #
-# Created: Mon Mar  4 12:59:05 2019
+# Created: Thu Mar  7 14:10:02 2019
 #      by: pyside2-uic  running on PySide2 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,9 +42,18 @@ class Ui_Dialog(object):
         self.pushButtonrun = QtWidgets.QPushButton(Dialog)
         self.pushButtonrun.setGeometry(QtCore.QRect(1230, 700, 75, 23))
         self.pushButtonrun.setObjectName("pushButtonrun")
-        self.checkBoxnotassigne = QtWidgets.QCheckBox(Dialog)
-        self.checkBoxnotassigne.setGeometry(QtCore.QRect(330, 700, 91, 17))
+        self.horizontalLayoutWidget_2 = QtWidgets.QWidget(Dialog)
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(330, 700, 211, 21))
+        self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.checkBoxnotassigne = QtWidgets.QCheckBox(self.horizontalLayoutWidget_2)
         self.checkBoxnotassigne.setObjectName("checkBoxnotassigne")
+        self.horizontalLayout_2.addWidget(self.checkBoxnotassigne)
+        self.checkBoxCheckAll = QtWidgets.QCheckBox(self.horizontalLayoutWidget_2)
+        self.checkBoxCheckAll.setObjectName("checkBoxCheckAll")
+        self.horizontalLayout_2.addWidget(self.checkBoxCheckAll)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -56,4 +65,5 @@ class Ui_Dialog(object):
         self.pushButtonremovenodes.setText(QtWidgets.QApplication.translate("Dialog", "Usuń", None, -1))
         self.pushButtonrun.setText(QtWidgets.QApplication.translate("Dialog", "Urchom", None, -1))
         self.checkBoxnotassigne.setText(QtWidgets.QApplication.translate("Dialog", "nie przypisane", None, -1))
+        self.checkBoxCheckAll.setText(QtWidgets.QApplication.translate("Dialog", "zaznacz wszystkie", None, -1))
 

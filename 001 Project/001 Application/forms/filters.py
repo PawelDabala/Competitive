@@ -39,6 +39,8 @@ class FiltersForm(QDialog):
         self.tw.itemChanged.connect(self.uncheck_others_items_tree)
         self.ui.pushButtonadddata.clicked.connect(self.add_children)
         self.ui.pushButtonremovenodes.clicked.connect(self.delete_tree_items)
+        self.ui.checkBoxCheckAll.stateChanged.connect(lambda: self.select_deselect_rows(
+            self.ui.checkBoxCheckAll))
 
     """
     
@@ -161,14 +163,7 @@ class FiltersForm(QDialog):
 
             self.removeCheckedItemsTable()
 
-    # def is_root_node_checked(self):
-    #     root = self.tw.invisibleRootItem()
-    #     child_count = root.childCount()
-    #     for i in range(child_count):
-    #         item = root.child(i)
-    #         if item.checkState(0) == Qt.CheckState.Checked:
-    #             return True
-    #     return False
+
     """
     
     table view functions
@@ -245,6 +240,22 @@ class FiltersForm(QDialog):
                     if col == 0:
                         item.setCheckable(True)
                     self.sti.setItem(rowcount, col, item)
+
+    def select_deselect_rows(self, chcontrol):
+        """
+        check or unchecked checbox in table
+        :param chcontrol:
+        :return:
+        """
+        for rnr in range(self.sti.rowCount()):
+            if chcontrol.isChecked():
+                # self.sti.item(rnr, 0).setCheckState(True)
+                item = self.sti.item(rnr, 0)
+                item.setCheckState(Qt.CheckState.Checked)
+            else:
+                item = self.sti.item(rnr, 0)
+                item.setCheckState(Qt.CheckState.Unchecked)
+
 
 
 if __name__=='__main__':

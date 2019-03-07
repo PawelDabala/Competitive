@@ -27,6 +27,7 @@ bt = QPushButton("Press me")
 bt2 = QPushButton("Show checked")
 btremove = QPushButton('Remove')
 btgoall = QPushButton('Goforall')
+checkcontrol = QCheckBox("check me")
 
 
 def test(item, column):
@@ -169,16 +170,25 @@ def goforall():
         tw.removeItemWidget(item, 0)
         iterator += 1
 
+def check_stauts(chcon):
+
+    if chcon.isChecked():
+        print("is check")
+    else:
+        print("is not check")
+
 bt.clicked.connect(get_selected)
 bt2.clicked.connect(show_checked)
 btremove.clicked.connect(deleteItem3)
 btgoall.clicked.connect(goforall)
+checkcontrol.stateChanged.connect(lambda: check_stauts(checkcontrol))
 
 layout.addWidget(tw)
 layout.addWidget(bt)
 layout.addWidget(bt2)
 layout.addWidget(btremove)
 layout.addWidget(btgoall)
+layout.addWidget(checkcontrol)
 
 window.show()
 
