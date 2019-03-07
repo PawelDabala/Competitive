@@ -116,7 +116,6 @@ class FiltersForm(QDialog):
                         temchild.append(child.text(colnr))
                     transfers.append(temchild)
                 root.removeChild(item)
-
             #delete childe node
             if item is not None:
                 child_count = item.childCount()
@@ -129,8 +128,7 @@ class FiltersForm(QDialog):
                         transfers.append(temchild)
                         item.removeChild(itemch)
 
-        print(transfers)
-        return transfers
+        self.add_rowto_table(transfers)
 
     def get_checked_item(self):
         """
@@ -155,6 +153,7 @@ class FiltersForm(QDialog):
         for ch in childlist:
             newitem = QTreeWidgetItem(item, ch)
             newitem.setCheckState(1, Qt.CheckState.Unchecked)
+
         self.removeCheckedItemsTable()
 
     """
@@ -202,6 +201,37 @@ class FiltersForm(QDialog):
         for i in reversed(range(self.sti.rowCount())):
             if self.sti.item(i, 0).checkState() == 2:
                 self.sti.removeRow(i)
+
+    def get_all_data_table(self):
+        """
+        get all rows from table
+        :return: list of rows
+        """
+        rows = []
+        for row in range(self.sti.rowCount()):
+            cols = []
+            for col in range(self.sti.columnCount()):
+                cols.append(self.sti.item(row, col).text())
+            rows.append(cols)
+        return rows
+
+    def add_rowto_table(self, newrows):
+        """
+        add row form filter to table if not
+        allready exist in table
+        :return:
+        """
+        tabledata = self.get_all_data_table()
+
+        for nr, row in enumerate(newrows):
+            if row not in tabledata:
+                rowcount = self.sti.rowCount()
+                self.sti.setRowCount(rowcount)
+                for col in range(len(row)):
+                    item = QStandardItem(str(newrows[nr][col]))
+                    if col == 0:
+                        item.setCheckable(True)
+                    self.sti.setItem(rowcount, col, item)
 
 
 if __name__=='__main__':
