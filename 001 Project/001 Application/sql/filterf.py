@@ -14,6 +14,7 @@ class FilterF(Base):
     columns = Column(ARRAY(Integer, dimensions=1))
 
     competitives_ = relationship('Competitive', secondary='compative_filterf', back_populates='filters_')
+    categorys = relationship('Category', back_populates='filter_')
 
     def __init__(self, name, column_nr, columns):
         self.name = name

@@ -3,6 +3,7 @@ from competitive import Competitive
 from data import Data
 from filterf import FilterF
 from compatitive_filter import CompativeFilterf
+from category import Category
 
 def generete_database_schema():
     Base.metadata.drop_all(engine)
