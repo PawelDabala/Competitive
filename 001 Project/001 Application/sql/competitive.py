@@ -11,7 +11,8 @@ class Competitive(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
 
-    
+    filters = relationship('Filterf', secondary='compative_filterf', back_populates='competitives')
+
     def __init__(self, name):
         self.name = name
         
