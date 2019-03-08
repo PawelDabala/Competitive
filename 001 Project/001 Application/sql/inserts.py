@@ -75,8 +75,26 @@ def c_filters():
     # c.filters_.append(f2)
     print(c.filters_)
 
+def add_category():
+    cat1 = Category("TVN", ('TVN Style', 'TVN 24'))
+    cat2 = Category('TVP', ('TVP 1', 'TVP 2'))
+    session.add(cat1)
+    session.add(cat2)
+
+def join_filter_category():
+    f1 = session.query(FilterF).get(3)
+    print(f1)
+    cat1 = session.query(Category).get(1)
+    cat2 = session.query(Category).get(2)
+
+    f1.categorys.append(cat1)
+    f1.categorys.append(cat2)
+
+    print(f1.categorys)
+
+
 if __name__=="__main__":
-    # generete_database_schema()
+    #generete_database_schema()
     # add_competitive()
     #add_new_competiv_and_data()
     #delete_competititve()
@@ -84,7 +102,9 @@ if __name__=="__main__":
     # read_competive()
     #test_pobierz()
     # dalate_in_data()
-    #add_filter()
-    c_filters()
+    # add_filter()
+    #c_filters()
+    #add_category()
+    join_filter_category()
     commit_()
     #columns_names()
