@@ -13,7 +13,7 @@ class FilterF(Base):
     # list with column used in filter
     columns = Column(ARRAY(Integer, dimensions=1))
 
-    competitives = relationship('Competitive', secondary='compative_filterf', back_populates='filters')
+    competitives_ = relationship('Competitive', secondary='compative_filterf', back_populates='filters_')
 
     def __init__(self, name, column_nr, columns):
         self.name = name

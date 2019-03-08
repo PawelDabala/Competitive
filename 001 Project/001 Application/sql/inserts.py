@@ -1,6 +1,8 @@
 from base import Session, engine, Base
 from competitive import Competitive
 from data import Data
+from filterf import FilterF
+from compatitive_filter import CompativeFilterf
 
 def generete_database_schema():
     Base.metadata.drop_all(engine)
@@ -57,10 +59,23 @@ def columns_names():
     q = session.query(Data)
     print(q.column_descriptions)
 
+def add_filter():
+    f1 = FilterF('Channel', 3, (1,2))
+    f2 = FilterF('Channel2', 6, (4,5))
+    session.add(f1)
+    session.add(f2)
 
+def c_filters():
+    c = session.query(Competitive).get(1)
+    # print(c)
+    # f1 = session.query(FilterF).get(1)
+    # f2 = session.query(FilterF).get(2)
+    # c.filters_.append(f1)
+    # c.filters_.append(f2)
+    print(c.filters_)
 
 if __name__=="__main__":
-    generete_database_schema()
+    # generete_database_schema()
     # add_competitive()
     #add_new_competiv_and_data()
     #delete_competititve()
@@ -68,5 +83,7 @@ if __name__=="__main__":
     # read_competive()
     #test_pobierz()
     # dalate_in_data()
+    #add_filter()
+    c_filters()
     commit_()
     #columns_names()

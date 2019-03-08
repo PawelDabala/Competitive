@@ -3,15 +3,13 @@ from base import Base
 from sqlalchemy.orm import relationship, backref
 
 
-
-
 class Competitive(Base):
     __tablename__ = 'competitives'
     
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
 
-    filters = relationship('Filterf', secondary='compative_filterf', back_populates='competitives')
+    filters_ = relationship('FilterF', secondary='compative_filterf', back_populates='competitives_')
 
     def __init__(self, name):
         self.name = name
