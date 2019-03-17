@@ -94,6 +94,11 @@ def join_filter_category():
 
     print(f1.categorys)
 
+def filter_channelgroup():
+    fil = FilterF("channelgroup", 31, (0,17))
+    session.add(fil)
+
+
 def check_er_all():
     rezults = session.query(func.count(Competitive.id))
     print(rezults)
@@ -111,6 +116,8 @@ if __name__=="__main__":
     #c_filters()
     #add_category()
     # join_filter_category()
-    # commit_()
+
     #columns_names()
-    check_er_all()
+    # check_er_all()
+    filter_channelgroup()
+    commit_()
