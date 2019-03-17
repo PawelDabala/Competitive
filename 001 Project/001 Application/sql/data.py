@@ -76,7 +76,9 @@ class Data(Base):
                  pt_off,
                  trp,
                  trp30,
-                 spcount
+                 spcount,
+                 channel_group,
+                 channel_type,
                  ):
 
         self.year = year
@@ -110,6 +112,8 @@ class Data(Base):
         self.trp = trp
         self.trp30 = trp30
         self.spcount = spcount
+        self.channel_group = channel_group
+        self.channel_type = channel_type
 
     # def __repr__(self):
     #     return f'{self.year}, {self.month}, {self.producer}'

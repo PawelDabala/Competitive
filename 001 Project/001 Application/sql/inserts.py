@@ -5,6 +5,8 @@ from filterf import FilterF
 from compatitive_filter import CompativeFilterf
 from category import Category
 
+from sqlalchemy import func
+
 def generete_database_schema():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
@@ -92,9 +94,12 @@ def join_filter_category():
 
     print(f1.categorys)
 
+def check_er_all():
+    rezults = session.query(func.count(Competitive.id))
+    print(rezults)
 
 if __name__=="__main__":
-    #generete_database_schema()
+    # generete_database_schema()
     # add_competitive()
     #add_new_competiv_and_data()
     #delete_competititve()
@@ -105,6 +110,7 @@ if __name__=="__main__":
     # add_filter()
     #c_filters()
     #add_category()
-    join_filter_category()
-    commit_()
+    # join_filter_category()
+    # commit_()
     #columns_names()
+    check_er_all()
