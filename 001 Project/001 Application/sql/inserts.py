@@ -99,6 +99,8 @@ def filter_channelgroup():
     session.add(fil)
 
 
+
+
 def check_er_all():
     rezults = session.query(func.count(Competitive.id))
     print(rezults)
