@@ -236,15 +236,7 @@ class MainWindow(QMainWindow):
         # but.clicked.connect(self.TestBut)
 
     def showfilterforms(self, i):
-        print(f"index clicked is {i}")
-        columns = []
-        filtername = ''
-        headersname = []
         session = Session()
-        # if i == 31:
-        #         #     columns = self.prapercolumns(0, 17)
-        #         #     filtername = "channelgroup"
-        #         #     headersname = [self.headers[i] for i in (0, 17)]
         filter_ = session.query(FilterF).filter_by(column_nr=i).one_or_none()
         if filter_ is not None:
             columns = self.prapercolumns(filter_.columns)
