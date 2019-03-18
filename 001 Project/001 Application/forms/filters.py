@@ -47,6 +47,11 @@ class FiltersForm(QDialog):
         self.ui.checkBoxCheckAll.stateChanged.connect(lambda: self.select_deselect_rows(
             self.ui.checkBoxCheckAll))
 
+        """
+        function
+        """
+        self.get_data_from_database()
+
     """
     
     tree functions
@@ -207,6 +212,22 @@ class FiltersForm(QDialog):
 
         session.commit()
         session.close()
+
+    def get_data_from_database(self):
+        """
+        get all categorys for filter and send to show in treewidget
+        """
+
+        session = Session()
+        categorys = session.query(Category).filter_by(filter_id=self.filter_id).all()
+        for category in categorys:
+            head = QTreeWidgetItem(self.tw, [category.name])
+            head.setCheckState(0, Qt.CheckState.Unchecked)
+            for item in category.items:
+                newch = QTreeWidgetItem(head, item)
+                newch.setCheckState(1, Qt.CheckState.Unchecked)
+
+
 
     """
     
