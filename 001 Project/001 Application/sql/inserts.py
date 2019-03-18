@@ -94,7 +94,7 @@ def join_filter_category():
 
     print(f1.categorys)
 
-def filter_channelgroup():
+def add_filter():
     fil = FilterF("channelgroup", 31, (0,17))
     session.add(fil)
 
@@ -103,20 +103,6 @@ def check_er_all():
     print(rezults)
 
 if __name__=="__main__":
-    # generete_database_schema()
-    # add_competitive()
-    #add_new_competiv_and_data()
-    #delete_competititve()
-
-    # read_competive()
-    #test_pobierz()
-    # dalate_in_data()
-    # add_filter()
-    #c_filters()
-    #add_category()
-    # join_filter_category()
-
-    #columns_names()
-    # check_er_all()
-    filter_channelgroup()
+    generete_database_schema()
+    add_filter()
     commit_()

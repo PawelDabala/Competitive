@@ -7,13 +7,13 @@ class Category(Base):
     __tablename__ = 'category'
 
     id = Column(Integer, primary_key=True)
-    filter_id = Column(Integer, ForeignKey('filters.id'))
+    filter_id = Column(Integer, ForeignKey('filters.id', ondelete='CASCADE'))
     #name for invidual category
     name = Column(String, unique=True)
     #list with category used in list
     items = Column(ARRAY(String, dimensions=1))
 
-    filter_ = relationship("FilterF", back_populates='categorys')
+    filter_ = relationship("FilterF", cascade="all, delete", back_populates='categorys')
 
     def __init__(self, name, items):
         self.name = name

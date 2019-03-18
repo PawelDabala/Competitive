@@ -262,8 +262,6 @@ class MainWindow(QMainWindow):
         return list(set(zip(*mainlist)))
 
 
-
-
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)

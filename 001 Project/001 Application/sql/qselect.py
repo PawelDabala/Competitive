@@ -8,4 +8,35 @@ from category import Category
 session = Session()
 
 # print(session.query(Competitive).all())
-print(session.query(FilterF).filter_by(column_nr=31).one_or_none())
+# print(session.query(FilterF).filter_by(column_nr=31).one_or_none())
+# c1 = Category('C1', [])
+# c2 = Category('C2', [])
+# c3 = Category('C3', [])
+#
+# session.add(c1)
+# session.add(c2)
+# session.add(c3)
+#
+# session.commit()
+
+c1 = session.query(Category).get(4)
+c2 = session.query(Category).get(5)
+c3 = session.query(Category).get(6)
+#
+# f = FilterF('Filter1', 1, [1, 2])
+# f.categorys.extend((c1, c2, c3))
+# session.commit()
+
+# session.query(FilterF).filter_by(id=2).delete()
+# session.commit()
+#
+# f1 = session.query(FilterF).filter_by(id=3).one()
+# f1.categorys.extend((c1, c2, c3))
+# session.commit()
+
+#JAK USUNAC ELEMENTY W TABLICY
+delete_q = Category.__table__.delete().where(Category.filter_id == 3)
+session.execute(delete_q)
+session.commit()
+
+
