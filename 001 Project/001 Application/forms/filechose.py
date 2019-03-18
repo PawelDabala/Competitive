@@ -10,7 +10,13 @@ from uifilechose import Ui_Dialog
 
 from sql.base import Session
 from sql.competitive import Competitive
+from sql.data import Data
+from sql.filterf import FilterF
+from sql.compatitive_filter import CompativeFilterf
+from sql.category import Category
+
 from sqlalchemy import exc
+
 
 class FileChoser(QDialog):
     def __init__(self, parent=None):

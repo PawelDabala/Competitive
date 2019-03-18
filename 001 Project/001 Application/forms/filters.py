@@ -6,7 +6,7 @@ from PySide2.QtGui import QStandardItemModel, QStandardItem
 
 
 class FiltersForm(QDialog):
-    def __init__(self, row_nr, filtername, columns, headersname, parent=None):
+    def __init__(self, filter_, columns, headersname, parent=None):
         super(FiltersForm, self).__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)

@@ -7,6 +7,7 @@ from filechose import FileChoser
 from excel import Excel
 from sql.data import Data
 from sql.competitive import Competitive
+from sql.filterf import FilterF
 from sql.base import Session
 from forms.filters import FiltersForm
 
@@ -235,27 +236,22 @@ class MainWindow(QMainWindow):
         # but.clicked.connect(self.TestBut)
 
     def showfilterforms(self, i):
-        print(f"index clicked is {i}")
-        columns = []
-        filtername = ''
-        headersname = []
-        if i == 31:
-            columns = self.prapercolumns(0, 17)
-            filtername = "channelgroup"
-            headersname = [self.headers[i] for i in (0, 17)]
-
-        if len(filtername) > 0:
-            self.filter = FiltersForm(i, filtername, columns, headersname, self)
+        session = Session()
+        filter_ = session.query(FilterF).filter_by(column_nr=i).one_or_none()
+        if filter_ is not None:
+            columns = self.prapercolumns(filter_.columns)
+            headersname = [self.headers[i] for i in filter_.columns]
+            self.filter = FiltersForm(filter_, columns, headersname, self)
             self.filter.show()
 
-    def prapercolumns(self, *args):
+    def prapercolumns(self, columns):
         """
         get unic data from sending columns
         :param args:
         :return:
         """
         mainlist = []
-        for col in args:
+        for col in columns:
             collist = []
             for row in range(self.sti.rowCount()):
                 if row == 0:
