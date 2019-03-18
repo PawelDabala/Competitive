@@ -60,10 +60,13 @@ class FiltersForm(QDialog):
                 newnod = QTreeWidgetItem(self.tw, [value])
                 newnod.setCheckState(0, Qt.CheckState.Unchecked)
                 self.ui.lineEditaddnew.setText("")
+                # save to database
+                self.save_data_from_tree()
             else:
                 QMessageBox.critical(self, 'Uwaga!!!',
                      "Podana nazwa już istnieje.",
                      QMessageBox.Ok)
+
 
     def isunique(self, name):
         """
@@ -136,6 +139,9 @@ class FiltersForm(QDialog):
                         item.removeChild(itemch)
 
         self.add_rowto_table(transfers)
+
+        # save to database
+        self.save_data_from_tree()
 
     def get_checked_item(self):
         """
