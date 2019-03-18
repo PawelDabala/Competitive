@@ -91,7 +91,7 @@ def join_filter_category():
     f1.categorys.append(cat2)
 
     print(f1.categorys)
-
+j
 
 if __name__=="__main__":
     #generete_database_schema()
