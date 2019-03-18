@@ -177,17 +177,42 @@ def go_trouch_all_items():
     iterator = QTreeWidgetItemIterator(tw)
     while iterator.value():
         item = iterator.value()
+        parent_name = ''
+        old_parent = ''
+        all_child = []
+
         if item.parent() is None:
-            print(f'added new category {item.text(0)}')
+            #print(f'added new category {item.text(0)}')
+            parent_name = item.text(0)
         if item.parent() is not None:
-            parentchild = [item.text(i) for i in range(tw.columnCount())[1:]]
-            # for i in range(tw.columnCount())[1:]:
-            #     parentchild.append(item.text(i))
-            print(parentchild)
+            if item.parent().text(0) == parent_name:
+                parentchild = [item.text(i) for i in range(tw.columnCount())[1:]]
+                all_child.append(parentchild)
+
+
         iterator += 1
 
-#
 
+def go_trouch_all_items2():
+    root = tw.invisibleRootItem()
+    child_count = root.childCount()
+    parent_name = ''
+    all_childs = []
+
+    for i in range(child_count):
+        item = root.child(i)
+        if item.parent() is None:
+            parent_name = item.text(0)
+
+            item_child_count = item.childCount()
+            for j in range(item_child_count):
+                childs = (item.child(j).text(1), item.child(j).text(2))
+                print(type(childs))
+                all_childs.append(childs)
+                print(type(all_childs))
+
+            print(parent_name)
+            print(all_childs)
 
 def check_stauts(chcon):
 
@@ -201,7 +226,7 @@ bt2.clicked.connect(show_checked)
 btremove.clicked.connect(deleteItem3)
 btgoall.clicked.connect(goforall)
 checkcontrol.stateChanged.connect(lambda: check_stauts(checkcontrol))
-gotrouchall.clicked.connect(go_trouch_all_items)
+gotrouchall.clicked.connect(go_trouch_all_items2)
 
 layout.addWidget(tw)
 layout.addWidget(bt)

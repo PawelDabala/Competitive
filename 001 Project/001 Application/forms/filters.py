@@ -4,13 +4,18 @@ from PySide2.QtCore import Qt
 from uifilters import Ui_Dialog
 from PySide2.QtGui import QStandardItemModel, QStandardItem
 
+from sql.filterf import FilterF
+from sql.base import Session
+from sql.category import Category
+
 
 class FiltersForm(QDialog):
-    def __init__(self, filter_, columns, headersname, parent=None):
+    def __init__(self, filter_id, columns, headersname, parent=None):
         super(FiltersForm, self).__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
+        self.filter_id = filter_id
 
         #table
         self.table = self.ui.tableViewcolumns
@@ -163,6 +168,39 @@ class FiltersForm(QDialog):
 
             self.removeCheckedItemsTable()
 
+        #save to database
+        self.save_data_from_tree()
+
+    def save_data_from_tree(self):
+        """
+        1) delete in data base all categorys for filter
+        2) save all catecorys and under categroy to database
+        """
+
+        #delete all categorys
+        session = Session()
+        filter_ = session.query(FilterF).get(self.filter_id)
+        delete_q = Category.__table__.delete().where(Category.filter_id == filter_.id)
+        session.execute(delete_q)
+        session.commit()
+
+        root = self.tw.invisibleRootItem()
+        child_count = root.childCount()
+
+        for i in range(child_count):
+            item = root.child(i)
+            if item.parent() is None:
+                parent_name = item.text(0)
+                all_childs = []
+                for j in range(item.childCount()):
+                    childs = [item.child(j).text(i) for i in range(self.tw.columnCount())[1:]]
+                    all_childs.append(childs)
+
+                new_category = Category(parent_name, all_childs)
+                filter_.categorys.append(new_category)
+
+        session.commit()
+        session.close()
 
     """
     

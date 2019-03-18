@@ -241,7 +241,7 @@ class MainWindow(QMainWindow):
         if filter_ is not None:
             columns = self.prapercolumns(filter_.columns)
             headersname = [self.headers[i] for i in filter_.columns]
-            self.filter = FiltersForm(filter_, columns, headersname, self)
+            self.filter = FiltersForm(filter_.id, columns, headersname, self)
             self.filter.show()
 
     def prapercolumns(self, columns):
