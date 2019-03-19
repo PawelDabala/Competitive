@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
         session.query(Data).filter_by(competitive_id=comat.id).delete()
 
         #read data from row and save to data base
-        for row in range(self.sti.rowCount())[1:]:
+        for row in range(self.sti.rowCount()):
             datas = []
             for col in range(self.sti.columnCount()):
                 if col in (0, 1, 2, 20, 24, 30):
@@ -187,7 +187,7 @@ class MainWindow(QMainWindow):
         """
         # without this section data in column one don't show
         self.sti.setRowCount(0)
-        self.sti.setRowCount(2)
+        self.sti.setRowCount(1)
 
         font = QFont()
         font.setPointSize(8)
@@ -243,6 +243,8 @@ class MainWindow(QMainWindow):
             headersname = [self.headers[i] for i in filter_.columns]
             self.filter = FiltersForm(filter_.id, columns, headersname, self)
             self.filter.show()
+
+        session.close()
 
     def prapercolumns(self, columns):
         """
