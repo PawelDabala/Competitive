@@ -29,6 +29,7 @@ btremove = QPushButton('Remove')
 btgoall = QPushButton('Goforall')
 checkcontrol = QCheckBox("check me")
 gotrouchall = QPushButton('GoTrouhAll')
+getallchildren = QPushButton('GetAllChildren')
 
 
 def test(item, column):
@@ -221,12 +222,28 @@ def check_stauts(chcon):
     else:
         print("is not check")
 
+
+def get_all_children():
+    iterator = QTreeWidgetItemIterator(tw)
+    all_child = []
+    while iterator.value():
+        item = iterator.value()
+        if item.parent() is not None:
+                parentchild = [item.text(i) for i in range(tw.columnCount())[1:]]
+                all_child.append(parentchild)
+
+        iterator += 1
+    print(all_child)
+
+
+
 bt.clicked.connect(get_selected)
 bt2.clicked.connect(show_checked)
 btremove.clicked.connect(deleteItem3)
 btgoall.clicked.connect(goforall)
 checkcontrol.stateChanged.connect(lambda: check_stauts(checkcontrol))
 gotrouchall.clicked.connect(go_trouch_all_items2)
+getallchildren.clicked.connect(get_all_children)
 
 layout.addWidget(tw)
 layout.addWidget(bt)
@@ -235,6 +252,7 @@ layout.addWidget(btremove)
 layout.addWidget(btgoall)
 layout.addWidget(checkcontrol)
 layout.addWidget(gotrouchall)
+layout.addWidget(getallchildren)
 
 window.show()
 

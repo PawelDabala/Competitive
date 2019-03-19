@@ -227,6 +227,21 @@ class FiltersForm(QDialog):
                 newch = QTreeWidgetItem(head, [''] + item)
                 newch.setCheckState(1, Qt.CheckState.Unchecked)
 
+    def get_all_tree_children(self):
+        """
+        get all children from tree widget
+        :return: tuple all chldren
+        """
+        iterator = QTreeWidgetItemIterator(self.tw)
+        all_child = []
+        while iterator.value():
+            item = iterator.value()
+            if item.parent() is not None:
+                parentchild = [item.text(i) for i in range(self.tw.columnCount())[1:]]
+                all_child.append(parentchild)
+
+            iterator += 1
+        return all_child
 
 
     """
