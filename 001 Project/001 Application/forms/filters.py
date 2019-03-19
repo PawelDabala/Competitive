@@ -224,7 +224,7 @@ class FiltersForm(QDialog):
             head = QTreeWidgetItem(self.tw, [category.name])
             head.setCheckState(0, Qt.CheckState.Unchecked)
             for item in category.items:
-                newch = QTreeWidgetItem(head, item)
+                newch = QTreeWidgetItem(head, [''] + item)
                 newch.setCheckState(1, Qt.CheckState.Unchecked)
 
 
