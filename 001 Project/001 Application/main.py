@@ -261,6 +261,33 @@ class MainWindow(QMainWindow):
 
         return list(set(zip(*mainlist)))
 
+    def assign_value_for_filter(self, filter_id):
+        session = Session()
+        filter_ = session.query(FilterF).get(filter_id)
+        rows = []
+        for row in range(self.sti.rowCount()):
+            row_value = [self.sti.item(row, col).text() for col in filter_.columns]
+            rows.append(row_value)
+
+        read_rows = self.make_filter_list(filter_id, rows)
+
+        for newrow in read_rows:
+            self.sti.item(newrow, filter_.column_nr).setText(newrow)
+
+    @staticmethod
+    def make_filter_list(filter_id, rows):
+        session = Session()
+        filter_ = session.query(FilterF).get(filter_id)
+
+        ready_valus = []
+        for row in rows:
+            for category in filter_.categorys:
+                if row in category.items:
+                    ready_valus.append(category.name)
+
+        session.close()
+        return ready_valus
+
 
 if __name__ == '__main__':
     import sys

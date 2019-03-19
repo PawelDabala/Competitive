@@ -17,6 +17,7 @@ class FiltersForm(QDialog):
         self.setWindowModality(Qt.ApplicationModal)
         self.filter_id = filter_id
         self.columns = columns
+        self.main_form = parent
 
         #table
         self.table = self.ui.tableViewcolumns
@@ -47,7 +48,7 @@ class FiltersForm(QDialog):
         self.ui.pushButtonremovenodes.clicked.connect(self.delete_tree_items)
         self.ui.checkBoxCheckAll.stateChanged.connect(lambda: self.select_deselect_rows(self.ui.checkBoxCheckAll))
         self.ui.checkBoxnotassigne.stateChanged.connect(lambda: self.show_not_assigned_rows(self.ui.checkBoxnotassigne))
-
+        self.ui.pushButtonrun.clicked.connect(self.make_assigned)
         """
         function
         """
@@ -373,7 +374,6 @@ class FiltersForm(QDialog):
         """
 
         if chcontrol.isChecked():
-            print('I m checked')
             self.removeAllItemsTable()
             treeitems = self.get_all_tree_children()
             columns = self.columns
@@ -390,6 +390,15 @@ class FiltersForm(QDialog):
 
         else:
             self.setrowdata(self.columns)
+
+    """
+    
+    Form "filters" function
+    
+    """
+    def make_assigned(self):
+        print("make_assigned")
+        self.main_form.assign_value_for_filter(self.filter_id)
 
 
 if __name__ == '__main__':

@@ -35,8 +35,15 @@ c3 = session.query(Category).get(6)
 # session.commit()
 
 #JAK USUNAC ELEMENTY W TABLICY
-delete_q = Category.__table__.delete().where(Category.filter_id == 3)
-session.execute(delete_q)
-session.commit()
+# delete_q = Category.__table__.delete().where(Category.filter_id == 3)
+# session.execute(delete_q)
+# session.commit()
+
+# session = Session()
+filter_ = session.query(FilterF).get(1)
+# print(filter_.categorys)
+for cat in filter_.categorys:
+    print(cat.name)
+    print(cat.items)
 
 
