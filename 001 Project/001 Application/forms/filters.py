@@ -16,6 +16,7 @@ class FiltersForm(QDialog):
         self.ui.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
         self.filter_id = filter_id
+        self.columns = columns
 
         #table
         self.table = self.ui.tableViewcolumns
@@ -44,8 +45,8 @@ class FiltersForm(QDialog):
         self.tw.itemChanged.connect(self.uncheck_others_items_tree)
         self.ui.pushButtonadddata.clicked.connect(self.add_children)
         self.ui.pushButtonremovenodes.clicked.connect(self.delete_tree_items)
-        self.ui.checkBoxCheckAll.stateChanged.connect(lambda: self.select_deselect_rows(
-            self.ui.checkBoxCheckAll))
+        self.ui.checkBoxCheckAll.stateChanged.connect(lambda: self.select_deselect_rows(self.ui.checkBoxCheckAll))
+        self.ui.checkBoxnotassigne.stateChanged.connect(lambda: self.show_not_assigned_rows(self.ui.checkBoxnotassigne))
 
         """
         function
@@ -350,16 +351,48 @@ class FiltersForm(QDialog):
         """
         for rnr in range(self.sti.rowCount()):
             if chcontrol.isChecked():
-                # self.sti.item(rnr, 0).setCheckState(True)
                 item = self.sti.item(rnr, 0)
                 item.setCheckState(Qt.CheckState.Checked)
             else:
                 item = self.sti.item(rnr, 0)
                 item.setCheckState(Qt.CheckState.Unchecked)
 
+    def removeAllItemsTable(self):
+        """
+        remove all rows from list table
+        :return:
+        """
+        for i in reversed(range(self.sti.rowCount())):
+                self.sti.removeRow(i)
+
+    def show_not_assigned_rows(self, chcontrol):
+        """
+        if checbox is check, show in table only rows not exist in tree
+        :param chcontrol: status of checkbox control
+        :return:
+        """
+
+        if chcontrol.isChecked():
+            print('I m checked')
+            self.removeAllItemsTable()
+            treeitems = self.get_all_tree_children()
+            columns = self.columns
+
+            treeitems = list(list(b.strip().lower() for b in a) for a in treeitems)
+            columns = list(list(b.strip().lower() for b in a) for a in columns)
+
+            notassigned = []
+            for nr, row in enumerate(columns):
+                if row not in treeitems:
+                    notassigned.append(self.columns[nr])
+
+            self.add_rowto_table(notassigned)
+
+        else:
+            self.setrowdata(self.columns)
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     w = FiltersForm()
     w.show()
