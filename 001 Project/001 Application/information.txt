@@ -1,5 +1,6 @@
 
 TreeView
+17)  def getCheckedItemsTable(self): DO poprawy kolumny nie moga byc na sztywno
 16) dodać funkcje wczytującą wszytkie categorie przy inicie filechose
 
 

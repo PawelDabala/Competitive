@@ -166,12 +166,16 @@ class FiltersForm(QDialog):
         """
         childlist = self.getCheckedItemsTable()
         item = self.get_checked_item()
+        #treechilds = self.get_all_tree_children()
 
         if item is None:
             QMessageBox.critical(self, 'Uwaga!!!',
                                  "Elementy nie zostały przeniesione\nZaznacz kategorie po prawej stronie.",
                                  QMessageBox.Ok)
         else:
+            #remove exist childs from tree
+            self.remove_child_if_exist_in_tree(childlist)
+
             #add value to list
             for ch in childlist:
                 newitem = QTreeWidgetItem(item, ch)
@@ -243,6 +247,25 @@ class FiltersForm(QDialog):
             iterator += 1
         return all_child
 
+    def remove_child_if_exist_in_tree(self, exists_childs):
+        """
+        remove item from tree widget if is in exists_childs list
+        :param exists_childs:
+        :return:
+        """
+        exists_childs = list(list(b.strip().lower() for b in a) for a in exists_childs)
+        iterator = QTreeWidgetItemIterator(self.tw)
+
+        while iterator.value():
+            item = iterator.value()
+            if item.parent() is not None:
+                parentchild = [item.text(i) for i in range(self.tw.columnCount())[1:]]
+                parentchild = list(a.strip().lower() for a in parentchild)
+                parentchild = ['']+parentchild
+                if parentchild in exists_childs:
+                    item.parent().removeChild(item)
+                    continue
+            iterator += 1
 
     """
     
@@ -268,9 +291,7 @@ class FiltersForm(QDialog):
         return table with checked items
         :return:
         """
-        """
-        DO POPRAWY, colmulmny nie moga byc na sztywno !!!!!!!!
-        """
+        #FIXME colmulmny nie moga byc na sztywno
         checkeditems = []
         for i in range(self.sti.rowCount()):
             if self.sti.item(i, 0).checkState() == 2:

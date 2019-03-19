@@ -30,6 +30,7 @@ btgoall = QPushButton('Goforall')
 checkcontrol = QCheckBox("check me")
 gotrouchall = QPushButton('GoTrouhAll')
 getallchildren = QPushButton('GetAllChildren')
+removeexistchildren = QPushButton('RemoveExistChildren')
 
 
 def test(item, column):
@@ -234,6 +235,23 @@ def get_all_children():
 
         iterator += 1
     print(all_child)
+# FIXME: Once file is out of scope
+def remove_child_if_exist():
+    exists_childs = [[' chil 3 ', 'Jonn']]
+    exists_childs = list(list(b.strip().lower() for b in a) for a in exists_childs)
+    #exists_childs = list(list(b.lower() for b in a) for a in exists_childs)
+    iterator = QTreeWidgetItemIterator(tw)
+
+    while iterator.value():
+        item = iterator.value()
+        if item.parent() is not None:
+            parentchild = [item.text(i) for i in range(tw.columnCount())[1:]]
+            parentchild = list(a.strip().lower() for a in parentchild)
+            if parentchild in exists_childs:
+                item.parent().removeChild(item)
+
+        iterator += 1
+
 
 
 
@@ -244,6 +262,7 @@ btgoall.clicked.connect(goforall)
 checkcontrol.stateChanged.connect(lambda: check_stauts(checkcontrol))
 gotrouchall.clicked.connect(go_trouch_all_items2)
 getallchildren.clicked.connect(get_all_children)
+removeexistchildren.clicked.connect(remove_child_if_exist)
 
 layout.addWidget(tw)
 layout.addWidget(bt)
@@ -253,6 +272,7 @@ layout.addWidget(btgoall)
 layout.addWidget(checkcontrol)
 layout.addWidget(gotrouchall)
 layout.addWidget(getallchildren)
+layout.addWidget(removeexistchildren)
 
 window.show()
 
