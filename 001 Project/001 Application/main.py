@@ -31,39 +31,39 @@ class MainWindow(QMainWindow):
         self.table.verticalHeader().setDefaultSectionSize(10)
         self.table.horizontalHeader().setDefaultSectionSize(200)
         self.headers = ['Year',
-            'Month',
-            'Week',
-            'Sector',
-            'Category',
-            'Sub Category',
-            'Produkt(4)',
-            'Branża(I)',
-            'Kategoria(II)',
-            'Dział(III)',
-            'Producer',
-            'Brand',
-            'Sub Brand',
-            'Film Code',
-            'Film Code 2',
-            'Media',
-            'Glowne Medium',
-            'Medium',
-            'Wydawca Nadawca',
-            'Periodyczność',
-            'Duration',
-            'Typ reklamy',
-            'Forma Reklamy',
-            'Typ Strony',
-            'L.emisji',
-            'Sum.Str',
-            'Cost',
-            'PT/OFF',
-            'TRP',
-            'TRP30',
-            'Count',
-            'Channel group',
-            'Channel type'
-                   ]
+                        'Month',
+                        'Week',
+                        'Sector',
+                        'Category',
+                        'Sub Category',
+                        'Produkt(4)',
+                        'Branża(I)',
+                        'Kategoria(II)',
+                        'Dział(III)',
+                        'Producer',
+                        'Brand',
+                        'Sub Brand',
+                        'Film Code',
+                        'Film Code 2',
+                        'Media',
+                        'Glowne Medium',
+                        'Medium',
+                        'Wydawca Nadawca',
+                        'Periodyczność',
+                        'Duration',
+                        'Typ reklamy',
+                        'Forma Reklamy',
+                        'Typ Strony',
+                        'L.emisji',
+                        'Sum.Str',
+                        'Cost',
+                        'PT/OFF',
+                        'TRP',
+                        'TRP30',
+                        'Count',
+                        'Channel group',
+                        'Channel type'
+                        ]
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
         #self.table.setSortingEnabled(True)
@@ -73,7 +73,6 @@ class MainWindow(QMainWindow):
         self.createActions()
         self.createMenus()
         self.createStatusBar()
-
         self.readSettings()
 
     def closeEvent(self, event):
@@ -275,13 +274,13 @@ class MainWindow(QMainWindow):
         col_nr = filter_.column_nr
         self.sti.takeColumn(col_nr)
         self.sti.insertColumn(col_nr, read_rows)
+        self.sti.setHorizontalHeaderLabels(self.headers)
         # #FIXME: it work but very slow
         # for nr, newrow in enumerate(read_rows):
         #     item = QStandardItem(str(newrow))
         #     print(nr, item.text())
         #     self.sti.setItem(nr, col_nr, item)
         #     # self.sti.item(newrow, filter_.column_nr).setText(newrow)
-
         session.close()
         QMessageBox.information(self, "Informacja", "Operacja zakończona.")
 
@@ -296,7 +295,6 @@ class MainWindow(QMainWindow):
             for category in filter_.categorys:
                 if row in category.items:
                     item = QStandardItem(str(category.name))
-                    #ready_valus.append(category.name)
                     ready_valus.append(item)
                     flag = True
             if flag is False:
