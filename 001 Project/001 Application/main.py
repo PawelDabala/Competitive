@@ -263,6 +263,12 @@ class MainWindow(QMainWindow):
         return list(set(zip(*mainlist)))
 
     def assign_value_for_filter(self, filter_id):
+        """
+        preper list with value from main filter, send to make_filter_list.
+        Replace column for filter_id with column with assigned data
+        :param filter_id:
+        :return:
+        """
         session = Session()
         filter_ = session.query(FilterF).get(filter_id)
         rows = []
@@ -275,25 +281,27 @@ class MainWindow(QMainWindow):
         self.sti.takeColumn(col_nr)
         self.sti.insertColumn(col_nr, read_rows)
         self.sti.setHorizontalHeaderLabels(self.headers)
-        # #FIXME: it work but very slow
-        # for nr, newrow in enumerate(read_rows):
-        #     item = QStandardItem(str(newrow))
-        #     print(nr, item.text())
-        #     self.sti.setItem(nr, col_nr, item)
-        #     # self.sti.item(newrow, filter_.column_nr).setText(newrow)
         session.close()
         QMessageBox.information(self, "Informacja", "Operacja zakończona.")
 
     @staticmethod
     def make_filter_list(filter_id, rows):
+        """
+        make list with assigned value
+        :param filter_id:
+        :param rows:
+        :return:
+        """
         session = Session()
         filter_ = session.query(FilterF).get(filter_id)
 
         ready_valus = []
         for row in rows:
             flag =False
+            row = [i.strip().lower() for i in row]
             for category in filter_.categorys:
-                if row in category.items:
+                items = [[b.strip().lower() for b in a] for a in category.items]
+                if row in items:
                     item = QStandardItem(str(category.name))
                     ready_valus.append(item)
                     flag = True
