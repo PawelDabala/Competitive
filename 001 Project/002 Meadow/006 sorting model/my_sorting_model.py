@@ -8,8 +8,8 @@ class Window(QtWidgets.QWidget):
         self.proxyModel = QtCore.QSortFilterProxyModel()
         self.proxyModel.setDynamicSortFilter(True)
 
-        self.sourceGroupBox = QtWidgets.QGroupBox("Original Model")
-        self.proxyGroupBox = QtWidgets.QGroupBox("Sorted/Filtered Model")
+        self.surceGroupBox = QtWidgets.QGroupBox("Orgnal Model")
+        self.proxyGroupBox = QtWidgets.QGroupBox("Sorted/Fltere Model")
 
         self.sourceView = QtWidgets.QTreeView()
         self.sourceView.setRootIsDecorated(False)
@@ -18,33 +18,32 @@ class Window(QtWidgets.QWidget):
         self.proxyView = QtWidgets.QTreeView()
         self.proxyView.setRootIsDecorated(False)
         self.proxyView.setAlternatingRowColors(True)
+        #coment: do modelu wstawiony proxy model (QSortFilterProxyModel)
         self.proxyView.setModel(self.proxyModel)
         self.proxyView.setSortingEnabled(True)
 
         self.sortCaseSensitivityCheckBox = QtWidgets.QCheckBox("Case sensitive sorting")
-        self.filterCaseSensitivityCheckBox = QtWidgets.QCheckBox("Case sensitive filter")
+        self.filterCaseSensitivityCheckBox = QtWidgets.QCheckBox("Case sesitive filter")
 
         self.filterPatternLineEdit = QtWidgets.QLineEdit()
         self.filterPatternLabel = QtWidgets.QLabel("&Filter pattern:")
-        self.filterPatternLabel.setBuddy(self.filterPatternLineEdit)
+        self.filterPatternLabel.setBuddy(self.filterPatternLabel)
 
         self.filterSyntaxComboBox = QtWidgets.QComboBox()
-        self.filterSyntaxComboBox.addItem("Regular expression",
-                QtCore.QRegExp.RegExp)
-        self.filterSyntaxComboBox.addItem("Wildcard",
-                QtCore.QRegExp.Wildcard)
-        self.filterSyntaxComboBox.addItem("Fixed string",
-                QtCore.QRegExp.FixedString)
+        #coment: przeczytać o QRegExp
+        self.filterSyntaxComboBox.addItem("Regular expression", QtCore.QRegExp.RegExp)
+        self.filterSyntaxComboBox.addItem("Wildcard", QtCore.QRegExp.Wildcard)
+        self.filterSyntaxComboBox.addItem("Fixed string", QtCore.QRegExp.FixedString)
         self.filterSyntaxLabel = QtWidgets.QLabel("Filter &syntax:")
-        self.filterSyntaxLabel.setBuddy(self.filterSyntaxComboBox)
+        self.filterPatternLabel.setBuddy(self.filterSyntaxComboBox)
 
         self.filterColumnComboBox = QtWidgets.QComboBox()
         self.filterColumnComboBox.addItem("Subject")
         self.filterColumnComboBox.addItem("Sender")
-        self.filterColumnComboBox.addItem("Date")
+        self.filterColumnComboBox.addItem("Data")
         self.filterColumnLabel = QtWidgets.QLabel("Filter &column:")
         self.filterColumnLabel.setBuddy(self.filterColumnComboBox)
-        #coment: od tad contynuacja
+
         self.filterPatternLineEdit.textChanged.connect(self.filterRegExpChanged)
         self.filterSyntaxComboBox.currentIndexChanged.connect(self.filterRegExpChanged)
         self.filterColumnComboBox.currentIndexChanged.connect(self.filterColumnChanged)
@@ -53,12 +52,12 @@ class Window(QtWidgets.QWidget):
 
         sourceLayout = QtWidgets.QHBoxLayout()
         sourceLayout.addWidget(self.sourceView)
-        self.sourceGroupBox.setLayout(sourceLayout)
+        self.surceGroupBox.setLayout(sourceLayout)
 
         proxyLayout = QtWidgets.QGridLayout()
         proxyLayout.addWidget(self.proxyView, 0, 0, 1, 3)
         proxyLayout.addWidget(self.filterPatternLabel, 1, 0)
-        proxyLayout.addWidget(self.filterPatternLineEdit, 1, 1, 1, 2)
+        proxyLayout.addWidget(self.filterPatternLineEdit,1, 1, 1, 2)
         proxyLayout.addWidget(self.filterSyntaxLabel, 2, 0)
         proxyLayout.addWidget(self.filterSyntaxComboBox, 2, 1, 1, 2)
         proxyLayout.addWidget(self.filterColumnLabel, 3, 0)
@@ -68,17 +67,17 @@ class Window(QtWidgets.QWidget):
         self.proxyGroupBox.setLayout(proxyLayout)
 
         mainLayout = QtWidgets.QVBoxLayout()
-        mainLayout.addWidget(self.sourceGroupBox)
+        mainLayout.addWidget(self.surceGroupBox)
         mainLayout.addWidget(self.proxyGroupBox)
         self.setLayout(mainLayout)
 
-        self.setWindowTitle("Basic Sort/Filter Model")
+        self.setWindowTitle('Basic Sort/Filter Model')
         self.resize(500, 450)
 
         self.proxyView.sortByColumn(1, QtCore.Qt.AscendingOrder)
         self.filterColumnComboBox.setCurrentIndex(1)
 
-        self.filterPatternLineEdit.setText("Andy|Grace")
+        self.filterPatternLineEdit.setText("Adndy|Grace")
         self.filterCaseSensitivityCheckBox.setChecked(True)
         self.sortCaseSensitivityCheckBox.setChecked(True)
 
@@ -95,8 +94,7 @@ class Window(QtWidgets.QWidget):
         else:
             caseSensitivity = QtCore.Qt.CaseInsensitive
 
-        regExp = QtCore.QRegExp(self.filterPatternLineEdit.text(),
-                caseSensitivity, syntax)
+        regExp = QtCore.QRegExp(self.filterPatternLineEdit.text(), caseSensitivity, syntax)
         self.proxyModel.setFilterRegExp(regExp)
 
     def filterColumnChanged(self):
@@ -113,7 +111,7 @@ class Window(QtWidgets.QWidget):
 
 def addMail(model, subject, sender, date):
     model.insertRow(0)
-    model.setData(model.index(0, 0), subject)
+    model.setData(model.index(0,0), subject)
     model.setData(model.index(0, 1), sender)
     model.setData(model.index(0, 2), date)
 
@@ -149,7 +147,7 @@ def createMailModel(parent):
     return model
 
 
-if __name__ == '__main__':
+if __name__=='__main__':
 
     import sys
 
@@ -158,3 +156,31 @@ if __name__ == '__main__':
     window.setSourceModel(createMailModel(window))
     window.show()
     sys.exit(app.exec_())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+
+    import sys
+
+    app = QtWidgets.QApplication(sys.argv)
+    window = Window()
+    #window.setSourceModel(createMailModel(window))
+    window.show()
+    sys.exit(app.exec_())
+
+
+
+
+
