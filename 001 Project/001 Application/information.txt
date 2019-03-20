@@ -1,5 +1,11 @@
 
 TreeView
+20) przypisywanie działa ale bardzo wolno:
+    a) zrobić funkcje która zczytuje wszystkie dane
+    b) kasuje wszystkie wiersze
+    c) podmienia kolumne w danych na kolumne z przypisem
+    e) wczytuje wszystkie dane
+19) dodac kasowanie istniejacego raportu
 18) show unice value in table
 17)  def getCheckedItemsTable(self): DO poprawy kolumny nie moga byc na sztywno
 14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki

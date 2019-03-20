@@ -23,7 +23,6 @@ class FileChoser(QDialog):
         super(FileChoser, self).__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-
         self.main = parent
 
         #buttons

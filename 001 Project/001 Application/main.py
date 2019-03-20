@@ -175,7 +175,7 @@ class MainWindow(QMainWindow):
 
         #wczytanie arkusza z bazy danych
         session = Session()
-        self.compativedata = session.query(Competitive).filter(Competitive.name.ilike(f'{compative_name}%')).scalar()
+        self.compativedata = session.query(Competitive).filter_by(name=compative_name).first()
 
         self.populate_row()
         session.close()
@@ -272,9 +272,18 @@ class MainWindow(QMainWindow):
             rows.append(row_value)
 
         read_rows = self.make_filter_list(filter_id, rows)
+        col_nr = filter_.column_nr
+        self.sti.takeColumn(col_nr)
+        self.sti.insertColumn(col_nr, read_rows)
+        # #FIXME: it work but very slow
+        # for nr, newrow in enumerate(read_rows):
+        #     item = QStandardItem(str(newrow))
+        #     print(nr, item.text())
+        #     self.sti.setItem(nr, col_nr, item)
+        #     # self.sti.item(newrow, filter_.column_nr).setText(newrow)
 
-        for newrow in read_rows:
-            self.sti.item(newrow, filter_.column_nr).setText(newrow)
+        session.close()
+        QMessageBox.information(self, "Informacja", "Operacja zakończona.")
 
     @staticmethod
     def make_filter_list(filter_id, rows):
@@ -283,9 +292,16 @@ class MainWindow(QMainWindow):
 
         ready_valus = []
         for row in rows:
+            flag =False
             for category in filter_.categorys:
                 if row in category.items:
-                    ready_valus.append(category.name)
+                    item = QStandardItem(str(category.name))
+                    #ready_valus.append(category.name)
+                    ready_valus.append(item)
+                    flag = True
+            if flag is False:
+                item = QStandardItem('')
+                ready_valus.append(item)
 
         session.close()
         return ready_valus

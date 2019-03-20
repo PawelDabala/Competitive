@@ -397,7 +397,7 @@ class FiltersForm(QDialog):
     
     """
     def make_assigned(self):
-        print("make_assigned")
+        #self.close()
         self.main_form.assign_value_for_filter(self.filter_id)
 
 

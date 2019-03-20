@@ -40,10 +40,13 @@ c3 = session.query(Category).get(6)
 # session.commit()
 
 # session = Session()
-filter_ = session.query(FilterF).get(1)
-# print(filter_.categorys)
-for cat in filter_.categorys:
-    print(cat.name)
-    print(cat.items)
+# filter_ = session.query(FilterF).get(1)
+# # print(filter_.categorys)
+# for cat in filter_.categorys:
+#     print(cat.name)
+#     print(cat.items)
+compative_name = 'nowy3'
 
-
+# compativedata = session.query(Competitive).filter(Competitive.name.ilike(f'{compative_name}%')).all()
+compativedata = session.query(Competitive).filter_by(name = compative_name).first()
+print(compativedata)
