@@ -45,8 +45,11 @@ class Window(QtWidgets.QWidget):
         self.orginal_list = self.get_all_rows()
 
         # #coment: SIGNALS
-        # self.filterOne.textChanged.connect(self.filterRegExpChanged)
-        # self.filterTwo.textChanged.connect(self.filterRegExpChanged2)
+        self.filterOne.textChanged.connect(self.make_filter)
+        self.filterTwo.textChanged.connect(self.make_filter)
+        self.filterThree.textChanged.connect(self.make_filter)
+        self.filterThree.setClearButtonEnabled(True)
+        self.filterThree.setEnabled(False)
         self.butcheck.clicked.connect(self.make_filter)
 
         sourceLayout = QtWidgets.QVBoxLayout()
@@ -84,8 +87,8 @@ class Window(QtWidgets.QWidget):
         for row in reversed(range(self.sti.rowCount())):
             self.sti.removeRow(row)
 
-        if len(final_list) == 0:
-            final_list = self.orginal_list
+        # if len(final_list) == 0:
+        #     final_list = self.orginal_list
 
         for nr_row, row in enumerate(final_list):
             for nr_col, col in enumerate(row):
