@@ -24,7 +24,7 @@ class FiltersForm(QDialog):
         self.sti = QStandardItemModel()
         self.table.setModel(self.sti)
         self.table.verticalHeader().setDefaultSectionSize(10)
-        self.table.horizontalHeader().setDefaultSectionSize(200)
+        self.table.horizontalHeader().setDefaultSectionSize(172)
         self.table.setSortingEnabled(True)
 
         #treeWidget
