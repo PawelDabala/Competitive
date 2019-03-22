@@ -7,6 +7,9 @@ from PySide2.QtGui import QStandardItemModel, QStandardItem
 from sql.filterf import FilterF
 from sql.base import Session
 from sql.category import Category
+from funclass.filterrows import FilterRows
+
+
 
 
 class FiltersForm(QDialog):
@@ -18,6 +21,17 @@ class FiltersForm(QDialog):
         self.filter_id = filter_id
         self.columns = columns
         self.main_form = parent
+
+        #form
+        self.line_filters = [self.ui.lineEditfilter_1,
+                             self.ui.lineEditfilter_2,
+                             self.ui.lineEditfilter_3,
+                             self.ui.lineEditfilter_4,
+                             self.ui.lineEditfilter_5]
+
+        for line in self.line_filters:
+            line.setClearButtonEnabled(True)
+            line.setEnabled(False)
 
         #table
         self.table = self.ui.tableViewcolumns
@@ -49,10 +63,13 @@ class FiltersForm(QDialog):
         self.ui.checkBoxCheckAll.stateChanged.connect(lambda: self.select_deselect_rows(self.ui.checkBoxCheckAll))
         self.ui.checkBoxnotassigne.stateChanged.connect(lambda: self.show_not_assigned_rows(self.ui.checkBoxnotassigne))
         self.ui.pushButtonrun.clicked.connect(self.make_assigned)
+        self.ui.pushButtonremove_fitlers_text.clicked.connect(self.clear_all_filter_line)
+
         """
         function
         """
         self.get_data_from_database()
+        self.set_filter_line_enable()
 
     """
     
@@ -399,6 +416,22 @@ class FiltersForm(QDialog):
     def make_assigned(self):
         #self.close()
         self.main_form.assign_value_for_filter(self.filter_id)
+
+    def set_filter_line_enable(self):
+        """
+        Make liene_filters eneble for the number of columns
+        :return:
+        """
+        for col_nr in range(self.sti.columnCount()):
+            self.line_filters[col_nr].setEnabled(True)
+
+    def clear_all_filter_line(self):
+        """
+        clear all line_filter
+        :return:
+        """
+        for fil in self.line_filters:
+            fil.setText("")
 
 
 if __name__ == '__main__':
