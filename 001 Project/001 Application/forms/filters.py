@@ -393,10 +393,13 @@ class FiltersForm(QDialog):
         """
 
         if chcontrol.isChecked():
-            self.removeAllItemsTable()
+
             treeitems = self.get_all_tree_children()
             columns = self.columns
-
+            #columns = self.get_all_data_table()
+            #FixMe: tutaj musi pobierac w zależnosci czy filter jest pusty pelna lista
+            #FixMe: gdy zawiera wartosci powinien zwracac przefiltrwana liste
+            self.removeAllItemsTable()
             treeitems = list(list(b.strip().lower() for b in a) for a in treeitems)
             columns = list(list(b.strip().lower() for b in a) for a in columns)
 
@@ -405,8 +408,10 @@ class FiltersForm(QDialog):
                 if row not in treeitems:
                     notassigned.append(self.columns[nr])
 
-            self.add_rowto_table(notassigned)
-
+            if self.is_filter_empty():
+                self.add_rowto_table(notassigned)
+            else:
+                self.make_filter()
         else:
             self.setrowdata(self.columns)
 
@@ -436,12 +441,27 @@ class FiltersForm(QDialog):
 
     def make_filter(self):
 
+        if self.ui.checkBoxnotassigne.checkState() == Qt.CheckState.Checked:
+            rows = self.get_all_data_table() #tutj powinno
+        else:
+            rows = self.start_rows
+
         line_texts = [lin.text() for lin in self.line_filters if lin.isEnabled()]
-        filterrow = FilterRows(self.start_rows, *line_texts)
+        filterrow = FilterRows(rows, *line_texts)
         final_list = filterrow.works_rows()
 
         self.removeAllItemsTable()
         self.add_rowto_table(final_list)
+
+    def is_filter_empty(self):
+        """
+        check if filter line contains anny strings
+        :return:
+        """
+        for lin in self.line_filters:
+            if len(lin.text()) > 0:
+                return False
+        return True
 
 
 if __name__ == '__main__':
