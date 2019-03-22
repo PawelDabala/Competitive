@@ -399,21 +399,27 @@ class FiltersForm(QDialog):
             #columns = self.get_all_data_table()
             #FixMe: tutaj musi pobierac w zależnosci czy filter jest pusty pelna lista
             #FixMe: gdy zawiera wartosci powinien zwracac przefiltrwana liste
-            self.removeAllItemsTable()
-            treeitems = list(list(b.strip().lower() for b in a) for a in treeitems)
-            columns = list(list(b.strip().lower() for b in a) for a in columns)
-
-            notassigned = []
-            for nr, row in enumerate(columns):
-                if row not in treeitems:
-                    notassigned.append(self.columns[nr])
-
+            notassigned = self.set_not_assigned(treeitems, columns)
             if self.is_filter_empty():
                 self.add_rowto_table(notassigned)
             else:
                 self.make_filter()
         else:
             self.setrowdata(self.columns)
+
+    def set_not_assigned(self, treeitems, columns):
+
+        self.removeAllItemsTable()
+        treeitems = list(list(b.strip().lower() for b in a) for a in treeitems)
+        columns = list(list(b.strip().lower() for b in a) for a in columns)
+
+        notassigned = []
+        for nr, row in enumerate(columns):
+            if row not in treeitems:
+                notassigned.append(self.columns[nr])
+
+        return notassigned
+
 
     """
     
@@ -442,9 +448,12 @@ class FiltersForm(QDialog):
     def make_filter(self):
 
         if self.ui.checkBoxnotassigne.checkState() == Qt.CheckState.Checked:
-            rows = self.get_all_data_table() #tutj powinno
+            rows = self.set_not_assigned(self.get_all_tree_children(), self.columns)
         else:
             rows = self.start_rows
+
+        # if len(rows) == 0: #dlaczego rows jest 't'
+        #     rows = self.start_rows
 
         line_texts = [lin.text() for lin in self.line_filters if lin.isEnabled()]
         filterrow = FilterRows(rows, *line_texts)
