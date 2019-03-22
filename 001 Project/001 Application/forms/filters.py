@@ -32,6 +32,7 @@ class FiltersForm(QDialog):
         for line in self.line_filters:
             line.setClearButtonEnabled(True)
             line.setEnabled(False)
+            line.textChanged.connect(self.make_filter)
 
         #table
         self.table = self.ui.tableViewcolumns
@@ -70,6 +71,7 @@ class FiltersForm(QDialog):
         """
         self.get_data_from_database()
         self.set_filter_line_enable()
+        self.start_rows = self.get_all_data_table()
 
     """
     
@@ -414,7 +416,6 @@ class FiltersForm(QDialog):
     
     """
     def make_assigned(self):
-        #self.close()
         self.main_form.assign_value_for_filter(self.filter_id)
 
     def set_filter_line_enable(self):
@@ -432,6 +433,15 @@ class FiltersForm(QDialog):
         """
         for fil in self.line_filters:
             fil.setText("")
+
+    def make_filter(self):
+
+        line_texts = [lin.text() for lin in self.line_filters if lin.isEnabled()]
+        filterrow = FilterRows(self.start_rows, *line_texts)
+        final_list = filterrow.works_rows()
+
+        self.removeAllItemsTable()
+        self.add_rowto_table(final_list)
 
 
 if __name__ == '__main__':

@@ -41,7 +41,7 @@ class Window(QtWidgets.QWidget):
         self.filterLayout.addWidget(self.filterTwo)
         self.filterLayout.addWidget(self.filterThree)
         self.filterLayout.addWidget(self.butcheck)
-
+        #coment: Get all rows from begining
         self.orginal_list = self.get_all_rows()
 
         # #coment: SIGNALS
@@ -72,7 +72,7 @@ class Window(QtWidgets.QWidget):
         return rows
 
     def make_filter(self):
-
+        #deklaracja classy filter
         filterrow = FilterRows(self.orginal_list,
                                self.filterOne.text(),
                                self.filterTwo.text(),
