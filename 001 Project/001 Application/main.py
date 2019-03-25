@@ -1,8 +1,8 @@
 #from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import QPoint, QSize, QSettings, SIGNAL
+from PySide2.QtCore import QPoint, QSize, QSettings, SIGNAL, Qt
 from PySide2.QtWidgets import QTableView, QAction, QApplication, QMainWindow, QMessageBox, \
     QHeaderView
-from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont
+from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont, QBrush, QColor
 from filechose import FileChoser
 from excel import Excel
 from sql.data import Data
@@ -74,6 +74,7 @@ class MainWindow(QMainWindow):
         self.createMenus()
         self.createStatusBar()
         self.readSettings()
+        self.set_color_on_heder()
 
     def closeEvent(self, event):
         self.close()
@@ -311,6 +312,19 @@ class MainWindow(QMainWindow):
 
         session.close()
         return ready_valus
+
+    def set_color_on_heder(self):
+
+        session = Session()
+        filtersf= session.query(FilterF).all()
+
+
+        for filterf in filtersf:
+            print(filterf.column_nr, 'nr kolumny')
+            self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, QBrush(QColor(121, 166, 210)), Qt.BackgroundRole )
+            self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr], Qt.DisplayRole)
+
+        session.close()
 
 
 if __name__ == '__main__':
