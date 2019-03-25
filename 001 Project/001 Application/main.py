@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         self.createMenus()
         self.createStatusBar()
         self.readSettings()
-        self.set_color_on_heder()
+        self.set_color_on_header()
 
     def closeEvent(self, event):
         self.close()
@@ -313,7 +313,7 @@ class MainWindow(QMainWindow):
         session.close()
         return ready_valus
 
-    def set_color_on_heder(self):
+    def set_color_on_header(self):
 
         session = Session()
         filtersf= session.query(FilterF).all()
