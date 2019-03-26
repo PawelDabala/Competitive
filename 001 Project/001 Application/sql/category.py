@@ -12,12 +12,14 @@ class Category(Base):
     name = Column(String, unique=True)
     #list with category used in list
     items = Column(ARRAY(String, dimensions=1))
+    words = Column(ARRAY(String, dimensions=1))
 
     filter_ = relationship("FilterF", cascade="all, delete", back_populates='categorys')
 
-    def __init__(self, name, items):
+    def __init__(self, name, items=[], words=None):
         self.name = name
         self.items = items
+        self.words = words
 
     def __repr__(self):
-        return f'name :{self.name}, items: {self.items}'
+        return f'name :{self.name}, items: {self.items}, words: {self.words}'

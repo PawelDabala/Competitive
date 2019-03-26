@@ -12,14 +12,17 @@ class FilterF(Base):
     column_nr = Column(Integer, unique=True)
     # list with column used in filter
     columns = Column(ARRAY(Integer, dimensions=1))
+    #what type is the filter (manual, auto)
+    type = Column(String)
 
     competitives_ = relationship('Competitive', secondary='compative_filterf', back_populates='filters_')
     categorys = relationship('Category', back_populates='filter_')
 
-    def __init__(self, name, column_nr, columns):
+    def __init__(self, name, column_nr, columns, type):
         self.name = name
         self.column_nr = column_nr
         self.columns = columns
+        self.type = type
 
     def __repr__(self):
-        return f'name :{self.name}, column_nr: {self.column_nr}, columns: {self.columns}'
+        return f'name :{self.name}, column_nr: {self.column_nr}, columns: {self.columns}, type: {self.type}'

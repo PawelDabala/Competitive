@@ -1,6 +1,8 @@
 Pytanie
 1) czy dodawac recznie kategorie
 
+22) przenoszenie raportów do excela
+21) dodac automat do wczytywania filtrów
 19) dodac kasowanie istniejacego raportu
 17)  def getCheckedItemsTable(self): DO poprawy kolumny nie moga byc na sztywno
 14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki

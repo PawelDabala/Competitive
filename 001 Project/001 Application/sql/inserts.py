@@ -95,8 +95,19 @@ def join_filter_category():
     print(f1.categorys)
 
 def add_filter():
-    fil = FilterF("channelgroup", 31, (0,17))
-    session.add(fil)
+
+    """
+    nie kasowac tej funkcji !!!!
+    :return:
+    """
+    channelgroup = FilterF("channelgroup", 31, (0,17), 'manual')
+
+    wyprz = FilterF('wyprz', 33, [13], 'auto')
+    wyprz_cat = Category('wyprz', words=['wyprz'])
+    wyprz.categorys.append(wyprz_cat)
+
+    session.add(channelgroup)
+    session.add(wyprz)
 
 def check_er_all():
     rezults = session.query(func.count(Competitive.id))

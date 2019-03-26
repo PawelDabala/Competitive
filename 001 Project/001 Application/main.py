@@ -62,7 +62,11 @@ class MainWindow(QMainWindow):
                         'TRP30',
                         'Count',
                         'Channel group',
-                        'Channel type'
+                        'Channel type',
+                        'Wyprz',
+                        'Upus',
+                        'Rabat',
+                        'Wyprze Upust Rabat'
                         ]
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
@@ -236,9 +240,14 @@ class MainWindow(QMainWindow):
         # but.clicked.connect(self.TestBut)
 
     def showfilterforms(self, i):
+        """
+        Show filters for collumn nr"
+        :param i:
+        :return:
+        """
         session = Session()
         filter_ = session.query(FilterF).filter_by(column_nr=i).one_or_none()
-        if filter_ is not None:
+        if filter_ is not None and filter_.type == 'manual':
             columns = self.prapercolumns(filter_.columns)
             headersname = [self.headers[i] for i in filter_.columns]
             self.filter = FiltersForm(filter_.id, columns, headersname, self)
@@ -314,16 +323,24 @@ class MainWindow(QMainWindow):
         return ready_valus
 
     def set_color_on_header(self):
+        """
+        changes the color of the header
+        :return:
+        """
 
         session = Session()
         filtersf= session.query(FilterF).all()
 
 
         for filterf in filtersf:
-            print(filterf.column_nr, 'nr kolumny')
-            self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, QBrush(QColor(121, 166, 210)), Qt.BackgroundRole )
-            self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr], Qt.DisplayRole)
-
+            if filterf.type == 'manual':
+                self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, QBrush(QColor(121, 166, 210)), Qt.BackgroundRole )
+                self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr], Qt.DisplayRole)
+            if filterf.type == 'auto':
+                self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, QBrush(QColor(239, 228, 107)),
+                                                 Qt.BackgroundRole)
+                self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr],
+                                                 Qt.DisplayRole)
         session.close()
 
 
