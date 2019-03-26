@@ -40,3 +40,6 @@ Pytanie
 
 IDEA
 # Przekazujemy do naglowka juz wybrane wiersze
+
+JAK laczyc stringi
+tex_2.replace(tex_1,"")
