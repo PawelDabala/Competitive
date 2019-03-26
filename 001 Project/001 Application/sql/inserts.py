@@ -103,7 +103,7 @@ def add_filter():
     channelgroup = FilterF("channelgroup", 31, (0,17), 'manual')
 
     wyprz = FilterF('wyprz', 33, [13], 'auto')
-    wyprz_cat = Category('wyprz', words=['wyprz'])
+    wyprz_cat = Category('wyprz', words=[' wyprz', 'emocjo'])
     wyprz.categorys.append(wyprz_cat)
 
     session.add(channelgroup)

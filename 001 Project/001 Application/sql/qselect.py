@@ -4,6 +4,7 @@ from data import Data
 from filterf import FilterF
 from compatitive_filter import CompativeFilterf
 from category import Category
+from sqlalchemy import and_
 
 session = Session()
 
@@ -45,8 +46,14 @@ c3 = session.query(Category).get(6)
 # for cat in filter_.categorys:
 #     print(cat.name)
 #     print(cat.items)
-compative_name = 'nowy3'
+# compative_name = 'nowy3'
+#
+# # compativedata = session.query(Competitive).filter(Competitive.name.ilike(f'{compative_name}%')).all()
+# compativedata = session.query(Competitive).filter_by(name = compative_name).first()
+# print(compativedata)
 
-# compativedata = session.query(Competitive).filter(Competitive.name.ilike(f'{compative_name}%')).all()
-compativedata = session.query(Competitive).filter_by(name = compative_name).first()
-print(compativedata)
+filters = session.query(FilterF).filter_by(type='auto').all()
+if len(filters) > 0:
+    print(filters)
+
+

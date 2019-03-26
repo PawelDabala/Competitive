@@ -142,6 +142,10 @@ class MainWindow(QMainWindow):
         self.exitAct = QAction("&Zamknij", self, shortcut="Ctrl+Q",
                 statusTip="Zamknij aplikacje", triggered=self.close)
 
+        self.runWordFilter = QAction("&Filtry Automatyczne",
+                                     statusTip="Urchom filtry automatyczne",
+                                     triggered=self.run_filters_words)
+
 
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&Plik")
@@ -149,6 +153,12 @@ class MainWindow(QMainWindow):
         self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
+
+        self.filterMenu = self.menuBar().addMenu("&Filtr")
+        self.filterMenu.addAction(self.runWordFilter)
+
+
+
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
@@ -272,6 +282,13 @@ class MainWindow(QMainWindow):
 
         return list(set(zip(*mainlist)))
 
+
+    """
+    
+    Filters
+    
+    """
+
     def assign_value_for_filter(self, filter_id):
         """
         preper list with value from main filter, send to make_filter_list.
@@ -312,6 +329,7 @@ class MainWindow(QMainWindow):
             for category in filter_.categorys:
                 items = [[b.strip().lower() for b in a] for a in category.items]
                 if row in items:
+                    #make QStandardItem to make column in sti model
                     item = QStandardItem(str(category.name))
                     ready_valus.append(item)
                     flag = True
@@ -321,6 +339,61 @@ class MainWindow(QMainWindow):
 
         session.close()
         return ready_valus
+
+    def run_filters_words(self):
+        session = Session()
+        # get only 'auto' filters
+        filters_ = session.query(FilterF).filter_by(type='auto').all()
+        if len(filters_) > 0:
+            for fil in filters_:
+                rows = self.get_data_from_columns(fil.columns)
+                assignded_column = self.make_words_list(fil.id, rows)
+                col_nr = fil.column_nr
+                self.sti.takeColumn(col_nr)
+                self.sti.insertColumn(col_nr, assignded_column)
+                self.sti.setHorizontalHeaderLabels(self.headers)
+        session.close()
+        QMessageBox.information(self, "Informacja", "Operacja zakończona.")
+
+    def get_data_from_columns(self, columns_nr):
+        """
+        get data for sending columns
+        :param columns_nr:
+        :return: return list of value from table
+        """
+        rows = []
+        for row in range(self.sti.rowCount()):
+            row_value = [self.sti.item(row, col).text() for col in columns_nr]
+            rows.append(row_value)
+        return rows
+
+    @staticmethod
+    def make_words_list(filter_id, rows):
+
+        session = Session()
+        filter_ = session.query(FilterF).get(filter_id)
+
+        ready_valus = []
+        for row in rows:
+            flag = False
+            row = [i.lower() for i in row]
+            row = ' '.join(row)
+            for category in filter_.categorys:
+                words = [b.lower() for b in category.words]
+                for word in words:
+                    if word in row:
+                        item = QStandardItem(str(category.name))
+                        ready_valus.append(item)
+                        flag = True
+                        break
+            if flag is False:
+                item = QStandardItem('')
+                ready_valus.append(item)
+
+        session.close()
+        return ready_valus
+
+
 
     def set_color_on_header(self):
         """
@@ -342,6 +415,7 @@ class MainWindow(QMainWindow):
                 self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr],
                                                  Qt.DisplayRole)
         session.close()
+
 
 
 if __name__ == '__main__':
