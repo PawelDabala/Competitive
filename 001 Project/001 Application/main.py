@@ -142,7 +142,8 @@ class MainWindow(QMainWindow):
         self.exitAct = QAction("&Zamknij", self, shortcut="Ctrl+Q",
                 statusTip="Zamknij aplikacje", triggered=self.close)
 
-        self.runWordFilter = QAction("&Filtry Automatyczne",
+        self.runWordFilter = QAction("Filtry &Automatyczne",
+                                     shortcut="Ctrl+A",
                                      statusTip="Urchom filtry automatyczne",
                                      triggered=self.run_filters_words)
 

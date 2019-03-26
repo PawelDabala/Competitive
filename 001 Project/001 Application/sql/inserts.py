@@ -114,10 +114,15 @@ def add_filter():
     rabat_cat = Category('RABAT', words=['rabat '])
     rabat.categorys.append(rabat_cat)
 
+    wy_up_rab = FilterF('WY_UP_RAB', 36, [33, 34, 35], 'auto')
+    wy_up_rab_cat = Category('WY_UP_RAB', words=['wyprz', 'upus', 'rabat'])
+    wy_up_rab.categorys.append(wy_up_rab_cat)
+
     session.add(channelgroup)
     session.add(wyprz)
     session.add(upus)
     session.add(rabat)
+    session.add(wy_up_rab)
 
 
 def check_er_all():
