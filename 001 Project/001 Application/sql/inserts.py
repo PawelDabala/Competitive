@@ -102,12 +102,23 @@ def add_filter():
     """
     channelgroup = FilterF("channelgroup", 31, (0,17), 'manual')
 
-    wyprz = FilterF('wyprz', 33, [13], 'auto')
-    wyprz_cat = Category('wyprz', words=[' wyprz', 'emocjo'])
+    wyprz = FilterF('WYPRZ', 33, [13], 'auto')
+    wyprz_cat = Category('WYPZ', words=['wyprz'])
     wyprz.categorys.append(wyprz_cat)
+
+    upus = FilterF('UPUS', 34, [13], 'auto')
+    upus_cat = Category('UPUS', words=['upus'])
+    upus.categorys.append(upus_cat)
+
+    rabat = FilterF('RABAT', 35, [13], 'auto')
+    rabat_cat = Category('RABAT', words=['rabat '])
+    rabat.categorys.append(rabat_cat)
 
     session.add(channelgroup)
     session.add(wyprz)
+    session.add(upus)
+    session.add(rabat)
+
 
 def check_er_all():
     rezults = session.query(func.count(Competitive.id))

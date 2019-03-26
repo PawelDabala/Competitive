@@ -157,9 +157,6 @@ class MainWindow(QMainWindow):
         self.filterMenu = self.menuBar().addMenu("&Filtr")
         self.filterMenu.addAction(self.runWordFilter)
 
-
-
-
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
 
@@ -340,7 +337,15 @@ class MainWindow(QMainWindow):
         session.close()
         return ready_valus
 
+    """
+    words
+    """
+
     def run_filters_words(self):
+        """
+        make filters for filter 'auto'.
+        :return:
+        """
         session = Session()
         # get only 'auto' filters
         filters_ = session.query(FilterF).filter_by(type='auto').all()
@@ -352,6 +357,7 @@ class MainWindow(QMainWindow):
                 self.sti.takeColumn(col_nr)
                 self.sti.insertColumn(col_nr, assignded_column)
                 self.sti.setHorizontalHeaderLabels(self.headers)
+                self.set_color_on_header()
         session.close()
         QMessageBox.information(self, "Informacja", "Operacja zakończona.")
 
@@ -369,6 +375,13 @@ class MainWindow(QMainWindow):
 
     @staticmethod
     def make_words_list(filter_id, rows):
+        """
+        make words list for filters,
+        if find word in list assigned name of category
+        :param filter_id:
+        :param rows:
+        :return:
+        """
 
         session = Session()
         filter_ = session.query(FilterF).get(filter_id)
