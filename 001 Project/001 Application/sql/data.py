@@ -41,6 +41,10 @@ class Data(Base):
     spcount = Column(Integer)
     channel_group = Column(String)
     channel_type = Column(String)
+    wyprz = Column(String)
+    upus = Column(String)
+    rabat = Column(String)
+    wyprz_upust_rabat = Column(String)
 
     competitive = relationship('Competitive', cascade="all, delete",
                                backref="datas")
@@ -79,6 +83,11 @@ class Data(Base):
                  spcount,
                  channel_group,
                  channel_type,
+                 wyprz,
+                 upus,
+                 rabat,
+                 wyprz_upust_rabat,
+
                  ):
 
         self.year = year
@@ -114,6 +123,10 @@ class Data(Base):
         self.spcount = spcount
         self.channel_group = channel_group
         self.channel_type = channel_type
+        self.wyprz = wyprz
+        self.upus = upus
+        self.rabat = rabat
+        self.wyprz_upust_rabat = wyprz_upust_rabat
 
     # def __repr__(self):
     #     return f'{self.year}, {self.month}, {self.producer}'
@@ -149,6 +162,12 @@ class Data(Base):
                 self.pt_off,
                 self.trp,
                 self.trp30,
-                self.spcount
+                self.spcount,
+                self.channel_group,
+                self.channel_type,
+                self.wyprz,
+                self.upus,
+                self.rabat,
+                self.wyprz_upust_rabat
                ]
 
