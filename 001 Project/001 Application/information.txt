@@ -1,16 +1,17 @@
+Pytanie
+1) czy dodawac recznie kategorie
 
-TreeView
+19) dodac kasowanie istniejacego raportu
+17)  def getCheckedItemsTable(self): DO poprawy kolumny nie moga byc na sztywno
+14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki
+
+<< ##################################################################### >>
+18) show unice value in table
 20) przypisywanie działa ale bardzo wolno:
     a) zrobić funkcje która zczytuje wszystkie dane
     b) kasuje wszystkie wiersze
     c) podmienia kolumne w danych na kolumne z przypisem
     e) wczytuje wszystkie dane
-19) dodac kasowanie istniejacego raportu
-18) show unice value in table
-17)  def getCheckedItemsTable(self): DO poprawy kolumny nie moga byc na sztywno
-14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki
-
-<< ##################################################################### >>
 16) dodać funkcje wczytującą wszytkie categorie przy inicie filechose
 15) jak powinno działac dodawanie/usuwanie kategori kategori:
         1) najpier wybierz wszystkie kategorie dla danego filtra z bazy
