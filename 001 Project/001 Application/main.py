@@ -66,7 +66,10 @@ class MainWindow(QMainWindow):
                         'Wyprz',
                         'Upus',
                         'Rabat',
-                        'Wyprze Upust Rabat'
+                        'Wyprze Upust Rabat',
+                        'Model',
+                        'Brand final',
+                        'Subbrand (brand+Model)'
                         ]
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
