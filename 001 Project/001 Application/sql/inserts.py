@@ -118,7 +118,7 @@ def add_filter():
     wy_up_rab_cat = Category('WY_UP_RAB', words=['wyprz', 'upus', 'rabat'])
     wy_up_rab.categorys.append(wy_up_rab_cat)
 
-    modelf = FilterF('Model', 37, [11, 12], 'cut') # Brand 'Sub Brand'
+    modelf = FilterF('model', 37, [11, 12], 'cut') # Brand 'Sub Brand'
 
     session.add_all([channelgroup,
                      wyprz,

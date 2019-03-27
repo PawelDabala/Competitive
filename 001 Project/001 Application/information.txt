@@ -1,6 +1,7 @@
 Pytanie
 1) czy dodawac recznie kategorie
 
+TO DO:
 22) przenoszenie raportów do excela
 21) dodac automat do wczytywania filtrów
 19) dodac kasowanie istniejacego raportu

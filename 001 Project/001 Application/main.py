@@ -347,27 +347,29 @@ class MainWindow(QMainWindow):
         return ready_valus
 
     """
-    words
+    filters: words, cut
     """
 
     def run_filters(self):
         """
-        make filters for filter 'words'.
+        make filters
         :return:
         """
         session = Session()
         # filters_ = session.query(FilterF).filter_by(type='words').all()
         filters_ = session.query(FilterF).all()
         for fil in filters_:
+
             if fil.type == 'words':
                 rows = self.get_data_from_columns(fil.columns)
                 assignded_column = self.make_words_list(fil.id, rows)
-                col_nr = fil.column_nr
-                self.replace_column(col_nr, assignded_column)
+                self.replace_column(fil.column_nr, assignded_column)
 
-         # #get only 'cut' filters
-         # filters_cut = session.query(FilterF).filter_by(type='cut').all()
-
+            elif fil.type == 'cut':
+                if fil.name == 'model':
+                    rows = self.get_data_from_columns(fil.columns)
+                    assignded_column = self.filter_cut_model(rows)
+                    self.replace_column(fil.column_nr, assignded_column)
 
 
         session.close()
@@ -417,6 +419,19 @@ class MainWindow(QMainWindow):
 
         session.close()
         return ready_valus
+
+    def filter_cut_model(self, rows):
+        """
+        cut ferst word from string
+        :param rows:
+        :return:
+        """
+        ready_values = []
+        for row in rows:
+            item = QStandardItem((row[1].replace(row[0], '')).strip())
+            ready_values.append(item)
+
+        return ready_values
 
 
 
