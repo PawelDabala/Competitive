@@ -45,6 +45,9 @@ class Data(Base):
     upus = Column(String)
     rabat = Column(String)
     wyprz_upust_rabat = Column(String)
+    model = Column(String)
+    brand_final = Column(String)
+    subbrand_brand_model = Column(String)
 
     competitive = relationship('Competitive', cascade="all, delete",
                                backref="datas")
@@ -87,7 +90,9 @@ class Data(Base):
                  upus,
                  rabat,
                  wyprz_upust_rabat,
-
+                 model,
+                 brnand_final,
+                 subbrand_brand_model
                  ):
 
         self.year = year
@@ -127,10 +132,10 @@ class Data(Base):
         self.upus = upus
         self.rabat = rabat
         self.wyprz_upust_rabat = wyprz_upust_rabat
+        self.model = model
+        self.brand_final = brnand_final
+        self.subbrand_brand_model = subbrand_brand_model
 
-    # def __repr__(self):
-    #     return f'{self.year}, {self.month}, {self.producer}'
-    #
     def values(self):
         return [self.year,
                 self.month,
@@ -168,6 +173,9 @@ class Data(Base):
                 self.wyprz,
                 self.upus,
                 self.rabat,
-                self.wyprz_upust_rabat
+                self.wyprz_upust_rabat,
+                self.model,
+                self.brand_final,
+                self.subbrand_brand_model
                ]
 
