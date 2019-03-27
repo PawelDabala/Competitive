@@ -148,7 +148,7 @@ class MainWindow(QMainWindow):
         self.runWordFilter = QAction("Filtry &Automatyczne",
                                      shortcut="Ctrl+A",
                                      statusTip="Urchom filtry automatyczne",
-                                     triggered=self.run_filters_words)
+                                     triggered=self.run_filters)
 
 
     def createMenus(self):
@@ -243,13 +243,6 @@ class MainWindow(QMainWindow):
         self.sti.removeRow(self.sti.rowCount()-1)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
 
-        """
-        Mozna zrobić tak ale wolał bym w nagłowku
-        """
-        # but = QPushButton("Button")
-        # self.table.setIndexWidget(self.sti.index(0, 3), but)
-        # but.clicked.connect(self.TestBut)
-
     def showfilterforms(self, i):
         """
         Show filters for collumn nr"
@@ -282,6 +275,18 @@ class MainWindow(QMainWindow):
             mainlist.append(collist)
 
         return list(set(zip(*mainlist)))
+
+    def replace_column(self, col_nr, assignded_column):
+        """
+        replace column with new data
+        :param col_nr:
+        :param assignded_column:
+        :return:
+        """
+        self.sti.takeColumn(col_nr)
+        self.sti.insertColumn(col_nr, assignded_column)
+        self.sti.setHorizontalHeaderLabels(self.headers)
+        self.set_color_on_header()
 
 
     """
@@ -345,23 +350,26 @@ class MainWindow(QMainWindow):
     words
     """
 
-    def run_filters_words(self):
+    def run_filters(self):
         """
-        make filters for filter 'auto'.
+        make filters for filter 'words'.
         :return:
         """
         session = Session()
-        # get only 'auto' filters
-        filters_ = session.query(FilterF).filter_by(type='auto').all()
-        if len(filters_) > 0:
-            for fil in filters_:
+        # filters_ = session.query(FilterF).filter_by(type='words').all()
+        filters_ = session.query(FilterF).all()
+        for fil in filters_:
+            if fil.type == 'words':
                 rows = self.get_data_from_columns(fil.columns)
                 assignded_column = self.make_words_list(fil.id, rows)
                 col_nr = fil.column_nr
-                self.sti.takeColumn(col_nr)
-                self.sti.insertColumn(col_nr, assignded_column)
-                self.sti.setHorizontalHeaderLabels(self.headers)
-                self.set_color_on_header()
+                self.replace_column(col_nr, assignded_column)
+
+         # #get only 'cut' filters
+         # filters_cut = session.query(FilterF).filter_by(type='cut').all()
+
+
+
         session.close()
         QMessageBox.information(self, "Informacja", "Operacja zakończona.")
 
@@ -421,13 +429,12 @@ class MainWindow(QMainWindow):
         session = Session()
         filtersf= session.query(FilterF).all()
 
-
         for filterf in filtersf:
             if filterf.type == 'manual':
                 self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, QBrush(QColor(121, 166, 210)), Qt.BackgroundRole )
                 self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr], Qt.DisplayRole)
-            if filterf.type == 'auto':
-                self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, QBrush(QColor(239, 228, 107)),
+            if filterf.type in ('words', 'cut'):
+                self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, QBrush(QColor(212, 214, 219)),
                                                  Qt.BackgroundRole)
                 self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr],
                                                  Qt.DisplayRole)

@@ -102,27 +102,36 @@ def add_filter():
     """
     channelgroup = FilterF("channelgroup", 31, (0,17), 'manual')
 
-    wyprz = FilterF('WYPRZ', 33, [13], 'auto')
+    wyprz = FilterF('WYPRZ', 33, [13], 'words')
     wyprz_cat = Category('WYPZ', words=['wyprz'])
     wyprz.categorys.append(wyprz_cat)
 
-    upus = FilterF('UPUS', 34, [13], 'auto')
+    upus = FilterF('UPUS', 34, [13], 'words')
     upus_cat = Category('UPUS', words=['upus'])
     upus.categorys.append(upus_cat)
 
-    rabat = FilterF('RABAT', 35, [13], 'auto')
+    rabat = FilterF('RABAT', 35, [13], 'words')
     rabat_cat = Category('RABAT', words=['rabat '])
     rabat.categorys.append(rabat_cat)
 
-    wy_up_rab = FilterF('WY_UP_RAB', 36, [33, 34, 35], 'auto')
+    wy_up_rab = FilterF('WY_UP_RAB', 36, [33, 34, 35], 'words')
     wy_up_rab_cat = Category('WY_UP_RAB', words=['wyprz', 'upus', 'rabat'])
     wy_up_rab.categorys.append(wy_up_rab_cat)
 
-    session.add(channelgroup)
-    session.add(wyprz)
-    session.add(upus)
-    session.add(rabat)
-    session.add(wy_up_rab)
+    modelf = FilterF('Model', 37, [11, 12], 'cut') # Brand 'Sub Brand'
+
+    session.add_all([channelgroup,
+                     wyprz,
+                     upus,
+                     rabat,
+                     wy_up_rab,
+                     modelf
+                     ])
+    # session.add(wyprz)
+    # session.add(upus)
+    # session.add(rabat)
+    # session.add(wy_up_rab)
+    # se
 
 
 def check_er_all():

@@ -12,7 +12,7 @@ class FilterF(Base):
     column_nr = Column(Integer, unique=True)
     # list with column used in filter
     columns = Column(ARRAY(Integer, dimensions=1))
-    #what type is the filter (manual, auto)
+    #what type is the filter (manual, words, cut)
     type = Column(String)
 
     competitives_ = relationship('Competitive', secondary='compative_filterf', back_populates='filters_')
