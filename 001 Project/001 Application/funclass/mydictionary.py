@@ -51,17 +51,31 @@ class MakeDictionary:
     @staticmethod
     def make_dictionary(colout):
         fil_dic = {}
-        for nr, value in enumerate(colout[1]):
+        for nr, value in enumerate(colout[0]):
             if value in fil_dic:
                 fil_dic[value].append([colout[0][nr]])
             else:
                 fil_dic[value] = [[colout[0][nr]]]
 
         return fil_dic
+    @staticmethod
+    def make_multi_row_dictionary(colout):
+        fil_dic = {}
+        for nr, value in enumerate(colout[2]):
+            if value in fil_dic:
+                fil_dic[value].append([str(colout[0][nr]), colout[1][nr]])
+            else:
+                fil_dic[value] = [[str(colout[0][nr]), colout[1][nr]]]
+
+        return fil_dic
 
     def set_dictionary(self):
         colout = self.get_data(self.path, self.worksheet_name)
         return self.make_dictionary(colout)
+
+    def set_multi_row_dictionary(self):
+        colout = self.get_data(self.path, self.worksheet_name)
+        return self.make_multi_row_dictionary(colout)
 
 
 # # path = Path(r"C:\001_programy\005_competitive\001 Project\001 Application\sql\slowniki.xlsx")

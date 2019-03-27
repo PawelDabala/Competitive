@@ -81,8 +81,10 @@ def c_filters():
 def add_category():
     cat1 = Category("TVN", ('TVN Style', 'TVN 24'))
     cat2 = Category('TVP', ('TVP 1', 'TVP 2'))
-    session.add(cat1)
-    session.add(cat2)
+    cat3 = Category('Polast Tematyczne', (['2017', 'th Street Universal Hallmark']))
+    # session.add(cat1)
+    # session.add(cat2)
+    session.add(cat3)
 
 def join_filter_category():
     f1 = session.query(FilterF).get(3)
@@ -132,11 +134,13 @@ def add_filter():
 def set_auto_filters():
 
     #Sub Category uspojnienie
-    dic = MakeDictionary("slowniki.xlsx", 'Sub Category uspojnienie').set_dictionary()
-    fil = FilterF('Test', 3, [2,3], 'manual')
+    # dic = MakeDictionary("slowniki.xlsx", 'Sub Category uspojnienie').set_dictionary()
+    # fil = FilterF('Test', 3, [2,3], 'manual')
+    # __set_categorys(dic)
 
+    #sub Stacje
+    dic = MakeDictionary("slowniki.xlsx", 'Stacje').set_multi_row_dictionary()
     __set_categorys(dic)
-
 
 def __set_categorys(dic, fil=None):
 
