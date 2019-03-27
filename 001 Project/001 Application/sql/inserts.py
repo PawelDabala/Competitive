@@ -6,6 +6,7 @@ from compatitive_filter import CompativeFilterf
 from category import Category
 
 from sqlalchemy import func
+from funclass.mydictionary import MakeDictionary
 
 def generete_database_schema():
     Base.metadata.drop_all(engine)
@@ -127,11 +128,25 @@ def add_filter():
                      wy_up_rab,
                      modelf
                      ])
-    # session.add(wyprz)
-    # session.add(upus)
-    # session.add(rabat)
-    # session.add(wy_up_rab)
-    # se
+
+def set_auto_filters():
+
+    #Sub Category uspojnienie
+    dic = MakeDictionary("slowniki.xlsx", 'Sub Category uspojnienie').set_dictionary()
+    fil = FilterF('Test', 3, [2,3], 'manual')
+
+    __set_categorys(dic)
+
+
+def __set_categorys(dic, fil=None):
+
+    for key, value in dic.items():
+        cat = Category(key, items=value)
+        if fil:
+            fil.categorys.append(cat)
+            session.add(fil)
+        else:
+            session.add(cat)
 
 
 def check_er_all():
@@ -139,6 +154,7 @@ def check_er_all():
     print(rezults)
 
 if __name__=="__main__":
-    generete_database_schema()
-    add_filter()
+    # generete_database_schema()
+    # add_filter()
+    set_auto_filters()
     commit_()

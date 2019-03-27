@@ -12,6 +12,7 @@ class Category(Base):
     name = Column(String, unique=True)
     #list with category used in list
     items = Column(ARRAY(String, dimensions=1))
+    #words use when word search is required
     words = Column(ARRAY(String, dimensions=1))
 
     filter_ = relationship("FilterF", cascade="all, delete", back_populates='categorys')
