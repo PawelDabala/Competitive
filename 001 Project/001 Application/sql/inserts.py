@@ -103,7 +103,16 @@ def add_filter():
     nie kasowac tej funkcji !!!!
     :return:
     """
+
+    """
+    manual filters
+    """
     channelgroup = FilterF("channelgroup", 31, (0,17), 'manual')
+    brand_final = FilterF('brand_final', 38, [11], 'manual')
+
+    """
+    words
+    """
 
     wyprz = FilterF('WYPRZ', 33, [13], 'words')
     wyprz_cat = Category('WYPZ', words=['wyprz'])
@@ -121,9 +130,15 @@ def add_filter():
     wy_up_rab_cat = Category('WY_UP_RAB', words=['wyprz', 'upus', 'rabat'])
     wy_up_rab.categorys.append(wy_up_rab_cat)
 
+    """
+    cut filter
+    """
+    # Brand 'Sub Brand' obcina pierwsze słowo z slownika
     modelf = FilterF('model', 37, [11, 12], 'cut') # Brand 'Sub Brand'
 
+
     session.add_all([channelgroup,
+                     brand_final,
                      wyprz,
                      upus,
                      rabat,
@@ -140,9 +155,13 @@ def set_auto_filters():
 
     #sub Stacje
     channelgroup = session.query(FilterF).filter_by(name="channelgroup").one()
-
     dic = MakeDictionary("slowniki.xlsx", 'Stacje').set_multi_row_dictionary()
     __set_categorys(dic, channelgroup)
+
+    #sub Brand_Final
+    brand_final = session.query(FilterF).filter_by(name='brand_final').one()
+    dic = MakeDictionary('slowniki.xlsx', 'brand_uspione').set_dictionary()
+    __set_categorys(dic, brand_final)
 
 
 def __set_categorys(dic, fil=None):

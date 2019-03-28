@@ -316,11 +316,15 @@ class FiltersForm(QDialog):
         checkeditems = []
         for i in range(self.sti.rowCount()):
             if self.sti.item(i, 0).checkState() == 2:
-                checkeditems.append([
-                                    "",
-                                    self.sti.item(i, 0).text(),
-                                    self.sti.item(i, 1).text()
-                                    ])
+                temp_col = [self.sti.item(i, j).text() for j in range(self.sti.columnCount())]
+                checkeditems.append([""]+temp_col)
+                # checkeditems.append([
+                #                     "",
+                #                     self.sti.item(i, 0).text(),
+                #                     self.sti.item(i, 1).text()
+                #                     ])
+
+
         return checkeditems
 
     def removeCheckedItemsTable(self):
