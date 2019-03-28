@@ -44,7 +44,7 @@ class FiltersForm(QDialog):
 
         #treeWidget
         self.tw = self.ui.treeWidgetasignet
-        self.tw.setHeaderLabels(['Name', 'Year', 'Channel'])
+        self.tw.setHeaderLabels(['Name'] + headersname)
         self.tw.setAlternatingRowColors(True)
 
         """
@@ -78,6 +78,7 @@ class FiltersForm(QDialog):
     tree functions
     
     """
+
     def add_new_parent_node(self):
 
         value = self.ui.lineEditaddnew.text()
@@ -318,12 +319,6 @@ class FiltersForm(QDialog):
             if self.sti.item(i, 0).checkState() == 2:
                 temp_col = [self.sti.item(i, j).text() for j in range(self.sti.columnCount())]
                 checkeditems.append([""]+temp_col)
-                # checkeditems.append([
-                #                     "",
-                #                     self.sti.item(i, 0).text(),
-                #                     self.sti.item(i, 1).text()
-                #                     ])
-
 
         return checkeditems
 
