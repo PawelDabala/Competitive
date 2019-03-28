@@ -315,6 +315,7 @@ class MainWindow(QMainWindow):
         self.sti.insertColumn(col_nr, read_rows)
         self.sti.setHorizontalHeaderLabels(self.headers)
         session.close()
+        self.set_color_on_header()
         QMessageBox.information(self, "Informacja", "Operacja zakończona.")
 
     @staticmethod
