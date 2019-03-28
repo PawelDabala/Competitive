@@ -404,14 +404,16 @@ class FiltersForm(QDialog):
         if chcontrol.isChecked():
 
             treeitems = self.get_all_tree_children()
-            columns = self.columns
+            # columns = self.columns # czy tutaj nie powinien korzystac s start_rows
+            columns = self.start_rows
             notassigned = self.set_not_assigned(treeitems, columns)
             if self.is_filter_empty():
                 self.add_rowto_table(notassigned)
             else:
                 self.make_filter()
         else:
-            self.setrowdata(self.columns)
+            # self.setrowdata(self.columns)
+            self.setrowdata(self.start_rows)
 
     def set_not_assigned(self, treeitems, columns):
 
@@ -420,6 +422,7 @@ class FiltersForm(QDialog):
         columns = list(list(b.strip().lower() for b in a) for a in columns)
 
         notassigned = []
+        #fixme: tutaj wywala blad out of range
         for nr, row in enumerate(columns):
             if row not in treeitems:
                 notassigned.append(self.columns[nr])

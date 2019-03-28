@@ -1,10 +1,9 @@
 Pytanie
 1) czy dodawac recznie kategorie
 #TO FIX:
-(to naprawione)
-filters form - przy przeniesieniu z tree view do listy, kiedy wartosci nie było na poczatku,
-znika & nie jest brana pod uwage przy filtrowaniu
+elemement przeniesiony z drzewka znika po nacisnieciu pokaz nie przypisane
 
+n
 
 
 TO DO:
