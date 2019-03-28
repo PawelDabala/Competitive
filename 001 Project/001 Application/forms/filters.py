@@ -166,6 +166,10 @@ class FiltersForm(QDialog):
                         transfers.append(temchild)
                         item.removeChild(itemch)
 
+        #fixme: add rows there are not in start rows:
+        #transfers = list(set(self.start_rows + transfers))
+        self.start_rows += [x for x in transfers if x not in self.start_rows]
+
         self.add_rowto_table(transfers)
 
         # save to database
@@ -189,7 +193,7 @@ class FiltersForm(QDialog):
         """
         childlist = self.getCheckedItemsTable()
         item = self.get_checked_item()
-        #treechilds = self.get_all_tree_children()
+
 
         if item is None:
             QMessageBox.critical(self, 'Uwaga!!!',
@@ -203,6 +207,10 @@ class FiltersForm(QDialog):
             for ch in childlist:
                 newitem = QTreeWidgetItem(item, ch)
                 newitem.setCheckState(1, Qt.CheckState.Unchecked)
+                #remove item from start list
+                ch.pop(0)
+                if ch in self.start_rows:
+                    self.start_rows.remove(ch)
 
             self.removeCheckedItemsTable()
 
@@ -316,7 +324,6 @@ class FiltersForm(QDialog):
         return table with checked items
         :return:
         """
-        #FIXME colmulmny nie moga byc na sztywno
         checkeditems = []
         for i in range(self.sti.rowCount()):
             if self.sti.item(i, 0).checkState() == 2:

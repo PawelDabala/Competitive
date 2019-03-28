@@ -1,5 +1,11 @@
 Pytanie
 1) czy dodawac recznie kategorie
+#TO FIX:
+(to naprawione)
+filters form - przy przeniesieniu z tree view do listy, kiedy wartosci nie było na poczatku,
+znika & nie jest brana pod uwage przy filtrowaniu
+
+
 
 TO DO:
 22) przenoszenie raportów do excela
