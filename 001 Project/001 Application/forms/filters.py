@@ -130,7 +130,8 @@ class FiltersForm(QDialog):
             if item.text(column) != item2.text(0):
                 item2.setCheckState(0, Qt.CheckState.Unchecked)
             else:
-                item.setCheckState(0, Qt.CheckState.Checked)
+                if item.parent() is None:
+                    item.setCheckState(0, Qt.CheckState.Checked)
         self.tw.blockSignals(False)
 
     def delete_tree_items(self):
@@ -246,12 +247,14 @@ class FiltersForm(QDialog):
 
         session = Session()
         categorys = session.query(Category).filter_by(filter_id=self.filter_id).all()
+        self.tw.blockSignals(True)
         for category in categorys:
             head = QTreeWidgetItem(self.tw, [category.name])
             head.setCheckState(0, Qt.CheckState.Unchecked)
             for item in category.items:
                 newch = QTreeWidgetItem(head, [''] + item)
                 newch.setCheckState(1, Qt.CheckState.Unchecked)
+        self.tw.blockSignals(False)
 
     def get_all_tree_children(self):
         """
@@ -395,9 +398,6 @@ class FiltersForm(QDialog):
 
             treeitems = self.get_all_tree_children()
             columns = self.columns
-            #columns = self.get_all_data_table()
-            #FixMe: tutaj musi pobierac w zależnosci czy filter jest pusty pelna lista
-            #FixMe: gdy zawiera wartosci powinien zwracac przefiltrwana liste
             notassigned = self.set_not_assigned(treeitems, columns)
             if self.is_filter_empty():
                 self.add_rowto_table(notassigned)

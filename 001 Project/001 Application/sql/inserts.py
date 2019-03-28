@@ -180,7 +180,7 @@ def check_er_all():
     print(rezults)
 
 if __name__=="__main__":
-    # generete_database_schema()
-    # add_filter()
+    generete_database_schema()
+    add_filter()
     set_auto_filters()
     commit_()
