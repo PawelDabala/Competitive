@@ -139,8 +139,11 @@ def set_auto_filters():
     # __set_categorys(dic)
 
     #sub Stacje
+    channelgroup = session.query(FilterF).filter_by(name="channelgroup").one()
+
     dic = MakeDictionary("slowniki.xlsx", 'Stacje').set_multi_row_dictionary()
-    __set_categorys(dic)
+    __set_categorys(dic, channelgroup)
+
 
 def __set_categorys(dic, fil=None):
 
