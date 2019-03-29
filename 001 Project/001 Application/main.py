@@ -274,8 +274,6 @@ class MainWindow(QMainWindow):
         for col in columns:
             collist = []
             for row in range(self.sti.rowCount()):
-                if row == 0:
-                    continue
                 collist.append(self.sti.item(row, col).text())
             mainlist.append(collist)
 
