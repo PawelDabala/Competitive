@@ -422,7 +422,6 @@ class FiltersForm(QDialog):
         columns = list(list(b.strip().lower() for b in a) for a in columns)
 
         notassigned = []
-        #fixme: tutaj wywala blad out of range
         for nr, row in enumerate(columns):
             if row not in treeitems:
                 notassigned.append(columns[nr])

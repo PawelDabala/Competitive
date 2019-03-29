@@ -391,9 +391,9 @@ class MainWindow(QMainWindow):
             row_value=[]
             for col in columns_nr:
                 if self.sti.item(row, col) is not None:
-                    row_value = self.sti.item(row, col).text()
+                    row_value.append(self.sti.item(row, col).text())
                 else:
-                    row_value = ''
+                    row_value.append('')
             # row_value = [self.sti.item(row, col).text() for col in columns_nr]
             rows.append(row_value)
         return rows
@@ -448,7 +448,7 @@ class MainWindow(QMainWindow):
         """
         join column in list rows
         """
-        temp = [''.join(x) for x in rows]
+        temp = [QStandardItem(' '.join(x)) for x in rows]
         return temp
 
 

@@ -138,7 +138,7 @@ def add_filter():
 
     #Subbrand (brand+model)
     # Useing Model, Brand Final; conectinc word from both cells
-    subbrand_brand_model = FilterF('subbrand_brand_model', 39, [37, 38], 'cut')
+    subbrand_brand_model = FilterF('subbrand_brand_model', 39, [38, 37], 'cut')
 
 
 
