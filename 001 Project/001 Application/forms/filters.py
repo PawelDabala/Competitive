@@ -425,7 +425,7 @@ class FiltersForm(QDialog):
         #fixme: tutaj wywala blad out of range
         for nr, row in enumerate(columns):
             if row not in treeitems:
-                notassigned.append(self.columns[nr])
+                notassigned.append(columns[nr])
 
         return notassigned
 
