@@ -51,7 +51,7 @@ class MakeDictionary:
     @staticmethod
     def make_dictionary(colout):
         fil_dic = {}
-        for nr, value in enumerate(colout[0]):
+        for nr, value in enumerate(colout[1]):
             if value in fil_dic:
                 fil_dic[value].append([colout[0][nr]])
             else:

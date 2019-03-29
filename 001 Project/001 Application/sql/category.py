@@ -9,7 +9,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     filter_id = Column(Integer, ForeignKey('filters.id', ondelete='CASCADE'))
     #name for invidual category
-    name = Column(String, unique=True)
+    name = Column(String)
     #list with category used in list
     items = Column(ARRAY(String, dimensions=1))
     #words use when word search is required

@@ -109,6 +109,11 @@ def add_filter():
     """
     channelgroup = FilterF("channelgroup", 31, (0,17), 'manual')
     brand_final = FilterF('brand_final', 38, [11], 'manual')
+    brand_type = FilterF('brand_type', 40, [38], 'manual')
+    segment_detailed = FilterF('segment_detailed', 41, [39], 'manual')
+    segment = FilterF('segment', 42, [41], 'manual')
+    segment_combined = FilterF('segment_combined', 43, [41], 'manual')
+    campaign_type = FilterF('campaign_type', 44, [13], 'manual')
 
     """
     words
@@ -149,7 +154,12 @@ def add_filter():
                      rabat,
                      wy_up_rab,
                      modelf,
-                     subbrand_brand_model
+                     subbrand_brand_model,
+                     brand_type,
+                     segment_detailed,
+                     segment,
+                     segment_combined,
+                     campaign_type
                      ])
 
 def set_auto_filters():
@@ -168,6 +178,31 @@ def set_auto_filters():
     brand_final = session.query(FilterF).filter_by(name='brand_final').one()
     dic = MakeDictionary('slowniki.xlsx', 'brand_uspione').set_dictionary()
     __set_categorys(dic, brand_final)
+
+    #sub brand type
+    brand_type = session.query(FilterF).filter_by(name='brand_type').one()
+    dic = MakeDictionary('slowniki.xlsx', 'brand_type').set_dictionary()
+    __set_categorys(dic, brand_type)
+
+    #segment detailed
+    segment_detailed = session.query(FilterF).filter_by(name='segment_detailed').one()
+    dic = MakeDictionary('slowniki.xlsx', 'segment_detailed').set_dictionary()
+    __set_categorys(dic, segment_detailed)
+
+    # segment
+    segment = session.query(FilterF).filter_by(name='segment').one()
+    dic = MakeDictionary('slowniki.xlsx', 'segment').set_dictionary()
+    __set_categorys(dic, segment)
+
+    #segment_combined
+    segment_combined = session.query(FilterF).filter_by(name='segment_combined').one()
+    dic = MakeDictionary('slowniki.xlsx', 'segment_combined').set_dictionary()
+    __set_categorys(dic, segment_combined)
+
+    #campaign type
+    campaign_type = session.query(FilterF).filter_by(name='campaign_type').one()
+    dic = MakeDictionary('slowniki.xlsx', 'campaign_type').set_dictionary()
+    __set_categorys(dic, campaign_type)
 
 
 def __set_categorys(dic, fil=None):
