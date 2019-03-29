@@ -69,7 +69,12 @@ class MainWindow(QMainWindow):
                         'Wyprze Upust Rabat',
                         'Model',
                         'Brand final',
-                        'Subbrand (brand+Model)'
+                        'Subbrand (brand+Model)',
+                        'Brand Type',
+                        'Segment_detailed',
+                        'Segment',
+                        'Segment_combined',
+                        'Campaign Type'
                         ]
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))

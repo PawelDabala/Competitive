@@ -48,6 +48,11 @@ class Data(Base):
     model = Column(String)
     brand_final = Column(String)
     subbrand_brand_model = Column(String)
+    brand_type = Column(String)
+    segment_detailed = Column(String)
+    segment = Column(String)
+    segment_combined = Column(String)
+    campaign_type = Column(String)
 
     competitive = relationship('Competitive', cascade="all, delete",
                                backref="datas")
@@ -92,7 +97,12 @@ class Data(Base):
                  wyprz_upust_rabat,
                  model,
                  brnand_final,
-                 subbrand_brand_model
+                 subbrand_brand_model,
+                 brand_type,
+                 segment_detailed,
+                 segment,
+                 segment_combined,
+                 campaign_type
                  ):
 
         self.year = year
@@ -135,6 +145,12 @@ class Data(Base):
         self.model = model
         self.brand_final = brnand_final
         self.subbrand_brand_model = subbrand_brand_model
+        self.brand_type = brand_type
+        self.segment_detailed = segment_detailed
+        self.segment = segment
+        self.segment_combined = segment_combined
+        self.campaign_type = campaign_type
+
 
     def values(self):
         return [self.year,
@@ -176,6 +192,11 @@ class Data(Base):
                 self.wyprz_upust_rabat,
                 self.model,
                 self.brand_final,
-                self.subbrand_brand_model
+                self.subbrand_brand_model,
+                self.brand_type,
+                self.segment_detailed,
+                self.segment,
+                self.segment_combined,
+                self.campaign_type
                ]
 
