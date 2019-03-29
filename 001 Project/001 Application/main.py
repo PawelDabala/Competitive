@@ -372,6 +372,10 @@ class MainWindow(QMainWindow):
                     assignded_column = self.filter_cut_model(rows)
                     self.replace_column(fil.column_nr, assignded_column)
 
+                elif fil.name == 'subbrand_brand_model':
+                    rows = self.get_data_from_columns(fil.columns)
+                    assignded_column = self.join_columns(rows)
+                    self.replace_column(fil.column_nr, assignded_column)
 
         session.close()
         QMessageBox.information(self, "Informacja", "Operacja zakończona.")
@@ -384,7 +388,13 @@ class MainWindow(QMainWindow):
         """
         rows = []
         for row in range(self.sti.rowCount()):
-            row_value = [self.sti.item(row, col).text() for col in columns_nr]
+            row_value=[]
+            for col in columns_nr:
+                if self.sti.item(row, col) is not None:
+                    row_value = self.sti.item(row, col).text()
+                else:
+                    row_value = ''
+            # row_value = [self.sti.item(row, col).text() for col in columns_nr]
             rows.append(row_value)
         return rows
 
@@ -433,6 +443,14 @@ class MainWindow(QMainWindow):
             ready_values.append(item)
 
         return ready_values
+
+    def join_columns(self, rows):
+        """
+        join column in list rows
+        """
+        temp = [''.join(x) for x in rows]
+        return temp
+
 
 
 

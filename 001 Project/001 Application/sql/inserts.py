@@ -136,6 +136,11 @@ def add_filter():
     # Brand 'Sub Brand' obcina pierwsze słowo z slownika
     modelf = FilterF('model', 37, [11, 12], 'cut') # Brand 'Sub Brand'
 
+    #Subbrand (brand+model)
+    # Useing Model, Brand Final; conectinc word from both cells
+    subbrand_brand_model = FilterF('subbrand_brand_model', 39, [37, 38], 'cut')
+
+
 
     session.add_all([channelgroup,
                      brand_final,
@@ -143,7 +148,8 @@ def add_filter():
                      upus,
                      rabat,
                      wy_up_rab,
-                     modelf
+                     modelf,
+                     subbrand_brand_model
                      ])
 
 def set_auto_filters():
