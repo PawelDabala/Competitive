@@ -274,6 +274,7 @@ class MainWindow(QMainWindow):
         for col in columns:
             collist = []
             for row in range(self.sti.rowCount()):
+                #Fixme: NoneType' object has no attribute 'text'
                 collist.append(self.sti.item(row, col).text())
             mainlist.append(collist)
 

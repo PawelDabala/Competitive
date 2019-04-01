@@ -1,9 +1,7 @@
 Pytanie
 1) czy dodawac recznie kategorie
 #TO FIX:
-elemement przeniesiony z drzewka znika po nacisnieciu pokaz nie przypisane
-
-n
+fix
 
 
 TO DO:
