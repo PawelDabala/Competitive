@@ -16,6 +16,7 @@ class FiltersForm(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
+        self.setWindowTitle('Filter')
         self.filter_id = filter_id
         self.columns = columns
         self.main_form = parent
@@ -481,6 +482,7 @@ class FiltersForm(QDialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setStyle('fusion')
     w = FiltersForm()
     w.show()
     sys.exit(app.exec_())

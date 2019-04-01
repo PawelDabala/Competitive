@@ -15,10 +15,13 @@ class ExcelForm(QDialog):
         super(ExcelForm, self).__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.setWindowTitle('Generuj plik Excela')
+        self.setWindowModality(Qt.ApplicationModal)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setStyle('fusion')
     w = ExcelForm()
     w.show()
     sys.exit(app.exec_())

@@ -6,6 +6,8 @@ from PySide2.QtWidgets import (
     QFileDialog,
     QMessageBox
     )
+from PySide2.QtCore import Qt
+
 from uifilechose import Ui_Dialog
 
 from sql.base import Session
@@ -23,6 +25,7 @@ class FileChoser(QDialog):
         super(FileChoser, self).__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.setWindowModality(Qt.ApplicationModal)
         self.main = parent
 
         #buttons
