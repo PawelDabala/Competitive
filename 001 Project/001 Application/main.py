@@ -4,6 +4,7 @@ from PySide2.QtWidgets import QTableView, QAction, QApplication, QMainWindow, QM
     QHeaderView
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont, QBrush, QColor
 from filechose import FileChoser
+from forms.form_excel import ExcelForm
 from excel import Excel
 from sql.data import Data
 from sql.competitive import Competitive
@@ -17,6 +18,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
 
         self.filechoser = FileChoser(self)
+        self.excel_form = ExcelForm(self)
         self.setWindowTitle("VW Competitive")
         self.setWindowIcon(QIcon(':/images/vw.png'))
 
@@ -78,7 +80,7 @@ class MainWindow(QMainWindow):
                         ]
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
-        #self.table.setSortingEnabled(True)
+        self.table.setSortingEnabled(True)
         #self.table.horizontalHeader().connect()
         self.connect(self.table.horizontalHeader(), SIGNAL("sectionClicked(int)"), self.showfilterforms)
 
@@ -155,6 +157,9 @@ class MainWindow(QMainWindow):
                                      statusTip="Urchom filtry automatyczne",
                                      triggered=self.run_filters)
 
+        self.showExcelForm = QAction("Generuj plik excel",
+                                     triggered=self.show_excel_form)
+
 
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&Plik")
@@ -163,8 +168,11 @@ class MainWindow(QMainWindow):
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
 
-        self.filterMenu = self.menuBar().addMenu("&Filtr")
+        self.filterMenu = self.menuBar().addMenu("&Filtry")
         self.filterMenu.addAction(self.runWordFilter)
+
+        self.excelMenu = self.menuBar().addMenu("&Raporty")
+        self.excelMenu.addAction(self.showExcelForm)
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
@@ -263,6 +271,13 @@ class MainWindow(QMainWindow):
             self.filter.show()
 
         session.close()
+
+    def show_excel_form(self):
+        """
+        Shoe excel form
+        :return:
+        """
+        self.excel_form.show()
 
     def prapercolumns(self, columns):
         """
@@ -455,9 +470,6 @@ class MainWindow(QMainWindow):
         temp = [QStandardItem(' '.join(x)) for x in rows]
         return temp
 
-
-
-
     def set_color_on_header(self):
         """
         changes the color of the header
@@ -477,7 +489,6 @@ class MainWindow(QMainWindow):
                 self.table.model().setHeaderData(filterf.column_nr, Qt.Horizontal, self.headers[filterf.column_nr],
                                                  Qt.DisplayRole)
         session.close()
-
 
 
 if __name__ == '__main__':

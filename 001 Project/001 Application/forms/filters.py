@@ -10,8 +10,6 @@ from sql.category import Category
 from funclass.filterrows import FilterRows
 
 
-
-
 class FiltersForm(QDialog):
     def __init__(self, filter_id, columns, headersname, parent=None):
         super(FiltersForm, self).__init__(parent)
