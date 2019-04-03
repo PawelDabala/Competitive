@@ -5,6 +5,7 @@ from filterf import FilterF
 from compatitive_filter import CompativeFilterf
 from category import Category
 from sqlalchemy import and_
+from collections import OrderedDict
 
 session = Session()
 
@@ -111,24 +112,85 @@ c3 = session.query(Category).get(6)
 #
 
 from sqlalchemy import distinct, and_
-compatives = session.query(Competitive).all()
-for com in compatives:
-    print(com.name)
+# compatives = session.query(Competitive).all()
+# for com in compatives:
+#     print(com.name)
 
-data = session.query(Data).filter_by(competitive_id=compatives[2].id).all()
-print(set([d.year for d in data]))
+# data = session.query(Data).filter_by(competitive_id=compatives[2].id).all()
+# print(set([d.year for d in data]))
+#
+# # year = session.query(Data).filter(Data.competitive_id==3).distinct(Data.year).all()
+# year = [ye.year for ye in  session.query(Data).distinct(Data.year).filter(Data.competitive_id==3).all()]
+# print(year)
+#
+# # for ye in year:
+# #     print(ye.year)
+#
+#
+# compative_id = session.query(Competitive.id).filter_by(name='query').one()
+# print(compative_id.id)
+# print(type(compative_id))
 
-# year = session.query(Data).filter(Data.competitive_id==3).distinct(Data.year).all()
-year = [ye.year for ye in  session.query(Data).distinct(Data.year).filter(Data.competitive_id==3).all()]
-print(year)
+data = session.query(Data).filter_by(competitive_id=2).all()
+# print(len(data))
+final_list = []
+headers = """ year,
+                 month,
+                 week_nr,
+                 sector,
+                 category,
+                 sub_category,
+                 product,
+                 trade,
+                 category_2,
+                 division,
+                 producer,
+                 brand,
+                 sub_brand,
+                 film_code,
+                 film_codenr,
+                 media,
+                 main_medium,
+                 medium,
+                 publisher,
+                 periodicity,
+                 duration,
+                 spot_class,
+                 form_advertising,
+                 page_type,
+                 emision_count,
+                 sum_str,
+                 cost,
+                 pt_off,
+                 trp,
+                 trp30,
+                 spcount,
+                 channel_group,
+                 channel_type,
+                 wyprz,
+                 upus,
+                 rabat,
+                 wyprz_upust_rabat,
+                 model,
+                 brand_final,
+                 subbrand_brand_model,
+                 brand_type,
+                 segment_detailed,
+                 segment,
+                 segment_combined,
+                 campaign_type
+                 """
+headers =headers.replace(' ', '').replace('\n', '').split(',')
 
-# for ye in year:
-#     print(ye.year)
+for d in data:
+    new = []
+    for key in headers:
+        new.append(d.__dict__[key])
+    final_list.append(new)
+
+print(final_list)
 
 
-compative_id = session.query(Competitive.id).filter_by(name='query').one()
-print(compative_id.id)
-print(type(compative_id))
 
 
 

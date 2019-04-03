@@ -96,7 +96,7 @@ class Data(Base):
                  rabat,
                  wyprz_upust_rabat,
                  model,
-                 brnand_final,
+                 brand_final,
                  subbrand_brand_model,
                  brand_type,
                  segment_detailed,
@@ -143,7 +143,7 @@ class Data(Base):
         self.rabat = rabat
         self.wyprz_upust_rabat = wyprz_upust_rabat
         self.model = model
-        self.brand_final = brnand_final
+        self.brand_final = brand_final
         self.subbrand_brand_model = subbrand_brand_model
         self.brand_type = brand_type
         self.segment_detailed = segment_detailed

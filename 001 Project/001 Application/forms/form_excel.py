@@ -10,6 +10,8 @@ from sql.competitive import Competitive
 from sql.data import Data
 from sql.compatitive_filter import CompativeFilterf
 
+from openpyxl import Workbook
+
 
 
 class ExcelForm(QDialog):
@@ -34,6 +36,7 @@ class ExcelForm(QDialog):
 
         #signals
         self.pb_cancel.clicked.connect(self.close)
+        self.pb_excel.clicked.connect(self.generate_excel_file)
         self.cb_raport_name.currentTextChanged.connect(self.set_filter_section)
 
         #functions
@@ -86,8 +89,6 @@ class ExcelForm(QDialog):
 
         session.close()
 
-
-
     def get_data_id(self):
 
         com_name = self.cb_raport_name.currentText()
@@ -115,6 +116,89 @@ class ExcelForm(QDialog):
             item.setCheckState(Qt.Checked)
             lv.addItem(item)
 
+    def set_table(self):
+
+        #temporaty get all data, after change to set query
+        id_nr = self.get_data_id()
+        session = Session()
+        data = session.query(Data).filter_by(competitive_id=id_nr).all()
+
+        #columns from sqlalchemy data object
+        headers = """ year,
+                         month,
+                         week_nr,
+                         sector,
+                         category,
+                         sub_category,
+                         product,
+                         trade,
+                         category_2,
+                         division,
+                         producer,
+                         brand,
+                         sub_brand,
+                         film_code,
+                         film_codenr,
+                         media,
+                         main_medium,
+                         medium,
+                         publisher,
+                         periodicity,
+                         duration,
+                         spot_class,
+                         form_advertising,
+                         page_type,
+                         emision_count,
+                         sum_str,
+                         cost,
+                         pt_off,
+                         trp,
+                         trp30,
+                         spcount,
+                         channel_group,
+                         channel_type,
+                         wyprz,
+                         upus,
+                         rabat,
+                         wyprz_upust_rabat,
+                         model,
+                         brand_final,
+                         subbrand_brand_model,
+                         brand_type,
+                         segment_detailed,
+                         segment,
+                         segment_combined,
+                         campaign_type
+                         """
+        headers = headers.replace(' ', '').replace('\n', '').split(',')
+
+        #make list
+        final_list = []
+        for row in data:
+            columns = []
+            for key in headers:
+                columns.append(row.__dict__[key])
+            final_list.append(columns)
+
+        session.close()
+        return final_list
+
+    def set_excel_file(self, final_list):
+        wb = Workbook()
+        ws = wb.active
+
+        for r, row, in enumerate(final_list, 1):
+            for c, entry in enumerate(row, 1):
+                ws.cell(row=r, column=c, value=entry)
+        name = QFileDialog.getSaveFileName(self, caption="Zapisz",filter='.xlsx',selectedFilter='.xlsx')
+        name = ''.join(name)
+        wb.save(name)
+
+
+    def generate_excel_file(self):
+        final_list = self.set_table()
+        self.set_excel_file(final_list)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -122,3 +206,4 @@ if __name__ == '__main__':
     w = ExcelForm()
     w.show()
     sys.exit(app.exec_())
+
