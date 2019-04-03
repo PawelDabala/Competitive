@@ -15,12 +15,13 @@ from openpyxl import Workbook
 
 
 class ExcelForm(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, main_headers, parent=None):
         super(ExcelForm, self).__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.setWindowTitle('Generuj plik Excela')
         self.setWindowModality(Qt.ApplicationModal)
+        self.main_headers = main_headers
 
         self.cb_raport_name = self.ui.comboBox_raport_name
         self.lv_year = self.ui.listWidget_year
@@ -187,7 +188,12 @@ class ExcelForm(QDialog):
         wb = Workbook()
         ws = wb.active
 
-        for r, row, in enumerate(final_list, 1):
+        #set heders
+        for c, c_val in enumerate(self.main_headers, 1):
+            ws.cell(row=1, column=c, value=c_val)
+
+        #set data to excel file
+        for r, row in enumerate(final_list, 2):
             for c, entry in enumerate(row, 1):
                 ws.cell(row=r, column=c, value=entry)
         name = QFileDialog.getSaveFileName(self, caption="Zapisz",filter='.xlsx',selectedFilter='.xlsx')

@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
 
         self.filechoser = FileChoser(self)
-        self.excel_form = ExcelForm(self)
+
         self.setWindowTitle("VW Competitive")
         self.setWindowIcon(QIcon(':/images/vw.png'))
 
@@ -78,6 +78,8 @@ class MainWindow(QMainWindow):
                         'Segment_combined',
                         'Campaign Type'
                         ]
+
+        self.excel_form = ExcelForm(self.headers, self)
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
         self.table.setSortingEnabled(True)
