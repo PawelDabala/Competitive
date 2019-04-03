@@ -63,7 +63,7 @@ class ExcelForm(QDialog):
         session = Session()
         id_nr = self.get_data_id()
         year = [ye.year for ye in session.query(Data).distinct(Data.year).filter(Data.competitive_id == id_nr).all()]
-        self.set_li_value(self.lv_year, year)
+        self.set_cb_value(self.lv_year, year)
 
         session.close()
 
@@ -94,9 +94,10 @@ class ExcelForm(QDialog):
         :return:
         """
         lv.clear()
-        cb.set
         for val in value:
-            cb.addItem(str(val))
+            item = QListWidgetItem(str(val))
+            item.setCheckState(Qt.Unchecked)
+            lv.addItem(item)
 
 
 if __name__ == '__main__':
