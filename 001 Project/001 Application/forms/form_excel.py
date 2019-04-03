@@ -2,7 +2,6 @@ import sys
 from PySide2.QtWidgets import *
 from PySide2.QtCore import Qt
 from uiexcel import Ui_Dialog
-from PySide2.QtGui import QStandardItemModel, QStandardItem
 
 from sql.filterf import FilterF
 from sql.base import Session
@@ -10,6 +9,7 @@ from sql.category import Category
 from sql.competitive import Competitive
 from sql.data import Data
 from sql.compatitive_filter import CompativeFilterf
+
 
 
 class ExcelForm(QDialog):
@@ -62,8 +62,27 @@ class ExcelForm(QDialog):
         print('jest super')
         session = Session()
         id_nr = self.get_data_id()
-        year = [ye.year for ye in session.query(Data).distinct(Data.year).filter(Data.competitive_id == id_nr).all()]
+
+        year = [ye.year for ye in
+                session.query(Data).distinct(Data.year).filter(Data.competitive_id == id_nr).order_by(
+                    Data.year).all()]
         self.set_cb_value(self.lv_year, year)
+
+        month = [mo.month for mo in
+                 session.query(Data).distinct(Data.month).filter(Data.competitive_id == id_nr).order_by(
+                     Data.month).all()]
+        self.set_cb_value(self.lv_month, month)
+
+        week = [we.week_nr for we in
+                 session.query(Data).distinct(Data.week_nr).filter(Data.competitive_id == id_nr).order_by(
+                     Data.week_nr).all()]
+        self.set_cb_value(self.lv_week, week)
+
+        producer = [pr.producer for pr in
+                    session.query(Data).distinct(Data.producer).filter(Data.competitive_id == id_nr).order_by(
+                    Data.producer).all()]
+        self.set_cb_value(self.lv_producer, producer)
+
 
         session.close()
 
@@ -83,9 +102,6 @@ class ExcelForm(QDialog):
         session.close()
         return compative_id.id
 
-
-
-
     def set_cb_value(self, lv, value):
         """
         add value to combo box
@@ -96,7 +112,7 @@ class ExcelForm(QDialog):
         lv.clear()
         for val in value:
             item = QListWidgetItem(str(val))
-            item.setCheckState(Qt.Unchecked)
+            item.setCheckState(Qt.Checked)
             lv.addItem(item)
 
 
