@@ -3,6 +3,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtCore import Qt
 from uiexcel import Ui_Dialog
 
+from sqlalchemy import and_
 from sql.filterf import FilterF
 from sql.base import Session
 from sql.category import Category
@@ -35,14 +36,16 @@ class ExcelForm(QDialog):
         self.pb_excel = self.ui.pushButton_excel
         self.pb_cancel = self.ui.pushButton_close
 
+        self.compative_name = ""
+
         #signals
         self.pb_cancel.clicked.connect(self.close)
         self.pb_excel.clicked.connect(self.generate_excel_file)
         self.cb_raport_name.currentTextChanged.connect(self.set_filter_section)
 
-        self.lv_year.itemChanged.connect(self.list_view_channge)
-        self.lv_month.itemChanged.connect(self.list_view_channge)
-        self.lv_week.itemChanged.connect(self.list_view_channge)
+        self.lv_year.itemChanged.connect(self.lw_channge_year)
+        # self.lv_month.itemChanged.connect(self.list_view_channge)
+        # self.lv_week.itemChanged.connect(self.list_view_channge)
 
         #functions
         self.set_compatives()
@@ -68,7 +71,6 @@ class ExcelForm(QDialog):
         session.close()
 
     def set_filter_section(self):
-        print('jest super')
         session = Session()
         id_nr = self.get_data_id()
 
@@ -98,6 +100,7 @@ class ExcelForm(QDialog):
     def get_data_id(self):
 
         com_name = self.cb_raport_name.currentText()
+        self.compative_name = com_name
 
         if com_name != '':
             try:
@@ -230,14 +233,30 @@ class ExcelForm(QDialog):
     List view section
     
     """
+    def lw_channge_year(self):
 
-    def list_view_channge(self):
+        years = self.get_checked_items(self.lv_year)
 
-        year_nr = self.get_checked_items(self.lv_year)
-        month_nr = self.get_checked_items(self.lv_month)
-        week_nr = self.get_checked_items(self.lv_week)
+        session = Session()
+        compative = session.query(Competitive).filter_by(name=self.compative_name).one()
+        data_year = session.query(Data).filter(and_(Data.competitive_id == compative.id,
+                                                    Data.year.in_(years)))
+        data_year = list(set([x.year for x in data_year]))
+        month = [mo.month for mo in
+                 session.query(Data).distinct(Data.month).filter(and_(
+                     Data.year.in_(data_year),
+                     Data.competitive_id == compative.id)).order_by(
+                     Data.month).all()]
+        self.set_cb_value(self.lv_month, month)
 
-        print(year_nr, month_nr, week_nr)
+
+    # def list_view_channge(self):
+    #
+    #     year_nr = self.get_checked_items(self.lv_year)
+    #     month_nr = self.get_checked_items(self.lv_month)
+    #     week_nr = self.get_checked_items(self.lv_week)
+    #
+    #     print(year_nr, month_nr, week_nr)
 
 
     def get_checked_items(self, lw):
