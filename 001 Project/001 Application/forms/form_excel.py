@@ -44,8 +44,8 @@ class ExcelForm(QDialog):
         self.cb_raport_name.currentTextChanged.connect(self.set_filter_section)
 
         self.lv_year.itemChanged.connect(self.lw_channge_year)
-        # self.lv_month.itemChanged.connect(self.list_view_channge)
-        # self.lv_week.itemChanged.connect(self.list_view_channge)
+        self.lv_month.itemChanged.connect(self.lw_channge_month)
+
 
         #functions
         self.set_compatives()
@@ -134,8 +134,18 @@ class ExcelForm(QDialog):
 
         #temporaty get all data, after change to set query
         id_nr = self.get_data_id()
+        years = self.get_checked_items(self.lv_year)
+        months = self.get_checked_items(self.lv_month)
+        weeks = self.get_checked_items(self.lv_week)
         session = Session()
-        data = session.query(Data).filter_by(competitive_id=id_nr).all()
+
+        # data = session.query(Data).filter_by(competitive_id=id_nr).all()
+        data = session.query(Data).filter(and_(
+            Data.year.in_(years),
+            Data.month.in_(months),
+            Data.week_nr.in_(weeks),
+            Data.competitive_id == id_nr,
+        )).all()
 
         #columns from sqlalchemy data object
         headers = """ year,
@@ -239,14 +249,11 @@ class ExcelForm(QDialog):
 
         session = Session()
         compative = session.query(Competitive).filter_by(name=self.compative_name).one()
-        data_year = session.query(Data).filter(and_(Data.competitive_id == compative.id,
-                                                    Data.year.in_(years)))
-        data_year = list(set([x.year for x in data_year]))
 
         #month
         month = [mo.month for mo in
                  session.query(Data).distinct(Data.month).filter(and_(
-                     Data.year.in_(data_year),
+                     Data.year.in_(years),
                      Data.competitive_id == compative.id)).order_by(
                      Data.month).all()]
         self.set_cb_value(self.lv_month, month)
@@ -254,22 +261,34 @@ class ExcelForm(QDialog):
         #week
         week = [we.week_nr for we in
                 session.query(Data).distinct(Data.week_nr).filter(and_(
-                    Data.year.in_(data_year),
+                    Data.year.in_(years),
                     Data.month.in_(month),
                     Data.competitive_id == compative.id,
                     )).order_by(
                     Data.week_nr).all()]
         self.set_cb_value(self.lv_week, week)
 
+        session.close()
 
+    def lw_channge_month(self):
 
-    # def list_view_channge(self):
-    #
-    #     year_nr = self.get_checked_items(self.lv_year)
-    #     month_nr = self.get_checked_items(self.lv_month)
-    #     week_nr = self.get_checked_items(self.lv_week)
-    #
-    #     print(year_nr, month_nr, week_nr)
+        years = self.get_checked_items(self.lv_year)
+        months = self.get_checked_items(self.lv_month)
+
+        session = Session()
+        compative = session.query(Competitive).filter_by(name=self.compative_name).one()
+
+        # week
+        week = [we.week_nr for we in
+                session.query(Data).distinct(Data.week_nr).filter(and_(
+                    Data.year.in_(years),
+                    Data.month.in_(months),
+                    Data.competitive_id == compative.id,
+                )).order_by(
+                    Data.week_nr).all()]
+        self.set_cb_value(self.lv_week, week)
+
+        session.close()
 
 
     def get_checked_items(self, lw):
@@ -280,14 +299,12 @@ class ExcelForm(QDialog):
         items = []
         for nr in range(lw.count()):
             if lw.item(nr).checkState() == Qt.Checked:
-                items.append(int(lw.item(nr).text()))
+                try:
+                    items.append(int(lw.item(nr).text()))
+                except ValueError:
+                    items.append(lw.item(nr).text())
 
         return items
-
-    def set_query_year(self):
-        pass
-
-
 
 
 if __name__ == '__main__':
