@@ -279,6 +279,7 @@ class MainWindow(QMainWindow):
         Shoe excel form
         :return:
         """
+        self.excel_form.set_compatives()
         self.excel_form.show()
 
     def prapercolumns(self, columns):

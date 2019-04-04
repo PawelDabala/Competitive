@@ -59,6 +59,7 @@ class ExcelForm(QDialog):
             QMessageBox.critical(self, "Błąd", "Nie można połączyć się z bazą danych")
             return
 
+        self.cb_raport_name.clear()
         for compet in competitev:
             self.cb_raport_name.addItem(compet.name)
 
@@ -96,15 +97,16 @@ class ExcelForm(QDialog):
 
         com_name = self.cb_raport_name.currentText()
 
-        try:
-            session = Session()
-            compative_id = session.query(Competitive.id).filter_by(name=com_name).one()
-        except:
-            QMessageBox.critical(self, "Błąd", "Nie można połączyć się z bazą danych")
-            return
+        if com_name != '':
+            try:
+                session = Session()
+                compative_id = session.query(Competitive.id).filter_by(name=com_name).one()
+            except:
+                QMessageBox.critical(self, "Błąd", "Nie można połączyć się z bazą danych")
+                return
 
-        session.close()
-        return compative_id.id
+            session.close()
+            return compative_id.id
 
     def set_cb_value(self, lv, value):
         """

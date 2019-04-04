@@ -3,6 +3,10 @@ Pytanie
 #TO FIX:
 fix
 
+: Jak ma dzialac filtr daty
+- zaznaczamy rok - z miesiacy i tygodni znikaja miesiace/tygodnie ktorych nie ma na liscie
+
+
 
 TO DO:
 22) przenoszenie raportów do excela
