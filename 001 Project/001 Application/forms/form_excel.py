@@ -40,6 +40,8 @@ class ExcelForm(QDialog):
         self.pb_excel.clicked.connect(self.generate_excel_file)
         self.cb_raport_name.currentTextChanged.connect(self.set_filter_section)
 
+        self.lv_year.itemChanged.connect(self.list_view_channge)
+
         #functions
         self.set_compatives()
         self.set_filter_section()
@@ -118,6 +120,10 @@ class ExcelForm(QDialog):
             lv.addItem(item)
 
     def set_table(self):
+        """
+        set tabel with data from data base
+        :return:
+        """
 
         #temporaty get all data, after change to set query
         id_nr = self.get_data_id()
@@ -185,6 +191,11 @@ class ExcelForm(QDialog):
         return final_list
 
     def set_excel_file(self, final_list):
+        """
+        preper excel file from final_list and self.main_headers
+        :param final_list:
+        :return:
+        """
         wb = Workbook()
         ws = wb.active
 
@@ -202,9 +213,22 @@ class ExcelForm(QDialog):
 
 
     def generate_excel_file(self):
+        """
+        Make execel file
+        :return:
+        """
         final_list = self.set_table()
         self.set_excel_file(final_list)
 
+
+    """
+    
+    List view section
+    
+    """
+
+    def list_view_channge(self):
+        print('list view channge')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
