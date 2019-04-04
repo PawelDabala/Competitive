@@ -41,6 +41,8 @@ class ExcelForm(QDialog):
         self.cb_raport_name.currentTextChanged.connect(self.set_filter_section)
 
         self.lv_year.itemChanged.connect(self.list_view_channge)
+        self.lv_month.itemChanged.connect(self.list_view_channge)
+        self.lv_week.itemChanged.connect(self.list_view_channge)
 
         #functions
         self.set_compatives()
@@ -230,7 +232,31 @@ class ExcelForm(QDialog):
     """
 
     def list_view_channge(self):
-        print('list view channge')
+
+        year_nr = self.get_checked_items(self.lv_year)
+        month_nr = self.get_checked_items(self.lv_month)
+        week_nr = self.get_checked_items(self.lv_week)
+
+        print(year_nr, month_nr, week_nr)
+
+
+    def get_checked_items(self, lw):
+        """
+        get checked years from listWidget
+        :return:
+        """
+        items = []
+        for nr in range(lw.count()):
+            if lw.item(nr).checkState() == Qt.Checked:
+                items.append(int(lw.item(nr).text()))
+
+        return items
+
+    def set_query_year(self):
+        pass
+
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
