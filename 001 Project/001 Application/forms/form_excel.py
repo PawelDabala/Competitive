@@ -242,12 +242,25 @@ class ExcelForm(QDialog):
         data_year = session.query(Data).filter(and_(Data.competitive_id == compative.id,
                                                     Data.year.in_(years)))
         data_year = list(set([x.year for x in data_year]))
+
+        #month
         month = [mo.month for mo in
                  session.query(Data).distinct(Data.month).filter(and_(
                      Data.year.in_(data_year),
                      Data.competitive_id == compative.id)).order_by(
                      Data.month).all()]
         self.set_cb_value(self.lv_month, month)
+
+        #week
+        week = [we.week_nr for we in
+                session.query(Data).distinct(Data.week_nr).filter(and_(
+                    Data.year.in_(data_year),
+                    Data.month.in_(month),
+                    Data.competitive_id == compative.id,
+                    )).order_by(
+                    Data.week_nr).all()]
+        self.set_cb_value(self.lv_week, week)
+
 
 
     # def list_view_channge(self):
