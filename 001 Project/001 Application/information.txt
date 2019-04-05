@@ -9,13 +9,18 @@ fix
 
 
 TO DO:
-22) przenoszenie raportów do excela
-21) dodac automat do wczytywania filtrów
+23) przy przyklejaniu w techedzu ma wkleja sie TV w medium
+24) Columna count i liczba.emisji ma byc jedna
+25) dodac formularz do usuwania duplikatow
+26) dodac dodac formularz do automatycznego adpalania filtrow recznych.
+
 19) dodac kasowanie istniejacego raportu
-17)  def getCheckedItemsTable(self): DO poprawy kolumny nie moga byc na sztywno
 14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki
 
 << ##################################################################### >>
+17)  def getCheckedItemsTable(self): DO poprawy kolumny nie moga byc na sztywno
+22) przenoszenie raportów do excela
+21) dodac automat do wczytywania filtrów
 18) show unice value in table
 20) przypisywanie działa ale bardzo wolno:
     a) zrobić funkcje która zczytuje wszystkie dane
