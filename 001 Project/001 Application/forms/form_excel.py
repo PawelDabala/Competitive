@@ -28,10 +28,10 @@ class ExcelForm(QDialog):
         self.lv_year = self.ui.listWidget_year
         self.lv_month = self.ui.listWidget_mont
         self.lv_week = self.ui.listWidget_week
-        self.lv_producer = self.ui.listWidget_producer
+        #self.lv_producer = self.ui.listWidget_producer
 
-        self.le_rows_nr = self.ui.lineEdit_rows_count
-        self.le_rows_nr.setReadOnly(True)
+        # self.le_rows_nr = self.ui.lineEdit_rows_count
+        # self.le_rows_nr.setReadOnly(True)
 
         self.pb_excel = self.ui.pushButton_excel
         self.pb_cancel = self.ui.pushButton_close
@@ -89,10 +89,10 @@ class ExcelForm(QDialog):
                      Data.week_nr).all()]
         self.set_cb_value(self.lv_week, week)
 
-        producer = [pr.producer for pr in
-                    session.query(Data).distinct(Data.producer).filter(Data.competitive_id == id_nr).order_by(
-                    Data.producer).all()]
-        self.set_cb_value(self.lv_producer, producer)
+        # producer = [pr.producer for pr in
+        #             session.query(Data).distinct(Data.producer).filter(Data.competitive_id == id_nr).order_by(
+        #             Data.producer).all()]
+        # self.set_cb_value(self.lv_producer, producer)
 
 
         session.close()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>489</width>
-    <height>304</height>
+    <width>332</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>480</width>
+     <width>321</width>
      <height>275</height>
     </rect>
    </property>
@@ -190,41 +190,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_6">
-          <property name="minimumSize">
-           <size>
-            <width>150</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>150</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>Producer</string>
-          </property>
-          <widget class="QListWidget" name="listWidget_producer">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>20</y>
-             <width>151</width>
-             <height>181</height>
-            </rect>
-           </property>
-           <property name="sizeIncrement">
-            <size>
-             <width>4</width>
-             <height>0</height>
-            </size>
-           </property>
-          </widget>
-         </widget>
-        </item>
-        <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -261,28 +226,11 @@
     <rect>
      <x>10</x>
      <y>270</y>
-     <width>471</width>
-     <height>41</height>
+     <width>311</width>
+     <height>21</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Wierszy:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_rows_count">
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>16777215</height>
-       </size>
-      </property>
-     </widget>
-    </item>
     <item>
      <spacer name="horizontalSpacer_2">
       <property name="orientation">
