@@ -148,6 +148,8 @@ class ExcelForm(QDialog):
         )).all()
 
         #columns from sqlalchemy data object
+        # mozna zamienic na:
+        #Data.__table__.columns.keys() - wyrzucic z listy id i competitive_id'
         headers = """ year,
                          month,
                          week_nr,

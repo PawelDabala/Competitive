@@ -131,64 +131,36 @@ from sqlalchemy import distinct, and_
 # print(compative_id.id)
 # print(type(compative_id))
 
-data = session.query(Data).filter_by(competitive_id=2).all()
-# print(len(data))
-final_list = []
-headers = """ year,
-                 month,
-                 week_nr,
-                 sector,
-                 category,
-                 sub_category,
-                 product,
-                 trade,
-                 category_2,
-                 division,
-                 producer,
-                 brand,
-                 sub_brand,
-                 film_code,
-                 film_codenr,
-                 media,
-                 main_medium,
-                 medium,
-                 publisher,
-                 periodicity,
-                 duration,
-                 spot_class,
-                 form_advertising,
-                 page_type,
-                 emision_count,
-                 sum_str,
-                 cost,
-                 pt_off,
-                 trp,
-                 trp30,
-                 spcount,
-                 channel_group,
-                 channel_type,
-                 wyprz,
-                 upus,
-                 rabat,
-                 wyprz_upust_rabat,
-                 model,
-                 brand_final,
-                 subbrand_brand_model,
-                 brand_type,
-                 segment_detailed,
-                 segment,
-                 segment_combined,
-                 campaign_type
-                 """
-headers =headers.replace(' ', '').replace('\n', '').split(',')
+#
 
-for d in data:
-    new = []
-    for key in headers:
-        new.append(d.__dict__[key])
-    final_list.append(new)
+com1 = session.query(Competitive).filter_by(name='baza1').first()
+com2 = session.query(Competitive).filter_by(name='baza2').first()
+com3 = session.query(Competitive).filter_by(name='baza3').first()
+print(com1)
+print(com2)
+data1 = session.query(Data).filter_by(competitive_id=com1.id).all()
+data2 = session.query(Data).filter_by(competitive_id=com2.id).all()
+data3 = session.query(Data).filter_by(competitive_id=com3.id)
+print(com3)
 
-print(final_list)
+# datas = data1.union_all(data2).all()
+# print(datas)
+
+#tak laczymy raport !!!!!!!!!!!!!
+# com3.datas = com3.datas + data2
+
+# print(Data.__table__.columns.keys())
+print(Data.__dict__.keys())
+
+
+
+
+
+# session.add(com3)
+session.commit()
+
+
+
 
 
 
