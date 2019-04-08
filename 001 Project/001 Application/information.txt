@@ -3,8 +3,6 @@ Pytanie
 #TO FIX:
 - po usunieciu none z filtra i powtornym wcisnieciu pokaz unikalne pojawia sie none podwujnie
 
-: Jak ma dzialac filtr daty
-- zaznaczamy rok - z miesiacy i tygodni znikaja miesiace/tygodnie ktorych nie ma na liscie
 
 
 
