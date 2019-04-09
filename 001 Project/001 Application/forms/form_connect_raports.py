@@ -22,6 +22,9 @@ class ConnectRaports(QDialog):
         self.cb_connect_rap = self.ui.comboBox_connect_raport
         self.pb_connect = self.ui.pushButton_connect_raports
 
+        # signals
+        self.pb_connect.clicked.connect(self.connect_raports)
+
 
     def set_raports(self):
         """
@@ -40,6 +43,33 @@ class ConnectRaports(QDialog):
         for compet in competitiev:
             self.cb_main_rap.addItem(compet.name)
             self.cb_connect_rap.addItem(compet.name)
+
+        session.close()
+
+    def connect_raports(self):
+        """
+        raports connected
+        :return:
+        """
+        print("raports connected")
+
+        main_rap_txt = self.cb_main_rap.currentText()
+        conne_rap_txt = self.cb_connect_rap.currentText()
+
+        if main_rap_txt != conne_rap_txt:
+            try:
+                session = Session()
+                main_rap = session.query(Competitive).filter_by(name=main_rap_txt).first()
+                conne_rap = session.query(Competitive).filter_by(name=conne_rap_txt).first()
+                #data_rows = session.query(Data).filter_by(competitive_id=conne_rap.id).all()
+                main_rap.datas = main_rap.datas + conne_rap.datas
+                session.commit()
+                session.close()
+                QMessageBox.information(self, "Raporty", "Raporty zostały połączone.")
+            except:
+                pass
+        else:
+            QMessageBox.critical(self, "Błąd", "Nie można połączyć raportów o tej samej nazwie.")
 
 
 
