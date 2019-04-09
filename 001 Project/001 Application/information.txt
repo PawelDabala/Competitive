@@ -7,12 +7,14 @@ Pytanie
 
 
 TO DO:
-24) przy wczytywaniu pliku z excela zeby nie pobieral pustych rekordow
+26) zabezpieczenie przy otwieraniu juz otwartego pliku excala
+25) przy wczytywaniu pliku z excela zeby nie pobieral pustych rekordow
 24) Columna count i liczba.emisji ma byc jedna
 25) dodac formularz do usuwania duplikatow
 26) dodac formularz do automatycznego adpalania filtrow recznych.
 19) dodac kasowanie istniejacego raportu
 14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki
+
 
 << ##################################################################### >>
 23) przy przyklejaniu w techedzu ma wkleja sie TV w medium
