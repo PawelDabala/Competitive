@@ -13,6 +13,7 @@ from sql.base import Session
 from forms.filters import FiltersForm
 
 
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)

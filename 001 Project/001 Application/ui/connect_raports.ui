@@ -6,47 +6,69 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>381</width>
-    <height>41</height>
+    <width>317</width>
+    <height>91</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget">
+  <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>361</width>
-     <height>25</height>
+     <width>301</width>
+     <height>51</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
      <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Połącz bierzący raport z: </string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="comboBox"/>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="maximumSize">
+      <property name="minimumSize">
        <size>
-        <width>80</width>
-        <height>16777215</height>
+        <width>100</width>
+        <height>0</height>
        </size>
       </property>
       <property name="text">
-       <string>Połącz</string>
+       <string>Raport główny</string>
       </property>
      </widget>
     </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="comboBox_main_raport"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Rapord do dołączenia</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="comboBox_connect_raport"/>
+    </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="pushButton_connect_raports">
+   <property name="geometry">
+    <rect>
+     <x>232</x>
+     <y>63</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>80</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>Połącz</string>
+   </property>
   </widget>
  </widget>
  <resources/>
