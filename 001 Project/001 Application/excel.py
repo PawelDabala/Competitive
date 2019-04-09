@@ -70,6 +70,8 @@ class Excel:
         for nr in emptys:
             temp_list.insert(nr, [])
 
+        temp_list.pop(15)
+        temp_list.insert(15, len(lis[0])*["TV"])
         return temp_list
 
 
