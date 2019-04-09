@@ -5,13 +5,14 @@ from PySide2.QtWidgets import QTableView, QAction, QApplication, QMainWindow, QM
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont, QBrush, QColor
 from filechose import FileChoser
 from forms.form_excel import ExcelForm
+from forms.filters import FiltersForm
+from forms.form_connect_raports import ConnectRaports
 from excel import Excel
+
 from sql.data import Data
 from sql.competitive import Competitive
 from sql.filterf import FilterF
 from sql.base import Session
-from forms.filters import FiltersForm
-
 
 
 class MainWindow(QMainWindow):
@@ -81,6 +82,8 @@ class MainWindow(QMainWindow):
                         ]
 
         self.excel_form = ExcelForm(self.headers, self)
+        self.connect_form = ConnectRaports(self)
+
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
         self.table.setSortingEnabled(True)
@@ -163,6 +166,9 @@ class MainWindow(QMainWindow):
         self.showExcelForm = QAction("Generuj plik excel",
                                      triggered=self.show_excel_form)
 
+        self.ConnectRaports =  QAction("Połącz raporty",
+                                     triggered=self.show_connect_raports)
+
 
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&Plik")
@@ -176,6 +182,7 @@ class MainWindow(QMainWindow):
 
         self.excelMenu = self.menuBar().addMenu("&Raporty")
         self.excelMenu.addAction(self.showExcelForm)
+        self.excelMenu.addAction(self.ConnectRaports)
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
@@ -277,11 +284,19 @@ class MainWindow(QMainWindow):
 
     def show_excel_form(self):
         """
-        Shoe excel form
+        Show excel form
         :return:
         """
         self.excel_form.set_compatives()
         self.excel_form.show()
+
+    def show_connect_raports(self):
+        """
+        Show  connect rapot
+        :return:
+        """
+        self.connect_form.set_raports()
+        self.connect_form.show()
 
     def prapercolumns(self, columns):
         """
