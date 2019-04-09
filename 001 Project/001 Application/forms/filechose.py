@@ -160,9 +160,6 @@ class FileChoser(QDialog):
             self.cbrapo_remove.removeItem(self.cbrapo_remove.currentIndex())
             self.cbraports.removeItem(self.cbraports.findText(cur_text))
 
-
-
-
     @staticmethod
     def check_is_not_empty(text):
         """
