@@ -33,6 +33,11 @@ class Excel:
 
     @classmethod
     def get_data(cls, path, tech=True):
+        # try:
+        #     myfile = open(path, "r+")
+        # except IOError:
+        #     print("Could not open file! Please close Excel!")
+
         wb = load_workbook(path)
         ws = wb.worksheets[0]
 
