@@ -64,7 +64,6 @@ class MainWindow(QMainWindow):
                         'PT/OFF',
                         'TRP',
                         'TRP30',
-                        'Count',
                         'Channel group',
                         'Channel type',
                         'Wyprz',
@@ -117,7 +116,7 @@ class MainWindow(QMainWindow):
         for row in range(self.sti.rowCount()):
             datas = []
             for col in range(self.sti.columnCount()):
-                if col in (0, 1, 2, 20, 24, 30):
+                if col in (0, 1, 2, 20, 24):
                     try:
                         #tutaj poprawic nie chce wpisać
                         if self.sti.item(row, col) is not None:

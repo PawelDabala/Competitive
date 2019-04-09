@@ -38,7 +38,6 @@ class Data(Base):
     pt_off = Column(String)
     trp = Column(Float)
     trp30 = Column(Float)
-    spcount = Column(Integer)
     channel_group = Column(String)
     channel_type = Column(String)
     wyprz = Column(String)
@@ -88,7 +87,6 @@ class Data(Base):
                  pt_off,
                  trp,
                  trp30,
-                 spcount,
                  channel_group,
                  channel_type,
                  wyprz,
@@ -135,7 +133,6 @@ class Data(Base):
         self.pt_off = pt_off
         self.trp = trp
         self.trp30 = trp30
-        self.spcount = spcount
         self.channel_group = channel_group
         self.channel_type = channel_type
         self.wyprz = wyprz
@@ -183,7 +180,6 @@ class Data(Base):
                 self.pt_off,
                 self.trp,
                 self.trp30,
-                self.spcount,
                 self.channel_group,
                 self.channel_type,
                 self.wyprz,

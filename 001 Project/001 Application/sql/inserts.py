@@ -6,7 +6,7 @@ from compatitive_filter import CompativeFilterf
 from category import Category
 
 from sqlalchemy import func
-from funclass.mydictionary import MakeDictionary
+from mydictionary import MakeDictionary
 
 def generete_database_schema():
     Base.metadata.drop_all(engine)
@@ -107,31 +107,33 @@ def add_filter():
     """
     manual filters
     """
-    channelgroup = FilterF("channelgroup", 31, (0,17), 'manual')
-    brand_final = FilterF('brand_final', 38, [11], 'manual')
-    brand_type = FilterF('brand_type', 40, [38], 'manual')
-    segment_detailed = FilterF('segment_detailed', 41, [39], 'manual')
-    segment = FilterF('segment', 42, [41], 'manual')
-    segment_combined = FilterF('segment_combined', 43, [41], 'manual')
-    campaign_type = FilterF('campaign_type', 44, [13], 'manual')
+    channelgroup = FilterF("channelgroup", 30, (0,17), 'manual')
+
+    brand_final = FilterF('brand_final', 37, [11], 'manual')
+    #dane z kolumn brand final
+    brand_type = FilterF('brand_type', 39, [37], 'manual')
+    segment_detailed = FilterF('segment_detailed', 40, [38], 'manual')
+    segment = FilterF('segment', 41, [40], 'manual')
+    segment_combined = FilterF('segment_combined', 42, [40], 'manual')
+    campaign_type = FilterF('campaign_type', 43, [13], 'manual')
 
     """
     words
     """
 
-    wyprz = FilterF('WYPRZ', 33, [13], 'words')
+    wyprz = FilterF('WYPRZ', 32, [13], 'words')
     wyprz_cat = Category('WYPZ', words=['wyprz'])
     wyprz.categorys.append(wyprz_cat)
 
-    upus = FilterF('UPUS', 34, [13], 'words')
+    upus = FilterF('UPUS', 33, [13], 'words')
     upus_cat = Category('UPUS', words=['upus'])
     upus.categorys.append(upus_cat)
 
-    rabat = FilterF('RABAT', 35, [13], 'words')
+    rabat = FilterF('RABAT', 34, [13], 'words')
     rabat_cat = Category('RABAT', words=['rabat '])
     rabat.categorys.append(rabat_cat)
 
-    wy_up_rab = FilterF('WY_UP_RAB', 36, [33, 34, 35], 'words')
+    wy_up_rab = FilterF('WY_UP_RAB', 35, [32, 33, 36], 'words')
     wy_up_rab_cat = Category('WY_UP_RAB', words=['wyprz', 'upus', 'rabat'])
     wy_up_rab.categorys.append(wy_up_rab_cat)
 
@@ -139,11 +141,11 @@ def add_filter():
     cut filter
     """
     # Brand 'Sub Brand' obcina pierwsze słowo z slownika
-    modelf = FilterF('model', 37, [11, 12], 'cut') # Brand 'Sub Brand'
+    modelf = FilterF('model', 36, [11, 12], 'cut') # Brand 'Sub Brand'
 
     #Subbrand (brand+model)
     # Useing Model, Brand Final; conectinc word from both cells
-    subbrand_brand_model = FilterF('subbrand_brand_model', 39, [38, 37], 'cut')
+    subbrand_brand_model = FilterF('subbrand_brand_model', 38, [37, 36], 'cut')
 
 
 
