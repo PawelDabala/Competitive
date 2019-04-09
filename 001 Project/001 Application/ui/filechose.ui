@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>469</width>
-    <height>295</height>
+    <height>269</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>451</width>
-     <height>261</height>
+     <height>231</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -128,20 +128,20 @@
          <x>10</x>
          <y>20</y>
          <width>431</width>
-         <height>71</height>
+         <height>80</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEdit_addraport"/>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="comboBox_raports_remove"/>
         </item>
         <item row="0" column="1">
          <widget class="QComboBox" name="comboBox_raports"/>
         </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="pushButton_addraports">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_7">
           <property name="text">
-           <string>Dodaj</string>
+           <string>Usuń</string>
           </property>
          </widget>
         </item>
@@ -152,10 +152,27 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="lineEdit_addraport"/>
+        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_5">
           <property name="text">
            <string>Raport</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="pushButton_addraports">
+          <property name="text">
+           <string>Dodaj</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="pushButton_remove_raports">
+          <property name="text">
+           <string>Usuń</string>
           </property>
          </widget>
         </item>
@@ -169,7 +186,7 @@
    <property name="geometry">
     <rect>
      <x>387</x>
-     <y>270</y>
+     <y>243</y>
      <width>75</width>
      <height>23</height>
     </rect>

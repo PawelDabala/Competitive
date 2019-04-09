@@ -33,6 +33,7 @@ class FileChoser(QDialog):
         self.pbadexpert = self.ui.pushButton_adexpert
         self.pbaddall = self.ui.pushButton_addall
         self.pbaddrapo = self.ui.pushButton_addraports
+        self.pb_rap_remo = self.ui.pushButton_remove_raports
 
         #lineedit
         self.letechedge = self.ui.lineEdit_techedge
@@ -41,12 +42,14 @@ class FileChoser(QDialog):
 
         #combobox
         self.cbraports = self.ui.comboBox_raports
+        self.cbrapo_remove = self.ui.comboBox_raports_remove
 
         #connects
         self.pbtechedge.clicked.connect(lambda: self.pic_file(self.letechedge, 0))
         self.pbadexpert.clicked.connect(lambda: self.pic_file(self.leadexpert, 1))
         self.pbaddrapo.clicked.connect(self.add_new_competitive)
         self.pbaddall.clicked.connect(self.send_values)
+        self.pb_rap_remo.clicked.connect(self.remove_competitive)
 
         self.paths = {
                       0: "",
@@ -118,6 +121,7 @@ class FileChoser(QDialog):
             """
             self.leaddraport.setText('')
             self.cbraports.addItem(new_name)
+            self.cbrapo_remove.addItem(new_name)
             self.cbraports.setCurrentText(new_name)
 
     def populate_row_competitive(self):
@@ -135,6 +139,29 @@ class FileChoser(QDialog):
 
         for compet in competits:
             self.cbraports.addItem(compet.name)
+            self.cbrapo_remove.addItem((compet.name))
+
+    def remove_competitive(self):
+        """
+        remove compatitive from comboboxes and database
+        :return:
+        """
+
+        reply = QMessageBox.information(self, 'Uwaga!!!',
+                     "Usniecia raportu spowoduje usunicie powiązanych danych.\n Kliknij nie aby anulować operacje. ",
+                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            cur_text = self.cbrapo_remove.currentText()
+            session = Session()
+            session.query(Competitive).filter_by(name = cur_text).delete()
+            session.commit()
+            session.close()
+            self.cbrapo_remove.removeItem(self.cbrapo_remove.currentIndex())
+            self.cbraports.removeItem(self.cbraports.findText(cur_text))
+
+
+
 
     @staticmethod
     def check_is_not_empty(text):

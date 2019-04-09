@@ -3,8 +3,8 @@
 # Form implementation generated from reading ui file 'filechose.ui',
 # licensing of 'filechose.ui' applies.
 #
-# Created: Wed Feb 13 13:32:59 2019
-#      by: pyside2-uic  running on PySide2 5.12.1
+# Created: Tue Apr  9 12:38:50 2019
+#      by: pyside2-uic  running on PySide2 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,9 +13,9 @@ from PySide2 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(469, 295)
+        Dialog.resize(469, 269)
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 451, 261))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 451, 231))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -64,29 +64,38 @@ class Ui_Dialog(object):
         self.groupBox_2.setMaximumSize(QtCore.QSize(16777215, 100))
         self.groupBox_2.setObjectName("groupBox_2")
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.groupBox_2)
-        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(10, 20, 431, 71))
+        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(10, 20, 431, 80))
         self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.lineEdit_addraport = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
-        self.lineEdit_addraport.setObjectName("lineEdit_addraport")
-        self.gridLayout_2.addWidget(self.lineEdit_addraport, 1, 1, 1, 1)
+        self.comboBox_raports_remove = QtWidgets.QComboBox(self.gridLayoutWidget_2)
+        self.comboBox_raports_remove.setObjectName("comboBox_raports_remove")
+        self.gridLayout_2.addWidget(self.comboBox_raports_remove, 2, 1, 1, 1)
         self.comboBox_raports = QtWidgets.QComboBox(self.gridLayoutWidget_2)
         self.comboBox_raports.setObjectName("comboBox_raports")
         self.gridLayout_2.addWidget(self.comboBox_raports, 0, 1, 1, 1)
-        self.pushButton_addraports = QtWidgets.QPushButton(self.gridLayoutWidget_2)
-        self.pushButton_addraports.setObjectName("pushButton_addraports")
-        self.gridLayout_2.addWidget(self.pushButton_addraports, 1, 2, 1, 1)
+        self.label_7 = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.label_7.setObjectName("label_7")
+        self.gridLayout_2.addWidget(self.label_7, 2, 0, 1, 1)
         self.label_6 = QtWidgets.QLabel(self.gridLayoutWidget_2)
         self.label_6.setObjectName("label_6")
         self.gridLayout_2.addWidget(self.label_6, 1, 0, 1, 1)
+        self.lineEdit_addraport = QtWidgets.QLineEdit(self.gridLayoutWidget_2)
+        self.lineEdit_addraport.setObjectName("lineEdit_addraport")
+        self.gridLayout_2.addWidget(self.lineEdit_addraport, 1, 1, 1, 1)
         self.label_5 = QtWidgets.QLabel(self.gridLayoutWidget_2)
         self.label_5.setObjectName("label_5")
         self.gridLayout_2.addWidget(self.label_5, 0, 0, 1, 1)
+        self.pushButton_addraports = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.pushButton_addraports.setObjectName("pushButton_addraports")
+        self.gridLayout_2.addWidget(self.pushButton_addraports, 1, 2, 1, 1)
+        self.pushButton_remove_raports = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.pushButton_remove_raports.setObjectName("pushButton_remove_raports")
+        self.gridLayout_2.addWidget(self.pushButton_remove_raports, 2, 2, 1, 1)
         self.verticalLayout.addWidget(self.groupBox_2)
         self.pushButton_addall = QtWidgets.QPushButton(Dialog)
-        self.pushButton_addall.setGeometry(QtCore.QRect(387, 270, 75, 23))
+        self.pushButton_addall.setGeometry(QtCore.QRect(387, 243, 75, 23))
         self.pushButton_addall.setObjectName("pushButton_addall")
 
         self.retranslateUi(Dialog)
@@ -102,8 +111,10 @@ class Ui_Dialog(object):
         self.label_2.setText(QtWidgets.QApplication.translate("Dialog", "raport 3", None, -1))
         self.pushButton_raport3.setText(QtWidgets.QApplication.translate("Dialog", "Dodaj", None, -1))
         self.groupBox_2.setTitle(QtWidgets.QApplication.translate("Dialog", "Raporty", None, -1))
-        self.pushButton_addraports.setText(QtWidgets.QApplication.translate("Dialog", "Dodaj", None, -1))
+        self.label_7.setText(QtWidgets.QApplication.translate("Dialog", "Usuń", None, -1))
         self.label_6.setText(QtWidgets.QApplication.translate("Dialog", "Dodaj", None, -1))
         self.label_5.setText(QtWidgets.QApplication.translate("Dialog", "Raport", None, -1))
+        self.pushButton_addraports.setText(QtWidgets.QApplication.translate("Dialog", "Dodaj", None, -1))
+        self.pushButton_remove_raports.setText(QtWidgets.QApplication.translate("Dialog", "Usuń", None, -1))
         self.pushButton_addall.setText(QtWidgets.QApplication.translate("Dialog", "Dodaj", None, -1))
 
