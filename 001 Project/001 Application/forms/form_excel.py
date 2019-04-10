@@ -137,6 +137,7 @@ class ExcelForm(QDialog):
         years = self.get_checked_items(self.lv_year)
         months = self.get_checked_items(self.lv_month)
         weeks = self.get_checked_items(self.lv_week)
+        media = self.get_checked_items(self.lv_media)
         session = Session()
 
         # data = session.query(Data).filter_by(competitive_id=id_nr).all()
@@ -144,11 +145,12 @@ class ExcelForm(QDialog):
             Data.year.in_(years),
             Data.month.in_(months),
             Data.week_nr.in_(weeks),
+            Data.media.in_(media),
             Data.competitive_id == id_nr,
         )).all()
         headers = Data.__table__.columns.keys()
-
-
+        #remove id, compatitive_id
+        headers = headers[2:]
         #make list
         final_list = []
         for row in data:
@@ -180,6 +182,7 @@ class ExcelForm(QDialog):
         name = QFileDialog.getSaveFileName(self, caption="Zapisz",filter='.xlsx',selectedFilter='.xlsx')
         name = ''.join(name)
         wb.save(name)
+        QMessageBox.information(self, "Zapis", "Plik został utworzony")
 
 
     def generate_excel_file(self):
