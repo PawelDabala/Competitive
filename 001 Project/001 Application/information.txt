@@ -7,12 +7,14 @@ Pytanie
 
 
 TO DO:
+#) Dodać dodatkowe pole media do formularza przeklejania
 25) przy wczytywaniu pliku z excela zeby nie pobieral pustych rekordow - dodamy usuwanie rekordów
 
 25) dodac formularz do usuwania duplikatow
 26) dodac formularz do automatycznego adpalania filtrow recznych.
 
 14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki
+
 
 
 << ##################################################################### >>

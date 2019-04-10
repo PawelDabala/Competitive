@@ -3,8 +3,8 @@
 # Form implementation generated from reading ui file 'excel.ui',
 # licensing of 'excel.ui' applies.
 #
-# Created: Fri Apr  5 10:00:24 2019
-#      by: pyside2-uic  running on PySide2 5.12.1
+# Created: Wed Apr 10 09:46:55 2019
+#      by: pyside2-uic  running on PySide2 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,9 +13,9 @@ from PySide2 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(332, 300)
+        Dialog.resize(434, 305)
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 0, 321, 275))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 0, 431, 275))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -26,7 +26,7 @@ class Ui_Dialog(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.groupBox = QtWidgets.QGroupBox(self.verticalLayoutWidget)
         self.groupBox.setMinimumSize(QtCore.QSize(0, 55))
-        self.groupBox.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.groupBox.setMaximumSize(QtCore.QSize(418, 60))
         self.groupBox.setObjectName("groupBox")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.groupBox)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 191, 31))
@@ -74,6 +74,15 @@ class Ui_Dialog(object):
         self.listWidget_week.setSizeIncrement(QtCore.QSize(4, 0))
         self.listWidget_week.setObjectName("listWidget_week")
         self.horizontalLayout_2.addWidget(self.groupBox_5)
+        self.groupBox_6 = QtWidgets.QGroupBox(self.verticalLayoutWidget)
+        self.groupBox_6.setMinimumSize(QtCore.QSize(100, 0))
+        self.groupBox_6.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.groupBox_6.setObjectName("groupBox_6")
+        self.listWidget_medium = QtWidgets.QListWidget(self.groupBox_6)
+        self.listWidget_medium.setGeometry(QtCore.QRect(0, 20, 101, 181))
+        self.listWidget_medium.setSizeIncrement(QtCore.QSize(4, 0))
+        self.listWidget_medium.setObjectName("listWidget_medium")
+        self.horizontalLayout_2.addWidget(self.groupBox_6)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.verticalLayout_4.addLayout(self.horizontalLayout_2)
@@ -81,7 +90,7 @@ class Ui_Dialog(object):
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
         self.horizontalLayoutWidget_3 = QtWidgets.QWidget(Dialog)
-        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(10, 270, 311, 21))
+        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(118, 270, 311, 25))
         self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -105,6 +114,7 @@ class Ui_Dialog(object):
         self.groupBox_3.setTitle(QtWidgets.QApplication.translate("Dialog", "Rok", None, -1))
         self.groupBox_4.setTitle(QtWidgets.QApplication.translate("Dialog", "Miesiąc", None, -1))
         self.groupBox_5.setTitle(QtWidgets.QApplication.translate("Dialog", "Tydzień", None, -1))
+        self.groupBox_6.setTitle(QtWidgets.QApplication.translate("Dialog", "Medium", None, -1))
         self.pushButton_excel.setText(QtWidgets.QApplication.translate("Dialog", "Excel", None, -1))
         self.pushButton_close.setText(QtWidgets.QApplication.translate("Dialog", "Zamknij", None, -1))
 
