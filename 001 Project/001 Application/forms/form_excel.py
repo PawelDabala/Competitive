@@ -91,7 +91,7 @@ class ExcelForm(QDialog):
 
         media = [me.media for me in
                     session.query(Data).distinct(Data.media).filter(Data.competitive_id == id_nr).order_by(
-                    Data.).all()]
+                    Data.media).all()]
         self.set_cb_value(self.lv_media, media)
 
 
@@ -146,59 +146,7 @@ class ExcelForm(QDialog):
             Data.week_nr.in_(weeks),
             Data.competitive_id == id_nr,
         )).all()
-
-        #FixMe: do usuniecia
-        #columns from sqlalchemy data object
-        # mozna zamienic na:
-        #Data.__table__.columns.keys() - wyrzucic z listy id i competitive_id'
-        # headers = """ year,
-        #                  month,
-        #                  week_nr,
-        #                  sector,
-        #                  category,
-        #                  sub_category,
-        #                  product,
-        #                  trade,
-        #                  category_2,
-        #                  division,
-        #                  producer,
-        #                  brand,
-        #                  sub_brand,
-        #                  film_code,
-        #                  film_codenr,
-        #                  media,
-        #                  main_medium,
-        #                  medium,
-        #                  publisher,
-        #                  periodicity,
-        #                  duration,
-        #                  spot_class,
-        #                  form_advertising,
-        #                  page_type,
-        #                  emision_count,
-        #                  sum_str,
-        #                  cost,
-        #                  pt_off,
-        #                  trp,
-        #                  trp30,
-        #                  spcount,
-        #                  channel_group,
-        #                  channel_type,
-        #                  wyprz,
-        #                  upus,
-        #                  rabat,
-        #                  wyprz_upust_rabat,
-        #                  model,
-        #                  brand_final,
-        #                  subbrand_brand_model,
-        #                  brand_type,
-        #                  segment_detailed,
-        #                  segment,
-        #                  segment_combined,
-        #                  campaign_type
-        #                  """
-        # headers = headers.replace(' ', '').replace('\n', '').split(',')
-        headers = Data.__table__.columns.keys() #- wyrzucic z listy id i competitive_id'
+        headers = Data.__table__.columns.keys()
 
 
         #make list
@@ -273,6 +221,17 @@ class ExcelForm(QDialog):
                     Data.week_nr).all()]
         self.set_cb_value(self.lv_week, week)
 
+        #media
+        media = [me.media for me in
+                session.query(Data).distinct(Data.media).filter(and_(
+                    Data.year.in_(years),
+                    Data.month.in_(month),
+                    Data.week_nr.in_(week),
+                    Data.competitive_id == compative.id,
+                )).order_by(
+                    Data.media).all()]
+        self.set_cb_value(self.lv_media, media)
+
         session.close()
 
     def lw_channge_month(self):
@@ -293,7 +252,35 @@ class ExcelForm(QDialog):
                     Data.week_nr).all()]
         self.set_cb_value(self.lv_week, week)
 
+        media = [me.media for me in
+                 session.query(Data).distinct(Data.media).filter(and_(
+                     Data.year.in_(years),
+                     Data.month.in_(months),
+                     Data.week_nr.in_(week),
+                     Data.competitive_id == compative.id,
+                 )).order_by(
+                     Data.media).all()]
+        self.set_cb_value(self.lv_media, media)
+
         session.close()
+
+    def lw_change_media(self):
+        years = self.get_checked_items(self.lv_year)
+        months = self.get_checked_items(self.lv_month)
+        week = self.get_checked_items(self.lv_week)
+
+        session = Session()
+        compative = session.query(Competitive).filter_by(name=self.compative_name).one()
+
+        media = [me.media for me in
+                 session.query(Data).distinct(Data.media).filter(and_(
+                     Data.year.in_(years),
+                     Data.month.in_(months),
+                     Data.week_nr.in_(week),
+                     Data.competitive_id == compative.id,
+                 )).order_by(
+                     Data.media).all()]
+        self.set_cb_value(self.lv_media, media)
 
 
     def get_checked_items(self, lw):

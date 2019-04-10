@@ -28,8 +28,18 @@ class Excel:
             for cell in col:
                 values.append(cell.value)
             temp_list.append(values)
-
         return temp_list
+
+    @staticmethod
+    def remove_none_row(columns):
+
+        for row_nr in reversed(range(len(columns[0]))):
+            if columns[0][row_nr] is None:
+                for col in columns:
+                    col.pop(row_nr)
+
+        return columns
+
 
     @classmethod
     def get_data(cls, path, tech=True):
@@ -45,6 +55,7 @@ class Excel:
 
         colout = cls.remove_header(col)
         colout = cls.get_value(colout)
+        colout = cls.remove_none_row(colout)
 
         if tech:
             print("rozmiesc kolumny w kolejnosci techenge")
