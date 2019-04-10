@@ -28,7 +28,7 @@ class ExcelForm(QDialog):
         self.lv_year = self.ui.listWidget_year
         self.lv_month = self.ui.listWidget_mont
         self.lv_week = self.ui.listWidget_week
-        #self.lv_producer = self.ui.listWidget_producer
+        self.lv_media = self.ui.listWidget_medium
 
         # self.le_rows_nr = self.ui.lineEdit_rows_count
         # self.le_rows_nr.setReadOnly(True)
@@ -89,10 +89,10 @@ class ExcelForm(QDialog):
                      Data.week_nr).all()]
         self.set_cb_value(self.lv_week, week)
 
-        # producer = [pr.producer for pr in
-        #             session.query(Data).distinct(Data.producer).filter(Data.competitive_id == id_nr).order_by(
-        #             Data.producer).all()]
-        # self.set_cb_value(self.lv_producer, producer)
+        media = [me.media for me in
+                    session.query(Data).distinct(Data.media).filter(Data.competitive_id == id_nr).order_by(
+                    Data.).all()]
+        self.set_cb_value(self.lv_media, media)
 
 
         session.close()
@@ -147,56 +147,59 @@ class ExcelForm(QDialog):
             Data.competitive_id == id_nr,
         )).all()
 
+        #FixMe: do usuniecia
         #columns from sqlalchemy data object
         # mozna zamienic na:
         #Data.__table__.columns.keys() - wyrzucic z listy id i competitive_id'
-        headers = """ year,
-                         month,
-                         week_nr,
-                         sector,
-                         category,
-                         sub_category,
-                         product,
-                         trade,
-                         category_2,
-                         division,
-                         producer,
-                         brand,
-                         sub_brand,
-                         film_code,
-                         film_codenr,
-                         media,
-                         main_medium,
-                         medium,
-                         publisher,
-                         periodicity,
-                         duration,
-                         spot_class,
-                         form_advertising,
-                         page_type,
-                         emision_count,
-                         sum_str,
-                         cost,
-                         pt_off,
-                         trp,
-                         trp30,
-                         spcount,
-                         channel_group,
-                         channel_type,
-                         wyprz,
-                         upus,
-                         rabat,
-                         wyprz_upust_rabat,
-                         model,
-                         brand_final,
-                         subbrand_brand_model,
-                         brand_type,
-                         segment_detailed,
-                         segment,
-                         segment_combined,
-                         campaign_type
-                         """
-        headers = headers.replace(' ', '').replace('\n', '').split(',')
+        # headers = """ year,
+        #                  month,
+        #                  week_nr,
+        #                  sector,
+        #                  category,
+        #                  sub_category,
+        #                  product,
+        #                  trade,
+        #                  category_2,
+        #                  division,
+        #                  producer,
+        #                  brand,
+        #                  sub_brand,
+        #                  film_code,
+        #                  film_codenr,
+        #                  media,
+        #                  main_medium,
+        #                  medium,
+        #                  publisher,
+        #                  periodicity,
+        #                  duration,
+        #                  spot_class,
+        #                  form_advertising,
+        #                  page_type,
+        #                  emision_count,
+        #                  sum_str,
+        #                  cost,
+        #                  pt_off,
+        #                  trp,
+        #                  trp30,
+        #                  spcount,
+        #                  channel_group,
+        #                  channel_type,
+        #                  wyprz,
+        #                  upus,
+        #                  rabat,
+        #                  wyprz_upust_rabat,
+        #                  model,
+        #                  brand_final,
+        #                  subbrand_brand_model,
+        #                  brand_type,
+        #                  segment_detailed,
+        #                  segment,
+        #                  segment_combined,
+        #                  campaign_type
+        #                  """
+        # headers = headers.replace(' ', '').replace('\n', '').split(',')
+        headers = Data.__table__.columns.keys() #- wyrzucic z listy id i competitive_id'
+
 
         #make list
         final_list = []

@@ -1,3 +1,4 @@
+import array
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
@@ -9,6 +10,7 @@ class CheckBoxDelegate(QItemDelegate):
 
     def createEditor(parent, op, idx):
         self.editor = QCheckBox(parent)
+        a
 
 
 udims = ['1001', '1002', '1003', '1004']
