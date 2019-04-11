@@ -24,8 +24,32 @@ class FindDuplicate(QDialog):
         self.pb_remove = self.ui.pushButton_remove_duplicate
         self.pb_close = self.ui.pushButton_close
 
-        # # signals
+        self.li_nr_dup.setReadOnly(True)
+
+        # signals
         # self.pb_connect.clicked.connect(self.connect_raports)
+        self.pb_close.clicked.connect(self.close)
+
+    def set_raports(self):
+        """
+        fill combo box: cb_raports
+        """
+        try:
+            session = Session()
+            competitiev = session.query(Competitive).all()
+        except:
+            QMessageBox.critical(self, "Błąd", "Nie można połączyć się z bazą danych")
+            return
+
+        self.cb_raports.clear()
+
+        for compet in competitiev:
+            self.cb_raports.addItem(compet.name)
+
+        session.close()
+
+
+
 
 
 if __name__ == '__main__':

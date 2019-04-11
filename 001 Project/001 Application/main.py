@@ -311,6 +311,7 @@ class MainWindow(QMainWindow):
         """
         show duplicate form
         """
+        self.for_find_duplicate.set_raports()
         self.for_find_duplicate.show()
 
     def prapercolumns(self, columns):
