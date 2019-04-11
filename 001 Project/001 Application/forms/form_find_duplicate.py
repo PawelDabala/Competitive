@@ -48,12 +48,14 @@ class FindDuplicate(QDialog):
 
         session.close()
 
-    def remove_duplicate(rows):
+    def remove_duplicate(self):
         """
         remove duplicate from list
         """
         #Fixme:
         #tutaj jest problem jak pozbyc się z bazy danego wiersza
+        rows = self.get_data()
+        
         for nr in reversed(range(len(rows))):
             print(rows[nr], nr)
             if rows.count(rows[nr]) > 1:
@@ -65,6 +67,7 @@ class FindDuplicate(QDialog):
         """
         count duplicate
         """
+        rows = [x[2:32] for x in rows]
         return abs(len(set(map(tuple, rows))) - len(rows))
 
     def get_data(self):
@@ -75,7 +78,7 @@ class FindDuplicate(QDialog):
         data = session.query(Data).filter_by(competitive_id=compative.id).all()
         headers = Data.__table__.columns.keys()
         # remove id, compatitive_id
-        headers = headers[2:32]
+        headers = headers[0:32]
         # make list
         final_list = []
         for row in data:
