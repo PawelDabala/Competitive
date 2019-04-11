@@ -3,6 +3,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtCore import Qt
 from uifind_duplicate import Ui_Dialog
 
+from sqlalchemy import and_
 from sql.filterf import FilterF
 from sql.base import Session
 from sql.category import Category
@@ -29,6 +30,7 @@ class FindDuplicate(QDialog):
         # signals
         self.pb_close.clicked.connect(self.close)
         self.pb_find.clicked.connect(self.find_duplicate)
+        self.pb_remove.clicked.connect(self.remove_duplicate)
 
     def set_raports(self):
         """
@@ -54,13 +56,21 @@ class FindDuplicate(QDialog):
         """
         #Fixme:
         #tutaj jest problem jak pozbyc się z bazy danego wiersza
-        rows = self.get_data()
-        
+        data = self.get_data()
+        rows = [x[2:32] for x in data]
+        session = Session()
+
         for nr in reversed(range(len(rows))):
-            print(rows[nr], nr)
             if rows.count(rows[nr]) > 1:
-                rows.pop(nr)
-        return rows
+                #rows.pop(nr)
+                session.query(Data).filter(and_(
+                    Data.id == data[nr][0],
+                    Data.competitive_id == data[nr][1]
+                )).delete()
+        session.commit()
+        session.close()
+        self.li_nr_dup.setText('')
+        QMessageBox.information(self,'Duplicaty', 'Spoty zostały usunięte')
 
     @staticmethod
     def count_duplicate(rows):
@@ -71,7 +81,6 @@ class FindDuplicate(QDialog):
         return abs(len(set(map(tuple, rows))) - len(rows))
 
     def get_data(self):
-
         rap_name = self.cb_raports.currentText()
         session = Session()
         compative = session.query(Competitive).filter_by(name=rap_name).first()
@@ -93,12 +102,6 @@ class FindDuplicate(QDialog):
     def find_duplicate(self):
         data = self.get_data()
         self.li_nr_dup.setText(str(self.count_duplicate(data)))
-
-
-
-
-
-
 
 
 if __name__ == '__main__':
