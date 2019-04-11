@@ -62,7 +62,7 @@ class FindDuplicate(QDialog):
 
         for nr in reversed(range(len(rows))):
             if rows.count(rows[nr]) > 1:
-                #rows.pop(nr)
+                rows.pop(nr)
                 session.query(Data).filter(and_(
                     Data.id == data[nr][0],
                     Data.competitive_id == data[nr][1]
