@@ -72,14 +72,6 @@ class ConnectRaports(QDialog):
             QMessageBox.critical(self, "Błąd", "Nie można połączyć raportów o tej samej nazwie.")
 
 
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setStyle('fusion')
