@@ -7,6 +7,7 @@ from filechose import FileChoser
 from forms.form_excel import ExcelForm
 from forms.filters import FiltersForm
 from forms.form_connect_raports import ConnectRaports
+from forms.form_find_duplicate import FindDuplicate
 from excel import Excel
 
 from sql.data import Data
@@ -19,7 +20,7 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
 
-        self.filechoser = FileChoser(self)
+
 
         self.setWindowTitle("VW Competitive")
         self.setWindowIcon(QIcon(':/images/vw.png'))
@@ -80,8 +81,13 @@ class MainWindow(QMainWindow):
                         'Campaign Type'
                         ]
 
+        """
+        Forms
+        """
         self.excel_form = ExcelForm(self.headers, self)
         self.connect_form = ConnectRaports(self)
+        self.filechoser = FileChoser(self)
+        self.for_find_duplicate = FindDuplicate(self)
 
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
@@ -168,6 +174,9 @@ class MainWindow(QMainWindow):
         self.ConnectRaports =  QAction("Połącz raporty",
                                      triggered=self.show_connect_raports)
 
+        self.FindDuplicate = QAction("Znajdz duplikaty",
+                                     triggered=self.show_duplicate_form)
+
 
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&Plik")
@@ -182,6 +191,7 @@ class MainWindow(QMainWindow):
         self.excelMenu = self.menuBar().addMenu("&Raporty")
         self.excelMenu.addAction(self.showExcelForm)
         self.excelMenu.addAction(self.ConnectRaports)
+        self.excelMenu.addAction(self.FindDuplicate)
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
@@ -296,6 +306,12 @@ class MainWindow(QMainWindow):
         """
         self.connect_form.set_raports()
         self.connect_form.show()
+
+    def show_duplicate_form(self):
+        """
+        show duplicate form
+        """
+        self.for_find_duplicate.show()
 
     def prapercolumns(self, columns):
         """

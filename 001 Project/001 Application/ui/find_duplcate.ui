@@ -81,7 +81,7 @@
      <widget class="QPushButton" name="pushButton_close">
       <property name="maximumSize">
        <size>
-        <width>75</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>

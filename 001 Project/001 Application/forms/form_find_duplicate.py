@@ -22,7 +22,7 @@ class FindDuplicate(QDialog):
         self.li_nr_dup = self.ui.lineEdit_duplicate_nr
         self.pb_find = self.ui.pushButton_find
         self.pb_remove = self.ui.pushButton_remove_duplicate
-        self.pb.close = self.ui.pushButton_close
+        self.pb_close = self.ui.pushButton_close
 
         # # signals
         # self.pb_connect.clicked.connect(self.connect_raports)

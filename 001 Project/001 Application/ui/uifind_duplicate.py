@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'find_duplcate.ui',
 # licensing of 'find_duplcate.ui' applies.
 #
-# Created: Thu Apr 11 06:32:13 2019
+# Created: Thu Apr 11 06:50:32 2019
 #      by: pyside2-uic  running on PySide2 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,7 +42,7 @@ class Ui_Dialog(object):
         self.pushButton_remove_duplicate.setObjectName("pushButton_remove_duplicate")
         self.gridLayout.addWidget(self.pushButton_remove_duplicate, 1, 2, 1, 1)
         self.pushButton_close = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.pushButton_close.setMaximumSize(QtCore.QSize(75, 16777215))
+        self.pushButton_close.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.pushButton_close.setObjectName("pushButton_close")
         self.gridLayout.addWidget(self.pushButton_close, 2, 2, 1, 1)
 
