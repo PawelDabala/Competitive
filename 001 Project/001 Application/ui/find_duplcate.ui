@@ -18,13 +18,13 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>391</width>
+     <width>392</width>
      <height>83</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="lineEdit_duplicate_nr">
       <property name="minimumSize">
        <size>
         <width>150</width>
@@ -47,7 +47,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="comboBox_raports_name">
       <property name="minimumSize">
        <size>
         <width>150</width>
@@ -57,7 +57,7 @@
      </widget>
     </item>
     <item row="0" column="2">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pushButton_find">
       <property name="text">
        <string>Wyszukaj</string>
       </property>
@@ -71,14 +71,14 @@
      </widget>
     </item>
     <item row="1" column="2">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_remove_duplicate">
       <property name="text">
        <string>Usuń</string>
       </property>
      </widget>
     </item>
     <item row="2" column="2">
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="pushButton_close">
       <property name="maximumSize">
        <size>
         <width>75</width>
