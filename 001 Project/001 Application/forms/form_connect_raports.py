@@ -51,8 +51,6 @@ class ConnectRaports(QDialog):
         raports connected
         :return:
         """
-        print("raports connected")
-
         main_rap_txt = self.cb_main_rap.currentText()
         conne_rap_txt = self.cb_connect_rap.currentText()
 

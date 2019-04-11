@@ -27,8 +27,8 @@ class FindDuplicate(QDialog):
         self.li_nr_dup.setReadOnly(True)
 
         # signals
-        # self.pb_connect.clicked.connect(self.connect_raports)
         self.pb_close.clicked.connect(self.close)
+        self.pb_find.clicked.connect(self.find_duplicate)
 
     def set_raports(self):
         """
@@ -47,6 +47,52 @@ class FindDuplicate(QDialog):
             self.cb_raports.addItem(compet.name)
 
         session.close()
+
+    def remove_duplicate(rows):
+        """
+        remove duplicate from list
+        """
+        #Fixme:
+        #tutaj jest problem jak pozbyc się z bazy danego wiersza
+        for nr in reversed(range(len(rows))):
+            print(rows[nr], nr)
+            if rows.count(rows[nr]) > 1:
+                rows.pop(nr)
+        return rows
+
+    @staticmethod
+    def count_duplicate(rows):
+        """
+        count duplicate
+        """
+        return abs(len(set(map(tuple, rows))) - len(rows))
+
+    def get_data(self):
+
+        rap_name = self.cb_raports.currentText()
+        session = Session()
+        compative = session.query(Competitive).filter_by(name=rap_name).first()
+        data = session.query(Data).filter_by(competitive_id=compative.id).all()
+        headers = Data.__table__.columns.keys()
+        # remove id, compatitive_id
+        headers = headers[2:32]
+        # make list
+        final_list = []
+        for row in data:
+            columns = []
+            for key in headers:
+                columns.append(row.__dict__[key])
+            final_list.append(columns)
+
+        session.close()
+        return final_list
+
+    def find_duplicate(self):
+        data = self.get_data()
+        self.li_nr_dup.setText(str(self.count_duplicate(data)))
+
+
+
 
 
 
