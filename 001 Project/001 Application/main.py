@@ -359,9 +359,9 @@ class MainWindow(QMainWindow):
     
     """
 
-    def assign_value_for_filter(self, filter_id):
+    def assign_value_for_filter(self, filter_id, show=True):
         """
-        preper list with value from main filter, send to make_filter_list.
+        preper list with value from main filter, send it to make_filter_list.
         Replace column for filter_id with column with assigned data
         :param filter_id:
         :return:
@@ -380,7 +380,9 @@ class MainWindow(QMainWindow):
         self.sti.setHorizontalHeaderLabels(self.headers)
         session.close()
         self.set_color_on_header()
-        QMessageBox.information(self, "Informacja", "Operacja zakończona.")
+
+        if show:
+            QMessageBox.information(self, "Informacja", "Operacja zakończona.")
 
     @staticmethod
     def make_filter_list(filter_id, rows):
