@@ -110,6 +110,8 @@ class FiltersManager(QDialog):
         for id in filter_id:
             self.main.assign_value_for_filter(id, False)
 
+        QMessageBox.information(self, 'Filtry', 'Operacja zakończona')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
