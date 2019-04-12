@@ -165,8 +165,6 @@ class FiltersForm(QDialog):
                         transfers.append(temchild)
                         item.removeChild(itemch)
 
-        #fixme: add rows there are not in start rows:
-        #transfers = list(set(self.start_rows + transfers))
         self.start_rows += [x for x in transfers if x not in self.start_rows]
 
         self.add_rowto_table(transfers)

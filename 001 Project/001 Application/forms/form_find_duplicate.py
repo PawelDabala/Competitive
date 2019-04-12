@@ -54,8 +54,6 @@ class FindDuplicate(QDialog):
         """
         remove duplicate from list
         """
-        #Fixme:
-        #tutaj jest problem jak pozbyc się z bazy danego wiersza
         data = self.get_data()
         rows = [x[2:32] for x in data]
         session = Session()
