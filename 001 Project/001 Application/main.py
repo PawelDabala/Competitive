@@ -278,6 +278,7 @@ class MainWindow(QMainWindow):
 
         self.sti.removeRow(self.sti.rowCount()-1)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        QMessageBox.information(self, "Dane", "Dane zostały wczytane")
 
     def showfilterforms(self, i):
         """
