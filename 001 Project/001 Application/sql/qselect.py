@@ -21,9 +21,9 @@ session = Session()
 #
 # session.commit()
 
-c1 = session.query(Category).get(4)
-c2 = session.query(Category).get(5)
-c3 = session.query(Category).get(6)
+# c1 = session.query(Category).get(4)
+# c2 = session.query(Category).get(5)
+# c3 = session.query(Category).get(6)
 #
 # f = FilterF('Filter1', 1, [1, 2])
 # f.categorys.extend((c1, c2, c3))
@@ -132,29 +132,37 @@ from sqlalchemy import distinct, and_
 # print(type(compative_id))
 
 #
-
-com1 = session.query(Competitive).filter_by(name='baza1').first()
-com2 = session.query(Competitive).filter_by(name='baza2').first()
-com3 = session.query(Competitive).filter_by(name='baza3').first()
-print(com1)
-print(com2)
-data1 = session.query(Data).filter_by(competitive_id=com1.id).all()
-data2 = session.query(Data).filter_by(competitive_id=com2.id).all()
-data3 = session.query(Data).filter_by(competitive_id=com3.id)
-print(com3)
-
-# datas = data1.union_all(data2).all()
-# print(datas)
-
-#tak laczymy raport !!!!!!!!!!!!!
-# com3.datas = com3.datas + data2
-
-# print(Data.__table__.columns.keys())
-print(Data.__dict__.keys())
-
-
+#
+# com1 = session.query(Competitive).filter_by(name='baza1').first()
+# com2 = session.query(Competitive).filter_by(name='baza2').first()
+# com3 = session.query(Competitive).filter_by(name='baza3').first()
+# print(com1)
+# print(com2)
+# data1 = session.query(Data).filter_by(competitive_id=com1.id).all()
+# data2 = session.query(Data).filter_by(competitive_id=com2.id).all()
+# data3 = session.query(Data).filter_by(competitive_id=com3.id)
+# print(com3)
+#
+# # datas = data1.union_all(data2).all()
+# # print(datas)
+#
+# #tak laczymy raport !!!!!!!!!!!!!
+# # com3.datas = com3.datas + data2
+#
+# # print(Data.__table__.columns.keys())
+# print(Data.__dict__.keys())
 
 
+
+# data = session.query(Data).filter(Data.competitive_id ==
+#     session.query(Competitive.id).filter_by(name='none_type')
+# ).all()
+# print(data)
+
+t = session.query(Competitive.id).filter_by(name='none_type')
+data = session.query(Data).filter(Data.competitive_id == t).all()
+for row in data:
+    print(row.id, row.year)
 
 # session.add(com3)
 session.commit()
