@@ -8,6 +8,7 @@ from forms.form_excel import ExcelForm
 from forms.filters import FiltersForm
 from forms.form_connect_raports import ConnectRaports
 from forms.form_find_duplicate import FindDuplicate
+from forms.form_fillters_manager import FiltersManager
 from excel import Excel
 
 from sql.data import Data
@@ -88,6 +89,7 @@ class MainWindow(QMainWindow):
         self.connect_form = ConnectRaports(self)
         self.filechoser = FileChoser(self)
         self.for_find_duplicate = FindDuplicate(self)
+        self.filters_manager = FiltersManager(self)
 
         self.sti.setHorizontalHeaderLabels(self.headers)
         self.sti.setColumnCount(len(self.headers))
@@ -177,6 +179,9 @@ class MainWindow(QMainWindow):
         self.FindDuplicate = QAction("Znajdz duplikaty",
                                      triggered=self.show_duplicate_form)
 
+        self.FilterManager = QAction("Filtry Manualne",
+                                     triggered=self.show_filter_manager)
+
 
     def createMenus(self):
         self.fileMenu = self.menuBar().addMenu("&Plik")
@@ -187,6 +192,7 @@ class MainWindow(QMainWindow):
 
         self.filterMenu = self.menuBar().addMenu("&Filtry")
         self.filterMenu.addAction(self.runWordFilter)
+        self.filterMenu.addAction(self.FilterManager)
 
         self.excelMenu = self.menuBar().addMenu("&Raporty")
         self.excelMenu.addAction(self.showExcelForm)
@@ -313,6 +319,12 @@ class MainWindow(QMainWindow):
         """
         self.for_find_duplicate.set_raports()
         self.for_find_duplicate.show()
+
+    def show_filter_manager(self):
+        """
+        show filter manager form
+        """
+        self.filters_manager.show()
 
     def prapercolumns(self, columns):
         """
