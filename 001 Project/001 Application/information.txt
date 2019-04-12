@@ -12,7 +12,6 @@ TO DO:
 14) zaznaczenie rodzica powinno zaznaczać wszystkie dziecki
 
 
-
 << ##################################################################### >>
 26) dodac formularz do automatycznego adpalania filtrow recznych.
 25) dodac formularz do usuwania duplikatow

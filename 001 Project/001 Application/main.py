@@ -1,7 +1,7 @@
 #from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import QPoint, QSize, QSettings, SIGNAL, Qt
+from PySide2.QtCore import QPoint, QSize, QSettings, SIGNAL, Qt, QPersistentModelIndex
 from PySide2.QtWidgets import QTableView, QAction, QApplication, QMainWindow, QMessageBox, \
-    QHeaderView
+    QHeaderView, QMenu
 from PySide2.QtGui import QStandardItem, QStandardItemModel, QIcon, QKeySequence, QFont, QBrush, QColor
 from filechose import FileChoser
 from forms.form_excel import ExcelForm
@@ -196,6 +196,21 @@ class MainWindow(QMainWindow):
         self.excelMenu.addAction(self.showExcelForm)
         self.excelMenu.addAction(self.ConnectRaports)
         self.excelMenu.addAction(self.FindDuplicate)
+
+    def contextMenuEvent(self, event):
+        contextMenu = QMenu(self)
+        removeAction = contextMenu.addAction('Usuń')
+
+        action =contextMenu.exec_(self.mapToGlobal(event.pos()))
+
+        if action == removeAction:
+            index_list = []
+            for model_index in self.table.selectionModel().selectedRows():
+                index = QPersistentModelIndex(model_index)
+                index_list.append(index)
+
+            for index in index_list:
+                self.sti.removeRow(index.row())
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
