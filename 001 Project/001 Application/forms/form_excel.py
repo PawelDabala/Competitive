@@ -30,9 +30,6 @@ class ExcelForm(QDialog):
         self.lv_week = self.ui.listWidget_week
         self.lv_media = self.ui.listWidget_medium
 
-        # self.le_rows_nr = self.ui.lineEdit_rows_count
-        # self.le_rows_nr.setReadOnly(True)
-
         self.pb_excel = self.ui.pushButton_excel
         self.pb_cancel = self.ui.pushButton_close
 
